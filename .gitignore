@@ -1,9 +1,13 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# front
+client/pelis-mern/node_modules
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# back
+
+# sketch
+# sketch.html
+# sketch.css
+# / logo.png
+# /background.jpg
 
 # testing
 /coverage
