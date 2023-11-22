@@ -1,0 +1,162 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --red:#FF3025;
+    --red-hover:#a81f18;
+}
+
+/* Etiquetas */
+
+body{
+    background-color: black;
+}
+
+button{
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+}
+
+p{
+    color:white;
+}
+
+/* Etiquetas en clases */
+
+.hero-description button{
+    font-size:1.2rem;
+    font-weight:600;
+}
+
+.hero-description p{
+    margin-top:1.1em;
+    margin-left:1.5em;
+    font-size:0.8rem;
+}
+
+.hero-trailer button{
+    margin-left:0.7em;
+    margin-bottom:0.4em;
+}
+
+.hero-trailer p{
+    font-size:1.1rem;
+    opacity:75%;
+}
+
+.social-media i{
+    margin:0 0.8em;
+    font-size:1.7rem;
+    color:white;
+    opacity:75%;
+    transition: color 1s;
+}
+
+.hero-slide button{
+    font-size:3rem;
+    color:white;
+    transition:color 0.5s;
+}
+
+.hero-slide p{
+    font-size:1.6rem;
+    margin:0.6em 1em 0 1em;
+    transition:font-size 0.5s, color 0.5s, margin-top 0.5s;
+}
+
+/* Pseudoclases */
+
+.btn-search:hover{
+    transform:scale(1.1);
+    color: var(--red);
+}
+
+.btn-trailer:hover{
+    box-shadow:0 0 4px white;
+}
+
+.colorButton:hover{
+    background-color: var(--red-hover) !important
+}
+
+.social-media i:hover{
+    color:var(--red)
+}
+
+.hero-slide button:hover{
+    color:var(--red);
+}
+
+.hero-slide p:hover{
+    font-size:2rem;
+    color:var(--red);
+    margin-top:0.2em;
+}
+
+/* Clases */
+
+.logo{
+    width:9em;
+}
+
+.background{
+    background-image: linear-gradient(to bottom, transparent 0%, #000000 95%), url(background.jpg);
+    background-size:cover;
+    background-position:center;
+}
+
+.hero{
+    height:85vh;
+}
+
+.hero-description{
+    bottom:12em;
+    left:6em;
+}
+
+.hero-trailer{
+    bottom:10em;
+    right:9em;
+}
+
+.social-media{
+    bottom:4em;
+    left:4em;
+}
+
+.hero-slide{
+    bottom:3em;
+    right:4em;
+}
+
+.btn-search{
+    color:white;
+    font-size:1.2rem;
+    transition:transform 0.5s, color 1.5s;
+}
+
+.btn-trailer{
+    padding:0.2em 0.5em;
+    border-radius:100%;
+    background-color:white;
+    color:red;
+    font-size:1.8rem;
+    transition: box-shadow 0.5s;
+}
+
+.sacarEnlace{
+    text-decoration: none;
+}
+
+.colorButton{
+    background-color: var(--red) !important;
+    color: white !important;
+    transition: background-color 0.5s !important;
+}
+
+.maxIcon{
+    font-size: x-large;
+}
