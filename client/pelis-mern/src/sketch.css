@@ -102,12 +102,6 @@ p{
     width:9em;
 }
 
-.background{
-    background-image: linear-gradient(to bottom, transparent 0%, #000000 95%), url(background.jpg);
-    background-size:cover;
-    background-position:center;
-}
-
 .hero{
     height:85vh;
 }

@@ -1,66 +1,73 @@
+import { useState } from 'react';
+import './sketch.css'
+import NavBar from './NavBar';
+import Header from './Header';
 
+function Hero({newArray}){
+    let [num, setNum]=useState(1)
 
-function Hero({newArray,num,changeMovie}){
-const containerStyle = {
-    backgroundImage: newArray.length>0?`url(${newArray[num].primaryImage.url})`:null,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-  };
-  const play ={
-    fill:"#d41002"
-  }
+    const changeMovie=(event)=>
+        {
+            const number =Number(event.target.textContent) 
+        setNum(number)
+        console.log(num)
+       }
+
+    const background = {
+        backgroundImage: newArray.length>0?`url(${newArray[num-1].primaryImage.url}), linear-gradient(to bottom, transparent 0%, #000000 95%) `:null,
+        backgroundSize:'cover',
+        backgroundPosition:'center'
+    };
+    
   return (
     <>
     { newArray.length>0?
             <>
-            <div style={containerStyle}>
-              <div>
-                <h1>App de pelis</h1>
-                <button type="button" class="btn btn-danger">Book Now</button>
-              </div>
-              <div>
-                  <button class="btn btn-outline-primary rounded-circle p-3 lh-1" type="button">
-                  <svg style={play} xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                  </button>
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      {
-                        
-                        newArray.map((item,index)=>
-                          <>
+            <section style={background}>
+                <Header></Header>
+                <section class="hero position-relative px-5">
+                
+                    <div class="hero-movie">
+                        <div class="hero-description d-flex align-items-center position-absolute">
+                            <button class="btn px-4 colorButton ms-2">Book Now</button>
+                            <p>January 29, 2018 IMAX 3D</p> 
+                        </div>
+                        <div class="hero-trailer position-absolute">
+                            <button class="btn-trailer"><i class="bi bi-play-fill"></i></button>
+                            <p>Watch Trailer</p>
+                        </div>
+                    </div>
+                    <div class="hero-content">
+                        <div class="social-media position-absolute">
+                            <a href="#facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#instagram"><i class="bi bi-instagram"></i></a>
+                        </div> 
+                        <div class="hero-slide d-flex position-absolute">
+                            <button><i class="bi bi-arrow-left"></i></button>
+                            <div class="hero-slide-page d-flex">
+                            {
+                                
+                                newArray.map((item,index)=>
+                                <>
 
-                            <li id={index} onClick={changeMovie}><a class="page-link" href="#" >{index+1} </a></li>
+                                    <p id={index} onClick={changeMovie}><a class="page-link" href="#" >{index<=8?"0"+(index+1):index+1} </a></p>
 
-                          </>
-                        )
-                        
-                       
-                      }
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-              </div>
-            </div>
-           
+                                </>
+                                )
+                                
+                            
+                            }
+                            </div>
+                            <button><i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </section>
+            </section>
             </>
          
        
-          : <p>nada de nada</p>
+          : <p>Not Found!</p>
        }
     </>
   );
