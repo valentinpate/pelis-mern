@@ -5,17 +5,12 @@ import Hero from './Hero';
 function App() {
 const [newArray,setArray]=useState([])
 let [dependencias, setDependencias]=useState(0)
-let [num, setNum]=useState("")
 
 function prueba(){
  setDependencias(dependencias+1)
  console.log(dependencias)
 }
 
-function changeMovie(){
-  setNum(num+1)
-  console.log(num)
- }
   useEffect(()=>{
     async function llamado(){
     const options = {
@@ -29,24 +24,24 @@ function changeMovie(){
         'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
       }
     };
-    
+
     try {
       const info = await axios.request(options)
        setArray(info.data.results);
       console.log("info ",info)
-    
-      
+
+
     } catch (error) {
       console.error(error);
     }
-  }llamado(); setNum(0)
+  }llamado();
   },[dependencias])
-  
+
 
 
   return (
     <>
-      <Hero newArray={newArray} num={num} changeMovie={changeMovie}></Hero>
+      <Hero newArray={newArray}></Hero>
       <button onClick={prueba}>recargar</button>
     </>
   );

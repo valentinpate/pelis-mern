@@ -14,7 +14,7 @@ function Hero({newArray}){
        }
 
     const background = {
-        backgroundImage: newArray.length>0?`url(${newArray[num-1].primaryImage.url}), linear-gradient(to bottom, transparent 0%, #000000 95%) `:null,
+        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 97%), url(${newArray[num-1].primaryImage.url})`:null,
         backgroundSize:'cover',
         backgroundPosition:'center'
     };
@@ -30,7 +30,7 @@ function Hero({newArray}){
                     <div class="hero-movie">
                         <div class="hero-description d-flex align-items-center position-absolute">
                             <button class="btn px-4 colorButton ms-2">Book Now</button>
-                            <p>January 29, 2018 IMAX 3D</p> 
+                            <p>January 29, 2018 <br /> IMAX 3D</p> 
                         </div>
                         <div class="hero-trailer position-absolute">
                             <button class="btn-trailer"><i class="bi bi-play-fill"></i></button>
