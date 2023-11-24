@@ -11,7 +11,7 @@
 /* Etiquetas */
 
 body{
-    background-color: black;
+    background-color:black;
 }
 
 button{
@@ -67,11 +67,19 @@ p{
     transition:font-size 0.5s, color 0.5s, margin-top 0.5s;
 }
 
+.movie i{
+    color:white;
+}
+
 /* Pseudoclases */
 
 .btn-search:hover{
     transform:scale(1.1);
     color: var(--red);
+}
+
+.btn-search-absolute:hover{
+    color: var(--red-hover);
 }
 
 .btn-trailer:hover{
@@ -96,7 +104,17 @@ p{
     margin-top:0.2em;
 }
 
+.movie:hover{
+    box-shadow:0 0 7px #444444;
+}
+
 /* Clases */
+
+/*.background{
+    background-image: linear-gradient(to bottom, transparent 0%, #000000 97%), url(background.jpg);
+    background-size:cover;
+    background-position:center;
+}*/
 
 .logo{
     width:9em;
@@ -132,6 +150,14 @@ p{
     transition:transform 0.5s, color 1.5s;
 }
 
+.btn-search-absolute{
+    color:#444444;
+    font-size:1.2rem;
+    top:0.15em;
+    right:0;
+    transition:color 1.5s;
+}
+
 .btn-trailer{
     padding:0.2em 0.5em;
     border-radius:100%;
@@ -139,6 +165,30 @@ p{
     color:red;
     font-size:1.8rem;
     transition: box-shadow 0.5s;
+}
+
+.estrenos-search{
+    color:#444444;
+    width:30em;
+    border-color:#444444 !important;
+}
+
+.movie{
+    cursor: pointer;
+    transition:box-shadow 0.5s;
+}
+
+.movie-img{
+    width:12em;
+}
+
+.movie-title{
+    font-weight:bold;
+    font-size:1.3rem;
+}
+
+.movie-description{
+    font-weight:lighter;
 }
 
 .sacarEnlace{
