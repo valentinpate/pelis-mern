@@ -24,19 +24,19 @@ function prueba(){
         'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
       }
     };
-
+    
     try {
       const info = await axios.request(options)
        setArray(info.data.results);
       console.log("info ",info)
-
-
+    
+      
     } catch (error) {
       console.error(error);
     }
   }llamado();
   },[dependencias])
-
+  
 
 
   return (
