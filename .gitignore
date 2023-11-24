@@ -2,10 +2,7 @@
 client/pelis-mern/node_modules
 
 # sketch
-# sketch.html
-# sketch.css
-# / logo.png
-# /background.jpg
+sketch
 
 # testing
 /coverage
