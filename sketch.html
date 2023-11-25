@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sketch</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="sketch.css">
 </head>
 <body>
-    <section class="background">
+    <section class="background"> <!-- Este section con clase background no debe estar en el componente de React. Es solo para el boceto del HTML. Solo comentar la clase background en sketch.css  -->
+    <!-- HEADER -->
         <header class="d-flex justify-content-between py-4 px-5">
             <img src="logo.png" alt="Movies Hub" class="logo">
-            <div class="header-content d-flex justify-content-evenly align-items-center">
+            <div class="d-flex justify-content-evenly align-items-center">
                 <nav class="navbar navbar-expand-lg mx-6"> <!-- componente de React -->
                     <ul class="navbar-nav">
                         <li class="nav-item mx-2"><a href="" class="sacarEnlace nav-link px-4 text-light">Home</a></li>
@@ -25,9 +26,10 @@
                 <button class="btn px-4 colorButton ms-2">Sign in</button>
             </div>
         </header>
+    <!-- HERO -->
         <section class="hero position-relative px-5">
             <!-- img de las pelis -->
-            <div class="hero-movie">
+            <div>
                 <div class="hero-description d-flex align-items-center position-absolute">
                     <button class="btn px-4 colorButton ms-2">Book Now</button>
                     <p>January 29, 2018 <br> IMAX 3D</p> <!-- Fecha <br> Género -->
@@ -37,7 +39,7 @@
                     <p>Watch Trailer</p>
                 </div>
             </div>
-            <div class="hero-content">
+            <div>
                 <div class="social-media position-absolute">
                     <a href="#facebook"><i class="bi bi-facebook"></i></a>
                     <a href="#twitter"><i class="bi bi-twitter-x"></i></a>
@@ -45,7 +47,7 @@
                 </div> <!-- componente de React -->
                 <div class="hero-slide d-flex position-absolute">
                     <button><i class="bi bi-arrow-left"></i></button>
-                    <div class="hero-slide-page d-flex">
+                    <div class="d-flex">
                         <p>01</p>
                         <p>02</p>
                         <p>03</p>
@@ -57,70 +59,160 @@
             </div>
         </section>
     </section>
-        <section class="estrenos">
-            <div class="estrenos-header">
-                <h4>Opening this week</h4>
-                <input type="text" class="estrenos-search" placeholder="Search">
+    <!-- ESTRENOS -->
+        <section class="p-5">
+            <div class="d-flex justify-content-between mb-5 position-relative">
+                <h4 class="text-uppercase text-light ms-4">Opening this week</h4>
+                <input type="text" class="estrenos-search me-4 ps-3 bg-transparent border border-1 border-light rounded rounded-2 text-light" placeholder="Search">
+                <button class="btn-search-absolute position-absolute"><i class="bi bi-search px-5"></i></button>
             </div>
             <hr>
-            <div class="estrenos-genres">
-                <button>Drama</button>
-                <button>Comedia</button>
-                <button>Acción</button>
-                <button>Terror</button>
-                <button>Infantiles</button>
+            <div class="pt-4 pb-5">
+                <button class="btn px-4 colorButton ms-2 text-light">Acción</button>
+                <button class="btn px-4 btn-dark ms-2 text-light">Comedia</button>
+                <button class="btn px-4 btn-dark ms-2 text-light">Drama</button>
+                <button class="btn px-4 btn-dark ms-2 text-light">Terror</button>
+                <button class="btn px-4 btn-dark ms-2 text-light">Infantiles</button>
             </div>
-            <div class="estrenos-movie">
-                <div class="movie"> <!--probable map-->
-                    <img src="" alt="Movie IMG" class="movie-img">
-                    <p class="movie-title">Venom</p>
-                    <p class="movie-description">120 min | ACTION</p> <!-- Duración | Género -->
+            <div class="d-flex flex-wrap">
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
+                </div>
+                <div class="movie mx-2 mb-4 p-4"> <!--probable map-->
+                    <img src="poster.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Venom</p>
+                    <p class="movie-description m-0">120 min | ACTION</p> <!-- Duración | Género -->
                 </div>
             </div>
             <button class="ver-mas">More...</button>
         </section>
-        <section class="proximos-estrenos">
-            <div class="estrenos-header">
-                <h4>Opening this week</h4>
+    <!--PRÓXIMOS ESTRENOS-->
+        <section class="px-5 mb-5">
+            <div class="mb-5">
+                <h4 class="text-uppercase text-light ms-4">Opening this week</h4>
             </div>
             <hr>
-            <div class="estrenos-movie">
-                <div class="movie"> <!--probable map-->
-                    <img src="" alt="Movie IMG" class="movie-img">
-                    <p class="movie-title">Justice League</p>
-                    <p class="movie-description">118 min | ACTION</p> <!-- Duración | Género -->
-                    <div class="estrenos-fecha">
-                        <button><i class="fa-solid fa-calendar-days"></i></button> 
-                        <p>April 18</p> <!-- Detalle complicado -->
+            <div class="d-flex flex-wrap">
+                <div class="movie mx-2 mb-4 p-4 position-relative"> <!--probable map-->
+                    <img src="jl.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Justice League</p>
+                    <p class="movie-description m-0">118 min | ACTION</p> <!-- Duración | Género -->
+                    <div class="estrenos-fecha d-flex align-items-center position-absolute">
+                        <p class="prox-background text-light"><i class="fa-solid fa-calendar-days p-2"></i></p> 
+                        <p class="prox-background text-light py-1 ps-3 pe-4">April 18</p> <!-- Detalle complicado -->
+                    </div>
+                </div>
+                <div class="movie mx-2 mb-4 p-4 position-relative"> <!--probable map-->
+                    <img src="jl.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Justice League</p>
+                    <p class="movie-description m-0">118 min | ACTION</p> <!-- Duración | Género -->
+                    <div class="estrenos-fecha d-flex align-items-center position-absolute">
+                        <p class="prox-background text-light"><i class="fa-solid fa-calendar-days p-2"></i></p> 
+                        <p class="prox-background text-light py-1 ps-3 pe-4">April 18</p> <!-- Detalle complicado -->
+                    </div>
+                </div>
+                <div class="movie mx-2 mb-4 p-4 position-relative"> <!--probable map-->
+                    <img src="jl.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Justice League</p>
+                    <p class="movie-description m-0">118 min | ACTION</p> <!-- Duración | Género -->
+                    <div class="estrenos-fecha d-flex align-items-center position-absolute">
+                        <p class="prox-background text-light"><i class="fa-solid fa-calendar-days p-2"></i></p> 
+                        <p class="prox-background text-light py-1 ps-3 pe-4">April 18</p> <!-- Detalle complicado -->
+                    </div>
+                </div>
+                <div class="movie mx-2 mb-4 p-4 position-relative"> <!--probable map-->
+                    <img src="jl.jpg" alt="Movie IMG" class=" mb-3">
+                    <p class="movie-title mb-2">Justice League</p>
+                    <p class="movie-description m-0">118 min | ACTION</p> <!-- Duración | Género -->
+                    <div class="estrenos-fecha d-flex align-items-center position-absolute">
+                        <p class="prox-background text-light"><i class="fa-solid fa-calendar-days p-2"></i></p> 
+                        <p class="prox-background text-light py-1 ps-3 pe-4">April 18</p> <!-- Detalle complicado -->
+                    </div>
+                </div>
+                <div class="movie mx-2 mb-4 p-4 position-relative"> <!--probable map-->
+                    <img src="jl.jpg" alt="Movie IMG" class="mb-3">
+                    <p class="movie-title mb-2">Justice League</p>
+                    <p class="movie-description m-0">118 min | ACTION</p> <!-- Duración | Género -->
+                    <div class="estrenos-fecha d-flex align-items-center position-absolute">
+                        <p class="prox-background text-light"><i class="fa-solid fa-calendar-days p-2"></i></p> 
+                        <p class="prox-background text-light py-1 ps-3 pe-4">April 18</p> <!-- Detalle complicado -->
                     </div>
                 </div>
             </div>
         </section>
-        <section class="news">
-            <h3>News</h3>
-            <div class="news-container"> <!-- probable map -->
-                <img src="" alt="News IMG">
-                <p class="news-title">Review of files in 3D format becoming more acceptable</p>
+    <!-- NOTICIAS -->
+        <section class="news px-5">
+            <h3 class="text-center text-uppercase text-light mb-5">News</h3>
+            <div class="news-container d-flex flex-wrap"> <!-- probable map -->
+                <div class="d-flex flex-column mx-3">
+                    <img src="cine.jpg" alt="News IMG" class="mb-3">
+                    <p class="news-title ms-1">Review of files in 3D format becoming more acceptable</p>
+                </div>
+                <div class="d-flex flex-column mx-3">
+                    <img src="cine.jpg" alt="News IMG" class="mb-3">
+                    <p class="news-title ms-1">Review of files in 3D format becoming more acceptable</p>
+                </div>
+                <div class="d-flex flex-column mx-3">
+                    <img src="cine.jpg" alt="News IMG" class="mb-3">
+                    <p class="news-title ms-1">Review of files in 3D format becoming more acceptable</p>
+                </div>
+                <div class="d-flex flex-column mx-3">
+                    <img src="cine.jpg" alt="News IMG" class="mb-3">
+                    <p class="news-title ms-1">Review of files in 3D format becoming more acceptable</p>
+                </div>
             </div>
-            <div class="news-slide">
-                <button><i class="bi bi-arrow-left"></i></button>
-                <div class="news-slide-page"> <!--probable if para cambiar iconos de circulo por pagina -->
+            <div class="news-slide my-5 d-flex justify-content-between">
+                <button><i class="bi bi-arrow-left ms-2 mb-3"></i></button>
+                <div class="mt-4"> <!--probable if para cambiar iconos de circulo por pagina -->
                     <i class="fa-regular fa-circle" style="color: #d70f0f;"></i> 
                     <i class="fa-solid fa-circle" style="color: #d70f0f;"></i>
                     <i class="fa-regular fa-circle" style="color: #d70f0f;"></i>
                 </div>
-                <button><i class="bi bi-arrow-right"></i></button>
+                <button><i class="bi bi-arrow-right me-2 mb-3"></i></button>
             </div>
         </section>
-    <footer class="d-flex justify-content-evenly">
-        <div class="footer-content">
-            <img src="logo.png" alt="Movies Hub" class="logo">
-            <nav class="navbar navbar-expand-lg"> <!-- componente de React -->
+    <!-- FOOTER -->
+    <footer class="py-5 d-flex flex-column justify-content-evenly">
+        <div class="footer-content d-flex justify-content-between">
+            <img src="logo.png" alt="Movies Hub" class="logo ml-auto">
+            <nav class="navbar navbar-expand-lg mx-6"> <!-- componente de React -->
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4">Home</a></li>
-                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4">Schedule</a></li>
-                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4">Movies</a></li>
-                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4">News</a></li>
+                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4 text-light">Home</a></li>
+                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4 text-light">Schedule</a></li>
+                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4 text-light">Movies</a></li>
+                    <li class="nav-item"><a href="" class="sacarEnlace nav-link px-4 text-light">News</a></li>
                 </ul>
             </nav>
             <div class="social-media d-flex align-items-center maxIcon">
@@ -129,8 +221,10 @@
                 <a href="#instagram"><i class="bi bi-instagram p-2"></i></a>
             </div> <!-- componente de React -->
         </div>
-        <h4>www.movieshub.com</h4>
-        <p>&copy; image cinema all rights reserved</p>
+        <div class="py-5 d-flex justify-content-center position-relative">
+            <h4 class="text-light">www.movieshub.com</h4>
+            <p class="copyright position-absolute">&copy; image cinema all rights reserved</p>
+        </div>
     </footer>
     <script src="https://kit.fontawesome.com/c2a0df0d0e.js" crossorigin="anonymous"></script>
 </body>
