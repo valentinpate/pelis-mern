@@ -1,0 +1,71 @@
+list =
+0: "most_pop_movies"
+1: "most_pop_series"
+2: "top_boxoffice_200"
+3: "top_boxoffice_last_weekend_10"
+4: "top_rated_250"
+5: "top_rated_english_250"
+6: "top_rated_lowest_100"
+7: "top_rated_series_250"
+8: "titles"
+
+genres=
+1: "Action"
+2: "Adult"
+3: "Adventure"
+4: "Animation"
+5: "Biography"
+6: "Comedy"
+7: "Crime"
+8: "Documentary"
+9: "Drama"
+10: "Family"
+11: "Fantasy"
+12: "Film-Noir"
+13: "Game-Show"
+14: "History"
+15: "Horror"
+16: "Music"
+17: "Musical"
+18: "Mystery"
+19: "News"
+20: "Reality-TV"
+21: "Romance"
+22: "Sci-Fi"
+23: "Short"
+24: "Sport"
+25: "Talk-Show"
+26: "Thriller"
+27: "War"
+28: "Western"
+
+titleTypes=
+1: "movie"
+2: "musicVideo"
+3: "podcastEpisode"
+4: "podcastSeries"
+5: "short"
+6: "tvEpisode"
+7: "tvMiniSeries"
+8: "tvMovie"
+9: "tvPilot"
+10: "tvSeries"
+11: "tvShort"
+12: "tvSpecial"
+13: "video"
+14: "videoGame"
+
+url de busqueda (titletype)=
+'https://moviesdatabase.p.rapidapi.com/titles/search/keyword/batman'
+
+url de para series/movie (list)=
+'https://moviesdatabase.p.rapidapi.com/titles/search/title/movie'
+
+url de proximas a estrenar (titletypes,genre)=
+'https://moviesdatabase.p.rapidapi.com/titles/x/upcoming'
+
+url series por id(solo sirve para traer los episodios y sus id)=
+'https://moviesdatabase.p.rapidapi.com/titles/series/tt21025456',
+
+url para episodio(funciona con el id del episodio)=
+'https://moviesdatabase.p.rapidapi.com/titles/episode/tt21030920'
