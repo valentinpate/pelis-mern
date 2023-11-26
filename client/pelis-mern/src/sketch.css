@@ -37,11 +37,6 @@ p{
     font-size:0.8rem;
 }
 
-.hero-trailer button{
-    margin-left:0.7em;
-    margin-bottom:0.4em;
-}
-
 .hero-trailer p{
     font-size:1.1rem;
     opacity:75%;
@@ -67,8 +62,21 @@ p{
     transition:font-size 0.5s, color 0.5s, margin-top 0.5s;
 }
 
-.movie i{
+.movie img{
+    width:12em;
+}
+
+.movie i, .news-slide .bi{
     color:white;
+}
+
+.news-container img{
+    width:26em;
+}
+
+.news-slide .bi{
+    font-size:3rem;
+    transition: color 0.5s;
 }
 
 /* Pseudoclases */
@@ -106,6 +114,10 @@ p{
 
 .movie:hover{
     box-shadow:0 0 7px #444444;
+}
+
+.news-slide .bi:hover{
+    color:var(--red);
 }
 
 /* Clases */
@@ -159,6 +171,8 @@ p{
 }
 
 .btn-trailer{
+    margin-left:0.7em;
+    margin-bottom:0.4em;
     padding:0.2em 0.5em;
     border-radius:100%;
     background-color:white;
@@ -178,10 +192,6 @@ p{
     transition:box-shadow 0.5s;
 }
 
-.movie-img{
-    width:12em;
-}
-
 .movie-title{
     font-weight:bold;
     font-size:1.3rem;
@@ -189,6 +199,33 @@ p{
 
 .movie-description{
     font-weight:lighter;
+}
+
+.estrenos-fecha{
+    right:1.5em;
+    bottom:6em;
+}
+
+.prox-background{
+    background-color:var(--red);
+}
+
+.news-title{
+    font-weight:lighter;
+    font-size:1.1rem;
+    width:80%;
+}
+
+.footer-content{
+    width:75%;
+    margin:0 auto;
+    padding-bottom:3em;
+}
+
+.copyright{
+    font-weight:lighter;
+    top:3.3em;
+    right:4em;
 }
 
 .sacarEnlace{
