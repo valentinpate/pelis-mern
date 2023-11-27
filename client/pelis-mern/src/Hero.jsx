@@ -4,7 +4,7 @@ import './sketch.css'
 import Header from './Header';
 
 let key = true;
-function Hero({newArray,setIdTrailer,trailer}){
+function Hero({newArray,setIdTrailer,trailer,setTrailer}){
     let [num, setNum]=useState(1)
     let array = [0,1,2,3,4,5]
     let [hover, setHover] = useState(true)
@@ -24,7 +24,7 @@ function Hero({newArray,setIdTrailer,trailer}){
         "December"
       ];
 
-    const changeMovie=async (event)=>//cambio de numero
+    const changeMovie=async (event)=>//cambio de numero: setNum es la más importante!! renderiza todo lo que contenga el valor del index elegido
         {
         key = false
         const number =Number(event.target.textContent) 
@@ -43,7 +43,7 @@ function Hero({newArray,setIdTrailer,trailer}){
         }
     }; slide()
         
-    const changeMovieMinus = ()=>{//bajar de numero
+    const changeMovieMinus = ()=>{//bajar de numero -flecha izquierda del slide <-
         key = false
         if(num != 1){
             setNum(num-1)
@@ -51,7 +51,7 @@ function Hero({newArray,setIdTrailer,trailer}){
         }  
     };
 
-    const changeMoviePlus = ()=>{//subir de numero
+    const changeMoviePlus = ()=>{//subir de numero -flecha derecha del slide ->
         key = false
         if (num != 6){
             setNum(num+1)
@@ -74,9 +74,10 @@ function Hero({newArray,setIdTrailer,trailer}){
     }
     const closeModal=()=>{//cierre del trailer
         setViewTrailer(false)
+        setTrailer("")
         console.log("ingreso")
     }
-    const background = {//propiedas para slide
+    const background = {//propiedades para el background del hero
         backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url}) `:null,
         backgroundSize:'cover',
         backgroundPosition:'center'
@@ -94,11 +95,14 @@ function Hero({newArray,setIdTrailer,trailer}){
             <section style={background}>
             {/* modal para trailer */}
             {
-            newArray.map((item, index) => (index+1 == num? 
-                <div id="youtubeModal" style={{display:num == index + 1 &&viewTrailer?"flex":"none",width:"100vw",height:"100vh", position:"absolute", zIndex:"200",justifyContent:"center", alignItems:"center"}}>
-                        <button style={{backgroundColor:"white"}} onClick={closeModal}>Cerrar</button>
-                        <iframe class="youtube-video" src={trailer} frameborder="0" allowfullscreen style={{width:"90vw",height:"90vh",alignSelf:"center"}}></iframe>
-                </div>:<p style={{display:num === index + 1 && viewTrailer?"flex":"none"}}>no hay trailer</p>
+            newArray.map((item, index) => (index+1 == num 
+                ? 
+                <div id="youtubeModal" style={{display:num == index + 1 &&viewTrailer ? "flex" : "none",width:"100%",height:"100%", position:"absolute", zIndex:"200",justifyContent:"center", alignItems:"center"}}>
+                        <button style={{color:"white",fontSize:"2rem",position:"absolute",top:"2.2em",right:"1.3em"}} onClick={closeModal}><i class="bi bi-x-lg"></i></button>
+                        <iframe class="youtube-video" src={trailer} frameborder="0" allowfullscreen style={{width:"100vw",height:"100vh",alignSelf:"center"}}></iframe>
+                </div>
+                :
+                <p style={{display:num === index + 1 && viewTrailer?"flex":"none"}}>no hay trailer</p>
             ))}
             <Header></Header>
             <section className="hero position-relative px-5">
