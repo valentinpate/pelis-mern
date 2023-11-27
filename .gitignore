@@ -1,6 +1,12 @@
 # front
 client/pelis-mern/node_modules
 
+# back
+server/node_modules
+
+# variables de entorno
+.env
+
 # sketch
 sketch
 
