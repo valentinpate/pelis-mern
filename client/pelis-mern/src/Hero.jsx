@@ -8,6 +8,7 @@ function Hero({newArray,setIdTrailer,trailer}){
     let [num, setNum]=useState(1)
     let array = [0,1,2,3,4,5]
     let [hover, setHover] = useState(true)
+    let [hoverTrailer,setHoverTrailer]= useState(true)
     let [viewTrailer,setViewTrailer]=useState(false)
     const months = [
         "January",
@@ -76,9 +77,25 @@ function Hero({newArray,setIdTrailer,trailer}){
         setViewTrailer(false)
         console.log("ingreso")
     }
+
+    const handleHoverTrailer = ()=>{//desactiva las propiedades del numero con hover estatico
+        setHover(false)
+    };
+
+    const handleUnhoverTrailer = ()=>{//vuelve activar las propiedades del numero con hover estatico
+       setHover(true)
+    };
+
     const background = {//propiedas para slide
-        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url}) `:null,
-        backgroundSize:'cover',
+        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url})`:null,
+        backgroundRepeat: "no-repeat",
+        backgroundSize:'cover' ,
+        backgroundPosition:'center'
+    };
+    const backgroundTrailer = {//propiedas para slide
+        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url})`:null,
+        backgroundRepeat: "no-repeat",
+        backgroundSize:'100% 100%' ,
         backgroundPosition:'center'
     };
 
@@ -91,13 +108,13 @@ function Hero({newArray,setIdTrailer,trailer}){
     return (
         <div>
         {newArray.length > 0 ?
-            <section style={background}>
+            <section style={hoverTrailer?background:backgroundTrailer}>
             {/* modal para trailer */}
             {
             newArray.map((item, index) => (index+1 == num? 
                 <div id="youtubeModal" style={{display:num == index + 1 &&viewTrailer?"flex":"none",width:"100vw",height:"100vh", position:"absolute", zIndex:"200",justifyContent:"center", alignItems:"center"}}>
                         <button style={{backgroundColor:"white"}} onClick={closeModal}>Cerrar</button>
-                        <iframe class="youtube-video" src={trailer} frameborder="0" allowfullscreen style={{width:"90vw",height:"90vh",alignSelf:"center"}}></iframe>
+                        <iframe autoplay class="youtube-video" src={trailer} frameborder="0" allowfullscreen style={{width:"90vw",height:"90vh",alignSelf:"center"}}></iframe><p>{trailer}</p>
                 </div>:<p style={{display:num === index + 1 && viewTrailer?"flex":"none"}}>no hay trailer</p>
             ))}
             <Header></Header>
@@ -111,7 +128,11 @@ function Hero({newArray,setIdTrailer,trailer}){
                             index+1==Number(item.releaseDate.month)?e:null)} {item.releaseDate.day},{item.releaseDate.year}<br /> IMAX 3D</p>
                       </div>
                       <div className="hero-trailer position-absolute">
-                        <button  className="btn-trailer"><i id={item.id} onClick={searchTrailer} className="bi bi-play-fill"></i></button>
+                        <button  className="btn-trailer"><i id={item.id} 
+                            onClick={searchTrailer}
+                            onMouseEnter={handleHoverTrailer}
+                            onMouseLeave={handleUnhoverTrailer}
+                            className="bi bi-play-fill"></i></button>
                         <p >Watch Trailer</p>
                       </div>
                     </div>

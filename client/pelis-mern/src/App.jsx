@@ -54,7 +54,7 @@ function prueba(){
     
     try {
       const infoTrailer = await axios.request(options)
-       setTrailer(infoTrailer.data.results.trailer+"?autoplay=1");
+       setTrailer(infoTrailer.data.results.trailer+"?autoplay=1&mute=1&loop=1");
       console.log("infoTrailer ",infoTrailer) 
       console.log("trailer",trailer)
         } catch (error) {
