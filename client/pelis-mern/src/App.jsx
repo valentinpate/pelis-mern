@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Hero from './Hero';
+import NoPage from './NoPage';
 
 function App() {
 const [newArray,setArray]=useState([])
@@ -66,8 +68,13 @@ function prueba(){
 
   return (
     <>
-      <Hero newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}></Hero>
-      <button onClick={prueba}>recargar</button>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Hero newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}></Hero>}></Route>
+          <Route path="*" element={<NoPage/>}></Route>
+        </Routes>
+        <button onClick={prueba}>recargar</button>
+      </BrowserRouter>
     </>
   );
 }
