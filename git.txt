@@ -1,6 +1,9 @@
+- MARTU -
+
 1° Rama local (nombre): esta rama no va a mandar y recibir pull request nunca! Editamos el codigo en esta rama.
 2° Rama pull (pull-nombre): esta rama recibe y envia los pull request, en caso de algun problema esta rama es eliminada y volvemos al punto en el que quedo main.
 3° Rama main (main): esta rama recibe los cambios por medio de merge de forma local para el manejo de errores y cancelacion en caso que sea necesario!
+
 4° Enviar o recibir cambios: al realizar un cambio local y queres enviarlo los paso son:
     a- Aceptar o enviar los pull request solo en pull-nombre.
     b-Enviar: en pull-nombre hacer merge con la rama nombre (git merge nombre)
@@ -10,3 +13,20 @@ recibir: en la rama nombre hacer merge con la rama pull-nombre (git merge pull-n
 )
 6° Una vez que la rama de valen pull-valen esta actualizada con todos los cambios del dia, valen hace el merge de main y pull-valen y nos envia los pull request a nosotros.
 7° Actualizamos nuestros main
+
+- VALEN -
+
+Primero acepto el request que llega de tu rama de pull-request a mi rama de pull-request en GitHub
+
+Ahora voy a mi rama de pull-request en local y hago git pull ahí
+
+Ahora voy a la rama local (test-b en mi caso) y hago un git merge pull-request 
+(por las dudas pushear local antes aunque se puede solucionar tmb con git merge --abort) 
+
+Ahora voy a la rama de pull request y hago un git merge local (en mi caso git merge test-b)
+
+Pusheo a la rama del pull request
+
+PULL REQUEST A OTROS -> BASE: RAMA QUE RECIBE LOS DATOS - COMPARE: RAMA CON LOS DATOS QUE BUSCA RECIBIR BASE
+
+PARA ACTUALIZAR MAIN: Merge con la rama del pull request una vez terminado

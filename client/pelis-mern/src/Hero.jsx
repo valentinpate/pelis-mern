@@ -4,7 +4,7 @@ import './sketch.css'
 import Header from './Header';
 
 let key = true;
-function Hero({newArray,setIdTrailer,trailer}){
+function Hero({newArray,setIdTrailer,trailer,setTrailer}){
     let [num, setNum]=useState(1)
     let array = [0,1,2,3,4,5]
     let [hover, setHover] = useState(true)
@@ -25,7 +25,7 @@ function Hero({newArray,setIdTrailer,trailer}){
         "December"
       ];
 
-    const changeMovie=async (event)=>//cambio de numero
+    const changeMovie=async (event)=>//cambio de numero: setNum es la más importante!! renderiza todo lo que contenga el valor del index elegido
         {
         key = false
         const number =Number(event.target.textContent) 
@@ -44,7 +44,7 @@ function Hero({newArray,setIdTrailer,trailer}){
         }
     }; slide()
         
-    const changeMovieMinus = ()=>{//bajar de numero
+    const changeMovieMinus = ()=>{//bajar de numero -flecha izquierda del slide <-
         key = false
         if(num != 1){
             setNum(num-1)
@@ -52,7 +52,7 @@ function Hero({newArray,setIdTrailer,trailer}){
         }  
     };
 
-    const changeMoviePlus = ()=>{//subir de numero
+    const changeMoviePlus = ()=>{//subir de numero -flecha derecha del slide ->
         key = false
         if (num != 6){
             setNum(num+1)
@@ -75,6 +75,7 @@ function Hero({newArray,setIdTrailer,trailer}){
     }
     const closeModal=()=>{//cierre del trailer
         setViewTrailer(false)
+        setTrailer("")
         console.log("ingreso")
     }
 
