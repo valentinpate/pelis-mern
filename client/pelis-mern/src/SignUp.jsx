@@ -1,32 +1,43 @@
 import { useState } from 'react'
+import axios from 'axios'
 import {NavLink} from "react-router-dom"
 
 
 const SignUp = () => {
   
   const [name,setName] = useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const datosName = (e) =>{
     setName(e.target.value)
   }
 
   const datosEmail = (e) => {
-    setEmail(e.target.value);
+    setEmail(e.target.value)
   };
 
   const datosPassword = (e) => {
-    setPassword(e.target.value);
+    setPassword(e.target.value)
   };
 
   const enviarDatos = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     
+    console.log('Name',name)
     console.log('Email:', email);
     console.log('Password:', password);
    
-  };
+    const userData = { name, email, password }
+
+    axios.post('http://localhost:3001/signup', userData)
+      .then(response => {
+        console.log(response.data.message)
+      })
+      .catch(error => {
+        console.log('Error al enviar la solicitud:', error)
+      })
+  }
 
   return (
     <div className='d-flex flex-column align-items-center text-center justify-content-center w-100 textWhite'>
