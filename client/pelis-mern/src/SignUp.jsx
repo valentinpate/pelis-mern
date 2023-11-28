@@ -2,10 +2,15 @@ import { useState } from 'react'
 import {NavLink} from "react-router-dom"
 
 
-const SignIn = () => {
+const SignUp = () => {
   
+  const [name,setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const datosName = (e) =>{
+    setName(e.target.value)
+  }
 
   const datosEmail = (e) => {
     setEmail(e.target.value);
@@ -29,8 +34,12 @@ const SignIn = () => {
             <img src="logo.png" alt="Movies Hub" class="logo"/>
         </div>
         <div className='d-flex flex-column ancho justify-content-start'>
-            <h2 className='text-start'>Inicio de Sesión</h2>
+            <h2 className='text-start'>Registro</h2>
             <form onSubmit={enviarDatos}>
+                <div className='d-flex flex-column'>
+                    <label className='p-2 text-start' htmlFor="email">Nombre y apellido:</label>
+                    <input className='p-2 form-control' type="text" id="name"  value={name} onChange={datosName} required />
+                </div>
                 <div className='d-flex flex-column'>
                     <label className='p-2 text-start' htmlFor="email">Correo Electrónico:</label>
                     <input className='p-2 form-control' type="email" id="email"  value={email} onChange={datosEmail} required />
@@ -47,13 +56,9 @@ const SignIn = () => {
                 <button className='btn colorButton p-2 btnRegistro'><i class="bi bi-instagram pe-1"></i>Registrese con Instagram</button>
             </div>
         </div>
-        <div class="d-flex  pt-2">
-            <p className='pe-2'>¿No tienes cuenta en Movies Hub?</p><NavLink to="/signup"><a href="" className='ps-2'>Crear tu cuenta</a></NavLink>
-            {/* <button className="btn colorButton ancho p-2">Crear tu cuenta de Movies Hub</button> */}
-        </div>
       
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp
