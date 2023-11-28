@@ -4,6 +4,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import NoPage from './NoPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import Home from './Home';
 
 function App() {
 const [newArray,setArray]=useState([])
