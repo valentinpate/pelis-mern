@@ -64,6 +64,7 @@ p{
 
 .movie img{
     width:12em;
+    height:17em;
 }
 
 .movie i, .news-slide .bi{
@@ -115,6 +116,10 @@ p{
 
 .movie:hover{
     box-shadow:0 0 7px #444444;
+}
+
+.ver-mas:hover{
+    color:var(--red-hover);
 }
 
 .news-slide .bi:hover{
@@ -200,6 +205,14 @@ p{
 
 .movie-description{
     font-weight:lighter;
+}
+
+.ver-mas{
+    font-size:1.3rem;
+    font-weight:600;
+    float:right;
+    color:var(--red);
+    transition: color 1s;
 }
 
 .estrenos-fecha{
