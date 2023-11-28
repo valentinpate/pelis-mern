@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import NoPage from './NoPage';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 import Home from './Home';
 
 function App() {
@@ -77,6 +78,7 @@ let [dependencias,setDependencias]=useState(true)
           <Route path="/" element={<Home newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}/>}></Route>
           <Route path="*" element={<NoPage/>}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
+          <Route path="/signup" element={<SignUp/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
