@@ -7,6 +7,19 @@ function ProxEstrenos(){
 
     const [proxEstrenos,setProxEstrenos] = useState([])
 
+    const months = ["January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"]
+
     useEffect(()=>{
         async function llamaProxEstrenos(){
             const options = {
@@ -31,7 +44,7 @@ function ProxEstrenos(){
         } 
         llamaProxEstrenos()
     },[])
-
+    console.log("Próximos Estrenos:", proxEstrenos)
     return(
         <section class="px-5 mb-5">
             <div class="mb-5">
@@ -46,7 +59,7 @@ function ProxEstrenos(){
                         <p class="movie-description m-0">{proxEstreno.runtime === null ? "???" : proxEstreno.runtime.seconds/60} min | <span className="text-uppercase">{proxEstreno.genres.genres[0].text}</span></p>
                         <div class="estrenos-fecha d-flex align-items-center position-absolute">
                             <p class="prox-background text-light"><i class="fa-solid fa-calendar-days p-2"></i></p> 
-                            <p class="prox-background text-light py-1 ps-3 pe-4">April 18</p>
+                            <p class="prox-background text-light py-1 ps-3 pe-4">{proxEstreno.releaseDate === null ? "TBA" : months[proxEstreno.releaseDate.month] + " " + proxEstreno.releaseDate.day}</p>
                         </div>
                     </div>
                 })}
