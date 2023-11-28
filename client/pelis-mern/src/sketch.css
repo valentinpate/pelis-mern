@@ -82,6 +82,11 @@ p{
 
 /* Pseudoclases */
 
+.hoverEnlace:hover{
+    transform:scale(1.1);
+    color: var(--red) !important;
+}
+
 .btn-search:hover{
     transform:scale(1.1);
     color: var(--red);
