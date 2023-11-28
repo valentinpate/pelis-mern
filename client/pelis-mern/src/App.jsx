@@ -1,20 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-import Hero from './Hero';
 import NoPage from './NoPage';
 import SignIn from './SignIn';
+import Home from './Home';
 
 function App() {
 const [newArray,setArray]=useState([])
 const [trailer,setTrailer]=useState("")
-let [dependencias, setDependencias]=useState(0)
 let[idTrailer,setIdTrailer]=useState("")
 
-function prueba(){
- setDependencias(dependencias+1)
- console.log(dependencias)
-}
 
   useEffect(()=>{ //useEffect para el llamado de la API
     async function llamado(){
@@ -39,7 +34,7 @@ function prueba(){
       console.error(error);
     }
   }llamado();
-  },[dependencias]) //
+  },[]) //
 
   useEffect(()=>{ //useEffect para llamar al trailer de la API
   async function llamadoTrailer(){
@@ -71,11 +66,10 @@ function prueba(){
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Hero newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}></Hero>}></Route>
+          <Route path="/" element={<Home newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}/>}></Route>
           <Route path="*" element={<NoPage/>}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
         </Routes>
-        <button onClick={prueba}>recargar</button>
       </BrowserRouter>
     </>
   );
