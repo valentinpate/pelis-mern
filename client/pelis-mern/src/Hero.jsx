@@ -8,7 +8,6 @@ function Hero({newArray,setIdTrailer,trailer,setTrailer}){
     let [num, setNum]=useState(1)
     let array = [0,1,2,3,4,5]
     let [hover, setHover] = useState(true)
-    let [hoverTrailer,setHoverTrailer]= useState(true)
     let [viewTrailer,setViewTrailer]=useState(false)
     const months = [
         "January",
@@ -79,24 +78,9 @@ function Hero({newArray,setIdTrailer,trailer,setTrailer}){
         console.log("ingreso")
     }
 
-    const handleHoverTrailer = ()=>{//desactiva las propiedades del numero con hover estatico
-        setHover(false)
-    };
-
-    const handleUnhoverTrailer = ()=>{//vuelve activar las propiedades del numero con hover estatico
-       setHover(true)
-    };
-
     const background = {//propiedas para slide
         backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url})`:null,
-        backgroundRepeat: "no-repeat",
         backgroundSize:'cover' ,
-        backgroundPosition:'center'
-    };
-    const backgroundTrailer = {//propiedas para slide
-        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url})`:null,
-        backgroundRepeat: "no-repeat",
-        backgroundSize:'100% 100%' ,
         backgroundPosition:'center'
     };
 
@@ -109,7 +93,7 @@ function Hero({newArray,setIdTrailer,trailer,setTrailer}){
     return (
         <div>
         {newArray.length > 0 ?
-            <section style={hoverTrailer?background:backgroundTrailer}>
+            <section style={background}>
             {/* modal para trailer */}
             {
             newArray.map((item, index) => (index+1 == num? 
@@ -129,11 +113,7 @@ function Hero({newArray,setIdTrailer,trailer,setTrailer}){
                             index+1==Number(item.releaseDate.month)?e:null)} {item.releaseDate.day},{item.releaseDate.year}<br /> IMAX 3D</p>
                       </div>
                       <div className="hero-trailer position-absolute">
-                        <button  className="btn-trailer"><i id={item.id} 
-                            onClick={searchTrailer}
-                            onMouseEnter={handleHoverTrailer}
-                            onMouseLeave={handleUnhoverTrailer}
-                            className="bi bi-play-fill"></i></button>
+                        <button  className="btn-trailer"><i id={item.id} onClick={searchTrailer} className="bi bi-play-fill"></i></button>
                         <p >Watch Trailer</p>
                       </div>
                     </div>
