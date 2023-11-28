@@ -98,6 +98,7 @@ p{
     background-color: var(--red-hover) !important
 }
 
+
 .social-media i:hover{
     color:var(--red)
 }
@@ -241,3 +242,12 @@ p{
 .maxIcon{
     font-size: x-large;
 }
+
+.textWhite{
+    color: white !important;
+}
+
+.ancho{
+    width: 25rem;
+}
+

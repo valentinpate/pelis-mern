@@ -1,5 +1,6 @@
 import NavBar from './NavBar';
 import './sketch.css'
+import {NavLink} from "react-router-dom"
 
 function Header(){
   
@@ -10,7 +11,7 @@ function Header(){
             <div class="header-content d-flex justify-content-evenly align-items-center">
              <NavBar></NavBar>
                 <button class="btn-search"><i class="bi bi-search px-5"></i></button>
-                <button class="btn px-4 colorButton ms-2">Sign in</button>
+                <NavLink to="/signin"><button class="btn px-4 colorButton ms-2">Sign in</button></NavLink>
             </div>
         </header>
   
