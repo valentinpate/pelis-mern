@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Hero from './Hero';
 import NoPage from './NoPage';
+import SignIn from './SignIn';
 
 function App() {
 const [newArray,setArray]=useState([])
@@ -72,6 +73,7 @@ function prueba(){
         <Routes>
           <Route path="/" element={<Hero newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}></Hero>}></Route>
           <Route path="*" element={<NoPage/>}></Route>
+          <Route path="/signin" element={<SignIn/>}></Route>
         </Routes>
         <button onClick={prueba}>recargar</button>
       </BrowserRouter>
