@@ -1,6 +1,6 @@
 import './sketch.css'
 
-function News(){
+function MyList(){
   
   return (
     <>
@@ -38,4 +38,4 @@ function News(){
   );
 }
 
-export default News;
+export default MyList;

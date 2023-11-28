@@ -78,7 +78,7 @@ function Hero({newArray,setIdTrailer,trailer,setTrailer}){
         console.log("ingreso")
     }
     const background = {//propiedades para el background del hero
-        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${newArray[num-1].primaryImage.url}) `:null,
+        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(/venom.jpg) `:null,
         backgroundSize:'cover',
         backgroundPosition:'center'
     };
