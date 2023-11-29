@@ -78,7 +78,7 @@ function Hero({newArray,setIdTrailer,trailer,setTrailer}){
         console.log("ingreso")
     }
     const background = {//propiedades para el background del hero
-        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(/venom.jpg) `:null,
+        backgroundImage: newArray.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/CD95B5409EA8B4987A467BADB3E0925FFFBB67665D18F8DE67E9E76967EBAE16/scale?width=1920&format=jpeg) `:null,
         backgroundSize:'cover',
         backgroundPosition:'center'
     };

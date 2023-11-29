@@ -11,7 +11,7 @@ function Home({newArray,setIdTrailer,trailer,setTrailer}){
         <Hero newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}></Hero>
         <Estrenos></Estrenos>
         <ProxEstrenos></ProxEstrenos>
-        <News></News>
+        <MyList></MyList>
         <Footer></Footer>
     </>
   );
