@@ -1,8 +1,31 @@
 const express = require('express')
 require('dotenv').config()
 const mongoose = require('mongoose')
+const userRoutes = require('./routes/userRoutes')
+const cors = require('cors')
+const expressSession = require('express-session')
+const passport = require('passport')
+const LocalStrategy = require ('passport-local').Strategy
 
 const app = express()
+
+// Configuracion de la session
+const SECRETSESSION = process.env.SECRETSESSION
+app.use(expressSession({
+    secret : SECRETSESSION,
+    resave : false ,
+    saveUninitialized : false,
+    cookie: { maxAge: 60 * 60 * 1000 } // mantiene al usuario logeado por 1 hora
+}))
+
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
+app.use(cors()) // para conectar FRONT y BACK (diferentes puertos)
+
+// Configuracion passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 const connectDB = require('./db/connect')
 const PORT = process.env.PORT
@@ -20,3 +43,5 @@ const connectDataBase = async () => {
 }
 
 connectDataBase()
+
+app.use(userRoutes)

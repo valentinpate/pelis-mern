@@ -1,44 +1,44 @@
 import { useState } from 'react'
-import {NavLink, redirect} from "react-router-dom"
 import axios from 'axios'
+import {NavLink} from "react-router-dom"
 
 
-const SignIn = () => {
+const SignUp = () => {
   
+  const [name,setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [login, setLogin] = useState(false)  // state para manejar el login del usuario y redirigir a home
+  
+
+  const datosName = (e) =>{
+    setName(e.target.value)
+  }
 
   const datosEmail = (e) => {
-    setEmail(e.target.value);
+    setEmail(e.target.value)
   };
 
   const datosPassword = (e) => {
-    setPassword(e.target.value);
+    setPassword(e.target.value)
   };
 
   const enviarDatos = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     
-    console.log('Email:', email)
-    console.log('Password:', password)
+    console.log('Name',name)
+    console.log('Email:', email);
+    console.log('Password:', password);
    
-    const userData = { email , password}
+    const userData = { name, email, password }
 
-    axios.get('http://localhost:3001/signin',userData)
-    .then(response => {
-      console.log(response.data.message)
-      setLogin(true)
-    })  
-    .catch (error => {
-      console.log('Error al enviar datos de login' , error)
-    })
-
-    if (login) {
-      return <redirect to="/" />
-    }
-
-  };
+    axios.post('http://localhost:3001/signup', userData)
+      .then(response => {
+        console.log(response.data.message)
+      })
+      .catch(error => {
+        console.log('Error al enviar la solicitud:', error)
+      })
+  }
 
   return (
     <div className='d-flex flex-column align-items-center text-center justify-content-center w-100 textWhite'>
@@ -46,8 +46,12 @@ const SignIn = () => {
             <img src="logo.png" alt="Movies Hub" class="logo"/>
         </div>
         <div className='d-flex flex-column ancho justify-content-start'>
-            <h2 className='text-start'>Inicio de Sesión</h2>
+            <h2 className='text-start'>Registro</h2>
             <form onSubmit={enviarDatos}>
+                <div className='d-flex flex-column'>
+                    <label className='p-2 text-start' htmlFor="email">Nombre y apellido:</label>
+                    <input className='p-2 form-control' type="text" id="name"  value={name} onChange={datosName} required />
+                </div>
                 <div className='d-flex flex-column'>
                     <label className='p-2 text-start' htmlFor="email">Correo Electrónico:</label>
                     <input className='p-2 form-control' type="email" id="email"  value={email} onChange={datosEmail} required />
@@ -64,13 +68,9 @@ const SignIn = () => {
                 <button className='btn colorButton p-2 btnRegistro'><i class="bi bi-instagram pe-1"></i>Registrese con Instagram</button>
             </div>
         </div>
-        <div class="d-flex  pt-2">
-            <p className='pe-2'>¿No tienes cuenta en Movies Hub?</p><NavLink to="/signup"><a href="" className='ps-2'>Crear tu cuenta</a></NavLink>
-            {/* <button className="btn colorButton ancho p-2">Crear tu cuenta de Movies Hub</button> */}
-        </div>
       
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp
