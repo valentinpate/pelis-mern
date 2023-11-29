@@ -64,6 +64,7 @@ p{
 
 .movie img{
     width:12em;
+    height:17em;
 }
 
 .movie i, .news-slide .bi{
@@ -80,6 +81,11 @@ p{
 }
 
 /* Pseudoclases */
+
+.hoverEnlace:hover{
+    transform:scale(1.1);
+    color: var(--red) !important;
+}
 
 .btn-search:hover{
     transform:scale(1.1);
@@ -98,6 +104,7 @@ p{
     background-color: var(--red-hover) !important
 }
 
+
 .social-media i:hover{
     color:var(--red)
 }
@@ -114,6 +121,10 @@ p{
 
 .movie:hover{
     box-shadow:0 0 7px #444444;
+}
+
+.ver-mas:hover{
+    color:var(--red-hover);
 }
 
 .news-slide .bi:hover{
@@ -201,6 +212,14 @@ p{
     font-weight:lighter;
 }
 
+.ver-mas{
+    font-size:1.3rem;
+    font-weight:600;
+    float:right;
+    color:var(--red);
+    transition: color 1s;
+}
+
 .estrenos-fecha{
     right:1.5em;
     bottom:6em;
@@ -241,3 +260,12 @@ p{
 .maxIcon{
     font-size: x-large;
 }
+
+.textWhite{
+    color: white !important;
+}
+
+.ancho{
+    width: 25rem;
+}
+
