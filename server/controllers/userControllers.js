@@ -1,7 +1,8 @@
 const User = require('../models/User')
+const passport = require('passport')
 
 // Controlador para registrar un nuevo usuario
-const signUp = async (req, res) => {
+const signup_post = async (req, res) => {
   const { name, email, password } = req.body
   console.log('soy el back',name,email,password)
 
@@ -22,4 +23,15 @@ const signUp = async (req, res) => {
   }
 }
 
-module.exports = { signUp }
+const signin_post = passport.authenticate('local', {
+  successRedirect: '/', // Ruta a la que redirigir si la autenticación es exitosa
+  failureRedirect: '/signin', // Ruta a la que redirigir si la autenticación falla
+  failureFlash: true, // Habilita mensajes flash para mostrar errores
+})
+
+const signin_get = async (req,res) => {
+  res.redirect('/')
+  console.log('estoy entrando al signinGET')
+}
+
+module.exports = { signup_post,signin_post, signin_get }
