@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import {NavLink} from "react-router-dom"
+import {NavLink, redirect} from "react-router-dom"
+import axios from 'axios'
 
 
 const SignIn = () => {
   
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [login, setLogin] = useState(false)  // state para manejar el login del usuario y redirigir a home
 
   const datosEmail = (e) => {
     setEmail(e.target.value);
@@ -18,9 +20,24 @@ const SignIn = () => {
   const enviarDatos = (e) => {
     e.preventDefault();
     
-    console.log('Email:', email);
-    console.log('Password:', password);
+    console.log('Email:', email)
+    console.log('Password:', password)
    
+    const userData = { email , password}
+
+    axios.get('http://localhost:3001/signin',userData)
+    .then(response => {
+      console.log(response.data.message)
+      setLogin(true)
+    })  
+    .catch (error => {
+      console.log('Error al enviar datos de login' , error)
+    })
+
+    if (login) {
+      return <redirect to="/" />
+    }
+
   };
 
   return (
