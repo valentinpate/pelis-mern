@@ -256,3 +256,8 @@ p{
     width: 25rem;
 }
 
+.imgHero{
+    max-width: 300px;
+    max-height: 300px;
+}
+

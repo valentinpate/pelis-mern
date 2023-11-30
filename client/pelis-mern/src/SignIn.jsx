@@ -25,9 +25,10 @@ const SignIn = () => {
    
     const userData = { email , password}
 
-    axios.get('http://localhost:3001/signin',userData)
+    axios.post('http://localhost:3001/signin',userData)
     .then(response => {
       console.log(response.data.message)
+      console.log(userData)
       setLogin(true)
     })  
     .catch (error => {

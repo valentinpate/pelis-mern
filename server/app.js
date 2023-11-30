@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/userRoutes')
@@ -6,6 +7,7 @@ const cors = require('cors')
 const expressSession = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require ('passport-local').Strategy
+const flash = require('connect-flash')
 
 const app = express()
 
@@ -18,6 +20,7 @@ app.use(expressSession({
     cookie: { maxAge: 60 * 60 * 1000 } // mantiene al usuario logeado por 1 hora
 }))
 
+app.use(express.static(path.join(__dirname, '../client/pelis-mern/public')))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
@@ -26,6 +29,7 @@ app.use(cors()) // para conectar FRONT y BACK (diferentes puertos)
 // Configuracion passport
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 
 const connectDB = require('./db/connect')
 const PORT = process.env.PORT
@@ -43,5 +47,17 @@ const connectDataBase = async () => {
 }
 
 connectDataBase()
+
+// BACK como API para enviar informacion al FRONT
+const PeliHero = require('./models/PeliHero')
+
+app.get('/api/pelihero', (req,res) => {
+    PeliHero.find()
+    .then(allPeliHero => res.json(allPeliHero))
+})
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../client/pelis-mern/public', 'index.html'));
+//   });
 
 app.use(userRoutes)

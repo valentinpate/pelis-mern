@@ -29,9 +29,9 @@ const signin_post = passport.authenticate('local', {
   failureFlash: true, // Habilita mensajes flash para mostrar errores
 })
 
-const signin_get = async (req,res) => {
-  res.redirect('/')
-  console.log('estoy entrando al signinGET')
-}
+// const signin_get = async (req,res) => {
+  // res.redirect('/')
+  // console.log('estoy entrando al signinGET')
+// }
 
-module.exports = { signup_post,signin_post, signin_get }
+module.exports = { signup_post,signin_post,  }

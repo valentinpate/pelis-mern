@@ -3,6 +3,7 @@ import axios from 'axios'
 import {NavLink} from "react-router-dom"
 
 
+
 const SignUp = () => {
   
   const [name,setName] = useState('')
