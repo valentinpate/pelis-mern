@@ -6,6 +6,7 @@ const cors = require('cors')
 const expressSession = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require ('passport-local').Strategy
+const flash = require('connect-flash')
 
 const app = express()
 
@@ -26,6 +27,8 @@ app.use(cors()) // para conectar FRONT y BACK (diferentes puertos)
 // Configuracion passport
 app.use(passport.initialize())
 app.use(passport.session())
+require('./config/passport')
+app.use(flash())
 
 const connectDB = require('./db/connect')
 const PORT = process.env.PORT
