@@ -26,8 +26,8 @@ function Estrenos(){
 
             try{
                 const data = await axios.request(options)
-                console.log("Data API:", data)
-                console.log("Estrenos:", estrenos)
+            //    console.log("Data API:", data)
+               // console.log("Estrenos:", estrenos)
 
                 if(pagina > 1){
                     setEstrenos(prevEstrenos => [...prevEstrenos, ...data.data.results]) //setEstrenos pasa del estado anterior del useState (prevEstrenos) a un nuevo estado que suma todos los valores del anterior más todos los valores del nuevo (con spread operator!)
@@ -40,8 +40,8 @@ function Estrenos(){
         llamaEstrenos()
     },[pagina])
 
-    console.log("Estrenos:", estrenos)
-    console.log("Página:", pagina)
+   // console.log("Estrenos:", estrenos)
+   // console.log("Página:", pagina)
 
     let estrenosFiltrados = estrenos.filter((estreno)=>{
         return estreno.titleText.text.toLowerCase().includes(busqueda.toLowerCase())
