@@ -34,4 +34,4 @@ const signin_get = async (req,res) => {
   console.log('estoy entrando al signinGET')
 }
 
-module.exports = { signup_post,signin_post, signin_get }
+module.exports = { signup_post,signin_post, signin_get}

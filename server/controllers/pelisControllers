@@ -4,7 +4,7 @@ const Hero_get = async (req,res) => {
 
     const arraySlide = await Hero.find({})
 
-    res.redirect('/',{arraySlide})
+    res.json({arraySlide})
 
     console.log('arraySlide',arraySlide)
   }

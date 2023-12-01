@@ -4,11 +4,13 @@ import MyList from './MyList';
 import Footer from './Footer'
 import Estrenos from './Estrenos';
 import ProxEstrenos from './ProxEstrenos';
-function Home({newArray,setIdTrailer,trailer,setTrailer}){
+
+function Home({newArray, dataSlide}){
   
   return (
     <>
-        <Hero newArray={newArray} trailer={trailer} setTrailer={setTrailer} setIdTrailer={setIdTrailer}></Hero>
+       
+        <Hero dataSlide={dataSlide}newArray={newArray} ></Hero>
         <Estrenos></Estrenos>
         <ProxEstrenos></ProxEstrenos>
         <MyList></MyList>
