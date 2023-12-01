@@ -25,17 +25,26 @@ const SignIn = () => {
    
     const userData = { email , password}
 
-    axios.get('http://localhost:3001/signin',userData)
+    const enviarBack = async () => { 
+      let pruebaJson = JSON.stringify(userData)
+      await fetch('http://localhost:3001/signin',
+    { method : "POST",
+      body : pruebaJson,
+      headers : {"Content-Type" : "application/json"}
+      })
     .then(response => {
-      console.log(response.data.message)
+      console.log(response)
       setLogin(true)
+      console.log(login)
     })  
     .catch (error => {
       console.log('Error al enviar datos de login' , error)
     })
+  }
+    enviarBack()
 
     if (login) {
-      return <redirect to="/" />
+        return redirect("/")
     }
 
   };
