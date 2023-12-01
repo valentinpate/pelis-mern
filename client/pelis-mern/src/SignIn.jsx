@@ -24,8 +24,9 @@ const SignIn = () => {
     console.log('Password:', password)
    
     const userData = { email , password}
+    console.log(userData)
 
-    axios.post('http://localhost:3001/signin',userData)
+    axios.post('http://localhost:3001/signin',{userData})
     .then(response => {
       console.log(response.data.message)
       console.log(userData)
@@ -36,7 +37,7 @@ const SignIn = () => {
     })
 
     if (login) {
-      return <redirect to="/" />
+      return redirect('/')
     }
 
   };

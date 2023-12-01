@@ -7,7 +7,7 @@ router.post('/signup',userControllers.signup_post)
 
 router.post('/signin',userControllers.signin_post)
 
-// router.get('/signin',userControllers.signin_get)
+router.get('/signin',userControllers.signin_get)
 
 
 module.exports = router
