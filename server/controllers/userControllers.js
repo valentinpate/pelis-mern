@@ -30,7 +30,8 @@ const signin_post = passport.authenticate('local', {
 })
 
 const signin_get = async (req,res) => {
-  res.redirect('/')
+  const { email , password} = req.body
+  
   console.log('estoy entrando al signinGET')
 }
 
