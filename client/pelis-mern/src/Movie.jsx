@@ -7,6 +7,7 @@ import "./sketch.css"
 
 function Movie(){
     const [movie,setMovie] = useState({})
+    const [last,setLast] = useState([])
     const {id} = useParams()
     useEffect(()=>{
         async function callMovie(){
@@ -24,8 +25,10 @@ function Movie(){
               
               try {
                 const info = await axios.request(options)
+                const genreArray = info.data.results.genres.genres
                 console.log(info.data.results)
                 setMovie(info.data.results)
+                setLast(genreArray[genreArray.length-1])
               } catch (error) {
                 console.error(error);
               }
@@ -35,25 +38,38 @@ function Movie(){
     },[])
 
     console.log(movie)
+    console.log(last)
 
     return(
         <>
            <Header/>
            {movie.titleText ? 
            <section className="mx-4 my-3">
-                <div className="container-fluid d-flex justify-content-evenly movie1">
+                <div className="container-fluid d-flex justify-content-between movie1">
                     <img src={movie.primaryImage.url} alt="" className="movie-img"/>
-                    <div className="text-light">
-                        <h1>{movie.titleText.text}</h1>
-                        <h3 className="text-danger">{movie.releaseYear.year} | {movie.runtime.seconds/60} min</h3>
-                        <h4>{movie.plot.plotText.plainText}</h4>
-                        <h3><span className="text-warning">Rating:</span> {movie.ratingsSummary.aggregateRating}</h3>
-                        <h6>Votos: {movie.ratingsSummary.voteCount}</h6>
+                    <div className="text-light movie1-info">
+                        <h1 className="mx-3 mt-3 mb-2">{movie.titleText.text}</h1>
+                        <h2 className="text-danger mx-3 mb-3">{movie.releaseYear.year} | {movie.runtime.seconds/60} min</h2>
+                        <h3 className="mx-3 mb-3">{
+                        movie.genres.genres.map(genre => {
+                            if(genre.text === last.text){
+                              return genre.text
+                            }else{
+                              return genre.text + " " + "|" + " "
+                            }
+                        })}</h3>
+                        <div className="mx-3 mb-3 d-flex align-items-center">
+                          <h3 className="pe-3"><span className="text-warning">Rating:</span> <b>{movie.ratingsSummary.aggregateRating}</b></h3>
+                          <h6><b className="mx-1">(</b>Votos: {movie.ratingsSummary.voteCount}<b className="mx-1">)</b></h6>
+                        </div>
+                        <h4 className="mx-3 my-3">{movie.plot.plotText.plainText}</h4>
                     </div>
                 </div>
             <Footer/>
            </section> 
-           : <h1 className="ms-3 mt-3 text-light text-center">Loading...</h1>}
+           : <div class="mx-4 d-flex justify-content-center">
+              <img src="/icon.png" alt="" className="loading-animation"></img>
+            </div>}
         </>
     )
 }
