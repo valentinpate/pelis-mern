@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./sketch.css"
+import { Link, useSearchParams } from "react-router-dom"
 
 function Estrenos(){
 
@@ -8,6 +9,9 @@ function Estrenos(){
     const [busqueda,setBusqueda]=useState("")
     const [pagina,setPagina]=useState(1)
     const [colorButton,setColorButton]=useState("Action")
+    const style = {
+        textDecoration:"none"
+    }
 
     useEffect(()=>{
         async function llamaEstrenos(){
@@ -78,11 +82,16 @@ function Estrenos(){
             <div class="d-flex flex-wrap">
                 { estrenosFiltradosPorGenero.length>0 ? 
                     estrenosFiltradosPorGenero.map((estreno)=>{
-                        return <div className="movie mx-2 mb-4 p-4" key={estreno.id}>
-                            <img src={estreno.primaryImage.url} alt="Movie IMG" className="mb-3" />
-                            <p className="movie-title mb-2">{estreno.titleText.text.length<25 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
-                            <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{estreno.genres.genres[0].text}</span></p>
-                        </div>
+                        let movieLink = `/movie/${estreno.id}`
+                        return (
+                            <Link to={movieLink} style={style}>
+                                <div className="movie mx-2 mb-4 p-4" key={estreno.id}>
+                                    <img src={estreno.primaryImage.url} alt="Movie IMG" className="mb-3" />
+                                    <p className="movie-title mb-2">{estreno.titleText.text.length<25 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
+                                    <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{estreno.genres.genres[0].text}</span></p>
+                                </div>
+                            </Link>
+                        )
                     })
                 : <h2 className="p-5 text-light">Lo sentimos, en este momento no hay nuevos estrenos.</h2>}
             </div>
