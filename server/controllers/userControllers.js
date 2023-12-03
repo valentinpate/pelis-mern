@@ -1,5 +1,9 @@
 const User = require('../models/User')
 const passport = require('passport')
+const localStrategy = require('passport-local').Strategy
+require('../config/passport')
+
+let username = null
 
 // Controlador para registrar un nuevo usuario
 const signup_post = async (req, res) => {
@@ -23,15 +27,18 @@ const signup_post = async (req, res) => {
   }
 }
 
-const signin_post = passport.authenticate('local', {
-  successRedirect: '/', // Ruta a la que redirigir si la autenticación es exitosa
-  failureRedirect: '/signin', // Ruta a la que redirigir si la autenticación falla
-  failureFlash: true, // Habilita mensajes flash para mostrar errores
-})
+const signin_post = async (req,res) =>{
+  if (req.isAuthenticated()){
+       username = req.user.nombre
+       res.redirect('/')
+  }
+}
+
+
 
 const signin_get = async (req,res) => {
-  res.redirect('/')
-  console.log('estoy entrando al signinGET')
+  res.redirect("/")
+  console.log('estoy entrando')
 }
 
 module.exports = { signup_post,signin_post, signin_get}
