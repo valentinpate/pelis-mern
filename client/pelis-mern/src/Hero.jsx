@@ -1,31 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import './sketch.css'
 import Header from './Header';
 
-let array = [0,1,2,3,4,5]
-
-const slide = async(setNum,num,key)=>{//slide cambia cada 6s
-    if(num == array[num]){
-        await new Promise((resolve) => setTimeout(resolve, 6000));
-        if(key){
-            setNum(num+1)
-        }
-       
-    }
-}; 
+const functionSlide = async(setSlide,slide)=>{
+    await new Promise(() => setTimeout(()=>{
+       setSlide(slide+1)
+    }, 6000));
+} 
 
 function Hero({dataSlide}){
     const [trailer,setTrailer]=useState("")
     let [key,setKey]=useState(true)
-    let [num, setNum]=useState(1)
+    let [num, setNum]=useState(0)
     let [hover, setHover] = useState(true)
     let [viewTrailer,setViewTrailer]=useState(false)
+    let [slide,setSlide]=useState(0)
 
-     if(key){
-        slide(setNum,num,key)
-     }
-    
+    useEffect(()=>{
+            if (key && num < 6){
+                setNum(num+1)
+            }else{
+                setNum(1)
+            }
+        
+    },[slide])
+
+    if (key){
+        functionSlide(setSlide,slide)
+    }
+   
     const changeMovie=async (event)=>//cambio de numero: setNum es la más importante!! renderiza todo lo que contenga el valor del index elegido
         {
         setKey(false)
@@ -71,7 +75,7 @@ function Hero({dataSlide}){
         setTrailer("")
     }
     const background = {//propiedades para el background del hero
-        backgroundImage: dataSlide.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${dataSlide[num-1].imagenHero}) `:null,
+        backgroundImage: dataSlide.length>0?`linear-gradient(to bottom, transparent 0%, #000000 95%),url(${num==0?null:dataSlide[num-1].imagenHero}) `:null,
         backgroundSize:'cover',
         backgroundPosition:'center'
     };
