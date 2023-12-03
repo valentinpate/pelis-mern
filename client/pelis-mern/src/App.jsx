@@ -5,6 +5,7 @@ import NoPage from './NoPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Home from './Home';
+import Movie from './Movie';
 
 function App() {
 const [newArray,setArray]=useState([])
@@ -51,6 +52,7 @@ const [dataSlide, setDataSlide] = useState([]);
           <Route path="*" element={<NoPage/>}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
           <Route path="/signup" element={<SignUp/>}></Route>
+          <Route path="/movie/:id" element={<Movie/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
