@@ -14,6 +14,7 @@ const [dataSlide, setDataSlide] = useState([]);
 
   useEffect(()=>{ //useEffect para el llamado de la API
     async function llamado(){
+      console.log('effect')
         const options = {
           method: 'GET',
           url: 'https://moviesdatabase.p.rapidapi.com/titles/random',
