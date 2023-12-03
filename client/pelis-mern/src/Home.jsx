@@ -19,4 +19,4 @@ function Home({newArray, dataSlide}){
   );
 }
 
-export default Home;
+export default Home
