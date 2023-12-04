@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/userRoutes')
+const pelisRoutes = require('./routes/pelisRoutes')
 const cors = require('cors')
 const expressSession = require('express-session')
 const passport = require('passport')
@@ -47,4 +48,4 @@ const connectDataBase = async () => {
 
 connectDataBase()
 
-app.use(userRoutes)
+app.use(userRoutes,pelisRoutes)
