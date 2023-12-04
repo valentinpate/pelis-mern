@@ -3,6 +3,7 @@ const path = require('path')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/userRoutes')
+const pelisRoutes = require('./routes/pelisRoutes')
 const cors = require('cors')
 const expressSession = require('express-session')
 const passport = require('passport')
@@ -29,6 +30,7 @@ app.use(cors()) // para conectar FRONT y BACK (diferentes puertos)
 // Configuracion passport
 app.use(passport.initialize())
 app.use(passport.session())
+require('./config/passport')
 app.use(flash())
 
 const connectDB = require('./db/connect')
@@ -60,4 +62,4 @@ app.get('/api/pelihero', (req,res) => {
 //     res.sendFile(path.join(__dirname, '../client/pelis-mern/public', 'index.html'));
 //   });
 
-app.use(userRoutes)
+app.use(userRoutes,pelisRoutes)

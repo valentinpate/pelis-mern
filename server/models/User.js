@@ -17,15 +17,25 @@ const userSchema = new mongoose.Schema({
     },
 })
 
-userSchema.methods.isValidPassword = async function (password) {
+userSchema.pre("save", async function(next){   //Agregue este para encriptar las contraseñas
+    const salt= await bcrypt.genSalt()
+    this.password= await bcrypt.hash(this.password,salt)
+    next()
+})
+
+userSchema.post("save",function(doc,next){ //este no esta haciendo nada pero por ahi nos sirve
+    next()
+})
+
+userSchema.methods.comparePassword = async function(candidatePassword) {
     try {
-      return await bcrypt.compare(password, this.password);
-    } catch (error) {
-      throw new Error(error);
+        const isMatch = await bcrypt.compare(candidatePassword, this.password);
+        return isMatch;
+    } catch (err) {
+        throw new Error(err);
     }
-  }   //metodo que compara la contraseña
-
-
+  };
+  
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

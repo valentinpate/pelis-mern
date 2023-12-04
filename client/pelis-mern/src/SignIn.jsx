@@ -1,5 +1,5 @@
-import {  useEffect,useState } from 'react'
-import {NavLink, redirect} from "react-router-dom"
+import { useState } from 'react'
+import {NavLink, Navigate} from "react-router-dom"
 import axios from 'axios'
 
 
@@ -19,28 +19,30 @@ const SignIn = () => {
 
   const enviarDatos = (e) => {
     e.preventDefault();
-    
-    console.log('Email:', email)
-    console.log('Password:', password)
-   
+
     const userData = { email , password}
     console.log(userData)
 
-    axios.post('http://localhost:3001/signin',{userData})
-    .then(response => {
-      console.log(response.data.message)
-      console.log(userData)
-      setLogin(true)
-    })  
-    .catch (error => {
-      console.log('Error al enviar datos de login' , error)
-    })
+    
+    axios.post('http://localhost:3001/signin', userData)
+      .then(response => { 
+        if(response.data.mensaje == 'Credenciales incorrectas'){
+          setLogin(true) }else if(response.data.mensaje == 'Inicio de sesion exitoso'){
+            setLogin("exitoso")
+          }
+      })
+      .catch(error => {
+        if(error.response.data.message == 'Credenciales incorrectas'){
+          setLogin(true) }
+      })
+    };
 
-    if (login) {
-      return redirect('/')
+
+    if (login == "exitoso") {
+        return <Navigate to="/"/>;
     }
 
-  };
+ 
 
   return (
     <div className='d-flex flex-column align-items-center text-center justify-content-center w-100 textWhite'>
@@ -49,6 +51,7 @@ const SignIn = () => {
         </div>
         <div className='d-flex flex-column ancho justify-content-start'>
             <h2 className='text-start'>Inicio de Sesión</h2>
+            {login?<p> Credenciales incorrectas!</p>:null}
             <form onSubmit={enviarDatos}>
                 <div className='d-flex flex-column'>
                     <label className='p-2 text-start' htmlFor="email">Correo Electrónico:</label>
