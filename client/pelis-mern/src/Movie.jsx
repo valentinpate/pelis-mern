@@ -46,10 +46,10 @@ function Movie(){
            {movie.titleText ? 
            <section className="mx-4 my-3">
                 <div className="container-fluid d-flex justify-content-between movie1">
-                    <img src={movie.primaryImage.url} alt="" className="movie-img"/>
+                    <img src={movie.primaryImage === null ? "/bigtba.jpg" : movie.primaryImage.url} alt=""/>
                     <div className="text-light movie1-info">
                         <h1 className="mx-3 mt-3 mb-2">{movie.titleText.text}</h1>
-                        <h2 className="text-danger mx-3 mb-3">{movie.releaseYear.year} | {movie.runtime.seconds/60} min</h2>
+                        <h2 className="text-danger mx-3 mb-3">{movie.releaseYear === null ? "TBA" : movie.releaseYear.year} | {movie.runtime === null ? "???" : movie.runtime.seconds/60} min</h2>
                         <h3 className="mx-3 mb-3">{
                         movie.genres.genres.map(genre => {
                             if(genre.text === last.text){

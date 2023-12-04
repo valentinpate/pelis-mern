@@ -4,7 +4,6 @@ import MyList from './MyList';
 import Footer from './Footer'
 import Estrenos from './Estrenos';
 import ProxEstrenos from './ProxEstrenos';
-import {BrowserRouter, Routes, Route} from "react-router-dom"
 
 function Home({newArray, dataSlide}){
   
