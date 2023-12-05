@@ -26,7 +26,7 @@ const SignIn = () => {
     axios.post('http://localhost:3001/signin', userData)
       .then(response => { 
         if(response.data.mensaje == 'Credenciales incorrectas'){
-          setLogin(true) }else if(response.data.mensaje == 'Inicio de sesion exitoso'){
+          console.log("es true");setLogin(true) }else if(response.data.mensaje == 'Inicio de sesion exitoso'){
             setLogin("exitoso")
           }
       })

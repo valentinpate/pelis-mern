@@ -46,7 +46,7 @@ function Movie(){
            {movie.titleText ? 
            <section className="mx-4 my-3">
                 <div className="container-fluid d-flex justify-content-between movie1">
-                    <img src={movie.primaryImage === null ? "/bigtba.jpg" : movie.primaryImage.url} alt=""/>
+                    <img src={movie.primaryImage === null ? "/bigtba.jpg" : movie.primaryImage.url} alt="" onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} />
                     <div className="text-light movie1-info">
                         <h1 className="mx-3 mt-3 mb-2">{movie.titleText.text}</h1>
                         <h2 className="text-danger mx-3 mb-3">{movie.releaseYear === null ? "TBA" : movie.releaseYear.year} | {movie.runtime === null ? "???" : movie.runtime.seconds/60} min</h2>
@@ -55,7 +55,7 @@ function Movie(){
                             if(genre.text === last.text){
                               return genre.text
                             }else{
-                              return genre.text + " " + "|" + " "
+                              return genre.text + " | "
                             }
                         })}</h3>
                         <div className="mx-3 mb-3 d-flex align-items-center">

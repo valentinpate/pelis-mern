@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import "./sketch.css"
 
 function Estrenos(){
@@ -9,6 +9,7 @@ function Estrenos(){
     const [busqueda,setBusqueda]=useState("")
     const [pagina,setPagina]=useState(1)
     const [colorButton,setColorButton]=useState("Action")
+    const [q, setQ] = useSearchParams()
     const style = {
         textDecoration:"none"
     }
@@ -64,9 +65,6 @@ function Estrenos(){
             e.target.setAttribute("disabled","")
         }
     }
-    
-    const verificar=()=>{
-    }
 
     return(
         <section className="p-5">
@@ -92,8 +90,8 @@ function Estrenos(){
                             <Link to={movieLink} style={style}>
                                 <div className="movie mx-2 mb-4 p-4" key={estreno.id} >
                                     <img src={estreno.primaryImage.url} 
-                                    onError={verificar} 
                                     alt="Movie IMG" 
+                                    onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} 
                                     className="mb-3"
                                      />
                                     <p className="movie-title mb-2">{estreno.titleText.text.length<25 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
