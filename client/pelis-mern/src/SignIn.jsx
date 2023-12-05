@@ -27,7 +27,7 @@ const SignIn = () => {
       .then(response => { 
         console.log('estoy en el front',response.config.data)
         if(response.data.mensaje == 'Credenciales incorrectas'){
-          console.log("del lado del true",setLogin)
+          console.log('del lado del true',setLogin)
           setLogin(true) 
         } else if (response.data.mensaje == 'Inicio de sesion exitoso' ){
             console.log('front',setLogin)
