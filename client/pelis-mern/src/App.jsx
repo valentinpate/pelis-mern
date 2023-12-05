@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { UserContext } from './UserContext';
 import NoPage from './NoPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -10,6 +11,7 @@ import Movie from './Movie';
 function App() {
 const [newArray,setArray]=useState([])
 const [dataSlide, setDataSlide] = useState([]);
+const [user, setUser] = useState(null);
 
 
   useEffect(()=>{ //useEffect para el llamado de la API
@@ -46,6 +48,7 @@ const [dataSlide, setDataSlide] = useState([]);
 
   return (
     <>
+    <UserContext.Provider value={{user, setUser}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home dataSlide={dataSlide} newArray={newArray}/>}></Route>
@@ -55,6 +58,7 @@ const [dataSlide, setDataSlide] = useState([]);
           <Route path="/movie/:id" element={<Movie/>}></Route>
         </Routes>
       </BrowserRouter>
+    </UserContext.Provider>
     </>
   );
 }
