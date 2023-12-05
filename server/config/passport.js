@@ -4,8 +4,6 @@ const User = require('../models/User')
 const bcrypt=require('bcrypt')
 
 
- let isPasswordValid=false;
-
 passport.use(new LocalStrategy({
     usernameField: 'email', // Campo del formulario que contiene el email
     passwordField: 'password', // Campo del formulario que contiene la contraseña
@@ -16,13 +14,14 @@ passport.use(new LocalStrategy({
         const user = await User.findOne({ email });
         if (!user) {
           return done(null, false, { message: 'Usuario no encontrado' });
-        }else{
-          isPasswordValid =await bcrypt.compare(password, user.password);
         }
-
+         const isPasswordValid = await bcrypt.compare(password, user.password);
+         console.log(isPasswordValid)
+        
         if (!isPasswordValid) {
           return done(null, false, { message: 'Contraseña incorrecta' });
         }else{
+          console.log(user)
            return done(null, user);
         }
   
