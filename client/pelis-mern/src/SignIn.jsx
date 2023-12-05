@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import {NavLink, Navigate} from "react-router-dom"
+import { UserContext } from './UserContext';
 import axios from 'axios'
 
 
 const SignIn = () => {
-  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [login, setLogin] = useState(false)  // state para manejar el login del usuario y redirigir a home
+  const { setUser } = useContext(UserContext) // useContext para manejar el estado del usuario en toda la app
 
   const datosEmail = (e) => {
     setEmail(e.target.value);
@@ -32,6 +33,7 @@ const SignIn = () => {
           } else if (response.data.mensaje == 'Inicio de sesion exitoso' ){
             console.log('front',setLogin)
             setLogin("exitoso")
+            setUser(response.data.user)
           }
       })
       .catch(error => {

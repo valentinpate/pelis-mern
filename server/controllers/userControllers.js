@@ -28,21 +28,31 @@ const signup_get = async (req,res) =>{
        res.json({ message: 'hola todo bien' })
 }
 
-const signin_post = async (req,res) =>{
-  if (req.isAuthenticated()){
-       username = req.user.nombre
-       res.status(201).json({ message: 'Usuario logueado exitosamente' })
-  }else{
-    res.status(500).json({ message: 'Credenciales incorrectas', error })
-  }
+const signin_post = async (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.status(200).json({ mensaje: 'Inicio de sesion exitoso', user });
+    });
+  })(req, res, next);
 }
+
 
 const signin_get = async (req,res) => {
   res.json({mensaje:'Inicio de sesion exitoso'})
 }
 
+
 const failuresignin_get = async (req,res) => {
   res.json({mensaje:'Credenciales incorrectas'})
 }
 
-module.exports = { signup_post,signin_post, signin_get,signup_get,failuresignin_get}
+module.exports = { signup_post, signin_post, signin_get, signup_get, failuresignin_get}
