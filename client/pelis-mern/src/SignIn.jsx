@@ -29,7 +29,7 @@ const SignIn = () => {
         if(response.data.mensaje == 'Credenciales incorrectas'){
           console.log('del lado del true',setLogin)
           setLogin(true) 
-        } else if (response.data.mensaje == 'Inicio de sesion exitoso' ){
+          } else if (response.data.mensaje == 'Inicio de sesion exitoso' ){
             console.log('front',setLogin)
             setLogin("exitoso")
           }
