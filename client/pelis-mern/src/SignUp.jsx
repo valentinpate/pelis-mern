@@ -57,7 +57,7 @@ const SignUp = () => {
             {llav?<p>el usuario ya existe</p>:null}
             <form onSubmit={enviarDatos}>
                 <div className='d-flex flex-column'>
-                    <label className='p-2 text-start' htmlFor="email">Nombre y apellido:</label>
+                    <label className='p-2 text-start' htmlFor="email">Nombre de usuario:</label>
                     <input className='p-2 form-control' type="text" id="name"  value={name} onChange={datosName} required />
                 </div>
                 <div className='d-flex flex-column'>
