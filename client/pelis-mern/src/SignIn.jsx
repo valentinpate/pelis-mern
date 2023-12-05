@@ -25,8 +25,12 @@ const SignIn = () => {
     
     axios.post('http://localhost:3001/signin', userData)
       .then(response => { 
+        console.log('estoy en el front',response.config.data)
         if(response.data.mensaje == 'Credenciales incorrectas'){
-          console.log("es true");setLogin(true) }else if(response.data.mensaje == 'Inicio de sesion exitoso'){
+          console.log("del lado del true", setLogin)
+          setLogin(true) 
+        } else if(response.data.mensaje == 'Inicio de sesion exitoso' ){
+            console.log('front',setLogin)
             setLogin("exitoso")
           }
       })
