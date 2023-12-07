@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom"
 
 function Header(){
   const {user} = useContext(UserContext)
-
+console.log(user)
   return (
     <>
     <header class="d-flex justify-content-between py-4 px-5">

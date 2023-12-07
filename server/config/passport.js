@@ -16,12 +16,12 @@ passport.use(new LocalStrategy({
           return done(null, false, { message: 'Usuario no encontrado' });
         }
          const isPasswordValid = await bcrypt.compare(password, user.password);
-         console.log(isPasswordValid)
+         //console.log(isPasswordValid)
         
         if (!isPasswordValid) {
           return done(null, false, { message: 'Contraseña incorrecta' });
         }else{
-          console.log(user)
+          //console.log(user)
            return done(null, user);
         }
   
