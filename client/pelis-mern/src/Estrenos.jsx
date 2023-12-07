@@ -1,18 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useSearchParams } from "react-router-dom"
+import { UserContext } from "./UserContext";
 import "./sketch.css"
 
 function Estrenos(){
 
     const [estrenos,setEstrenos]=useState([])
-    const [busqueda,setBusqueda]=useState("")
     const [pagina,setPagina]=useState(1)
     const [colorButton,setColorButton]=useState("Action")
-    const [q, setQ] = useSearchParams()
-    const style = {
-        textDecoration:"none"
-    }
+    const {busqueda, setBusqueda, linkStyle} = useContext(UserContext)
+    const q = new URLSearchParams()
 
     useEffect(()=>{
         async function llamaEstrenos(){
@@ -46,7 +44,7 @@ function Estrenos(){
         llamaEstrenos()
     },[pagina,colorButton])
 
-    console.log("Estrenos:", estrenos)
+    //console.log("Estrenos:", estrenos)
    // console.log("Página:", pagina)
 
    /* let estrenosFiltrados = estrenos.filter((estreno)=>{
@@ -66,12 +64,19 @@ function Estrenos(){
         }
     }
 
+    const search = () => {
+        q.set("search",busqueda)
+        let query = q.get("search")
+        localStorage.setItem('query', JSON.stringify(busqueda));
+        return query
+    }
+
     return(
-        <section className="p-5">
+        <section className="p-5" id="search">
             <div className="d-flex justify-content-between mb-5 position-relative">
                 <h4 className="text-uppercase text-light ms-4">Opening this week</h4>
-                <input type="text" className="estrenos-search me-4 ps-3 bg-transparent border border-1 border-light rounded rounded-2 text-light" placeholder="Search" value={busqueda} onChange={(e)=>{setBusqueda(e.target.value)}} />
-                <button className="btn-search-absolute position-absolute"><i className="bi bi-search px-5"></i></button>
+                <input type="text" className="estrenos-search me-4 ps-3 bg-transparent border border-1 border-light rounded rounded-2 text-light" placeholder="Search" value={busqueda} onChange={(e)=>{setBusqueda(e.target.value)}}/>
+                <button className="btn-search-absolute position-absolute" onClick={search} disabled={busqueda === "" ? "disabled" : ""}><Link to={`/search?query=${search()}`}><i className="btn-search-absolute bi bi-search px-5"></i></Link></button>
             </div>
             <hr />
             <div class="pt-4 pb-5">
@@ -86,15 +91,14 @@ function Estrenos(){
                     estrenos.map((estreno,index)=>{ 
                         let movieLink = `/movie/${estreno.id}`
                         return (
-                            
-                            <Link to={movieLink} style={style}>
+                            <Link to={movieLink} style={linkStyle}>
                                 <div className="movie mx-2 mb-4 p-4" key={estreno.id} >
                                     <img src={estreno.primaryImage.url} 
                                     alt="Movie IMG" 
                                     onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} 
                                     className="mb-3"
                                      />
-                                    <p className="movie-title mb-2">{estreno.titleText.text.length<25 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
+                                    <p className="movie-title mb-2">{estreno.titleText.text.length<20 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
                                     <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{colorButton}</span></p>
                                 </div>
                             </Link>
