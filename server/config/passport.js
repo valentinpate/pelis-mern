@@ -3,12 +3,12 @@ const LocalStrategy = require('passport-local')
 const User = require('../models/User')
 const bcrypt=require('bcrypt')
 
-
-passport.use(new LocalStrategy({
+module.exports.inicio = async(passport)=>{
+  passport.use(new LocalStrategy({
     usernameField: 'email', // Campo del formulario que contiene el email
     passwordField: 'password', // Campo del formulario que contiene la contraseña
   },
-    async (email, password, done) => {
+  async (email, password, done) => {
 
       try {
         const user = await User.findOne({ email });
@@ -16,7 +16,7 @@ passport.use(new LocalStrategy({
           return done(null, false, { message: 'Usuario no encontrado' });
         }
          const isPasswordValid = await bcrypt.compare(password, user.password);
-         console.log(isPasswordValid)
+         console.log("isPasswordValid?",isPasswordValid)
         
         if (!isPasswordValid) {
           return done(null, false, { message: 'Contraseña incorrecta' });
@@ -43,5 +43,4 @@ passport.use(new LocalStrategy({
       done(error);
     }
   })
-
-  module.exports = passport
+}
