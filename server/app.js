@@ -19,7 +19,7 @@ app.use(expressSession({
     secret : SECRETSESSION,
     resave : false ,
     saveUninitialized : true,
-    cookie: { maxAge: 3 * 60 * 60 * 1000 }, // mantiene al usuario logeado por 1 hora
+    cookie: { maxAge: 3 * 60 * 60 * 1000 } , // mantiene al usuario logeado por 1 hora
     store: mongoStore.create({
         mongoUrl:process.env.DB_URL
     })
@@ -28,7 +28,12 @@ app.use(expressSession({
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use(cors()) // para conectar FRONT y BACK (diferentes puertos)
+// Configuracion de cors para conectar FRONT y BACK (diferentes puertos)
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true // permitir cookies en el navegador
+}
+app.use(cors(corsOptions)) 
 
 // Configuracion passport
 local.inicio(passport)

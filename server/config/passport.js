@@ -33,11 +33,13 @@ module.exports.inicio = async(passport)=>{
   
   passport.serializeUser((user, done) => {
     done(null, user.id);
+    console.log('serializate',user.id,user.name)
   });
   
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await User.findById(id);
+      const user = await User.findById({_id : id});
+      console.log('desarializate',id,user.name)
       done(null, user);
     } catch (error) {
       done(error);

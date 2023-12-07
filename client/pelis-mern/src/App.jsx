@@ -8,7 +8,7 @@ import SignUp from './SignUp';
 import Home from './Home';
 import Movie from './Movie';
 import Search from './Search';
-import PruebaAuth from './PruebaAuth';
+
 
 function App() {
 const [newArray,setArray]=useState([])
@@ -21,7 +21,6 @@ const linkStyle = {
 
   useEffect(()=>{ //useEffect para el llamado de la API
     async function llamado(){
-      console.log('effect')
         const options = {
           method: 'GET',
           url: 'https://moviesdatabase.p.rapidapi.com/titles/random',
@@ -45,7 +44,7 @@ const linkStyle = {
     }llamado();
 
   async function llamadoHero(){
-    axios.get('http://localhost:3001/')
+    axios.get('http://localhost:3001/',{ withCredentials: true })
     .then(response => setDataSlide(response.data.arraySlide))
     .catch(error => console.error('Error al obtener datos:', error));
     }llamadoHero();
@@ -62,7 +61,6 @@ const linkStyle = {
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/search" element={<Search/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
-          <Route path="/pruebaauth" element={<PruebaAuth/>}></Route>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

@@ -15,6 +15,8 @@ router.get('/failuresignin',userControllers.failuresignin_get)
 
 router.get('/signin',userControllers.signin_get)
 
+router.get('/logout',userControllers.logout_get)
+
 
 
 module.exports = router
