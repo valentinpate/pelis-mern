@@ -7,12 +7,17 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Home from './Home';
 import Movie from './Movie';
+import Search from './Search';
+import PruebaAuth from './PruebaAuth';
 
 function App() {
 const [newArray,setArray]=useState([])
 const [dataSlide, setDataSlide] = useState([]);
 const [user, setUser] = useState(null);
-
+const [busqueda,setBusqueda]=useState("")
+const linkStyle = {
+  textDecoration:"none"
+}
 
   useEffect(()=>{ //useEffect para el llamado de la API
     async function llamado(){
@@ -48,14 +53,16 @@ const [user, setUser] = useState(null);
 
   return (
     <>
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser, busqueda, setBusqueda, linkStyle}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home dataSlide={dataSlide} newArray={newArray}/>}></Route>
           <Route path="*" element={<NoPage/>}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
           <Route path="/signup" element={<SignUp/>}></Route>
+          <Route path="/search" element={<Search/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
+          <Route path="/pruebaauth" element={<PruebaAuth/>}></Route>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
