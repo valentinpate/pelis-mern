@@ -1,61 +1,74 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useSearchParams } from "react-router-dom"
+import { UserContext } from "./UserContext";
 import "./sketch.css"
 
 function Estrenos(){
 
+    const [IdllaveTrailer,setIdLlaveTrailer] = useState(null)
+    const [llaveTrailer,setLlaveTrailer] = useState(false)
+    const [trailer,setTrailer] =useState("")
     const [estrenos,setEstrenos]=useState([])
-    const [busqueda,setBusqueda]=useState("")
     const [pagina,setPagina]=useState(1)
     const [colorButton,setColorButton]=useState("Action")
-    const [q, setQ] = useSearchParams()
-    const style = {
-        textDecoration:"none"
-    }
+    const {busqueda, setBusqueda, linkStyle} = useContext(UserContext)
+    const q = new URLSearchParams()
 
     useEffect(()=>{
-        async function llamaEstrenos(){
-            const options = {
-                method:"GET",
-                url:`https://moviesdatabase.p.rapidapi.com/titles?page=${pagina}`,
-                params:{
-                    info:"base_info",
-                    list:"top_boxoffice_200",
-                    genre: colorButton,
-                    limit:15
-                },
-                headers: {
-                    'X-RapidAPI-Key': '67f656a5b7mshe2db331fbc1afbap1ac1d4jsn2028ca1c89f4',
-                    'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        if(llaveTrailer){
+            async function llamaTrailer(){
+                const options = {
+                    method:"GET",
+                    url:`https://moviesdatabase.p.rapidapi.com/titles/${IdllaveTrailer}`,
+                    params:{
+                        info:"trailer",
+                    },
+                    headers: {
+                        'X-RapidAPI-Key': '67f656a5b7mshe2db331fbc1afbap1ac1d4jsn2028ca1c89f4',
+                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+                    }
                 }
+    
+                try{
+                    const data = await axios.request(options)
+                    let url = data.data.results.trailer+'?autoplay=1&mute=1&loop=1'
+                    setTrailer(url)
+                }catch(err){ console.error(err) }
             }
-
-            try{
-                const data = await axios.request(options)
-            //    console.log("Data API:", data)
-               // console.log("Estrenos:", estrenos)
-
-                if (pagina > 1){
-                     setEstrenos(prevEstrenos => [...prevEstrenos, ...data.data.results]) //setEstrenos pasa del estado anterior del useState (prevEstrenos) a un nuevo estado que suma todos los valores del anterior más todos los valores del nuevo (con spread operator!)
-                }else{setEstrenos(data.data.results)
+            llamaTrailer()
+        }else{
+            async function llamaEstrenos(){
+                const options = {
+                    method:"GET",
+                    url:`https://moviesdatabase.p.rapidapi.com/titles?page=${pagina}`,
+                    params:{
+                        info:"base_info",
+                        list:"top_boxoffice_200",
+                        genre: colorButton,
+                        limit:15
+                    },
+                    headers: {
+                        'X-RapidAPI-Key': '67f656a5b7mshe2db331fbc1afbap1ac1d4jsn2028ca1c89f4',
+                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+                    }
                 }
-            }catch(err){ console.error(err) }
-        } 
-        
-        llamaEstrenos()
-    },[pagina,colorButton])
+    
+                try{
+                    const data = await axios.request(options)
+     console.log(data)
+                    if (pagina > 1){
+                         setEstrenos(prevEstrenos => [...prevEstrenos, ...data.data.results]) //setEstrenos pasa del estado anterior del useState (prevEstrenos) a un nuevo estado que suma todos los valores del anterior más todos los valores del nuevo (con spread operator!)
+                    }else{setEstrenos(data.data.results)
+                    }
+                }catch(err){ console.error(err) }
+            } 
+            
+            llamaEstrenos()
+        }
 
-    console.log("Estrenos:", estrenos)
-   // console.log("Página:", pagina)
 
-   /* let estrenosFiltrados = estrenos.filter((estreno)=>{
-        return estreno.titleText.text.toLowerCase().includes(busqueda.toLowerCase())
-    })
-
-    let estrenosFiltradosPorGenero = estrenosFiltrados.filter((estrenoFiltrado)=>{
-        return estrenoFiltrado.genres.genres[0].text === colorButton //filtra teniendo en cuenta el valor de colorButton
-    })*/
+    },[pagina,colorButton,IdllaveTrailer])
 
     const verMas = (e) => {
         setPagina(pagina+1)
@@ -66,12 +79,35 @@ function Estrenos(){
         }
     }
 
+    const search = () => {
+        q.set("search",busqueda)
+        let query = q.get("search")
+        localStorage.setItem('query', JSON.stringify(busqueda));
+        return query
+    }
+
+    const handleHoverEstrenos = async (e)=>{
+             let index =e.target.id
+             if(index== ""){
+                index = null
+                setIdLlaveTrailer(index)
+             }else{
+                setIdLlaveTrailer(index)
+             }
+             setLlaveTrailer(true)
+    };
+
+    const handleUnhoverEstrenos = ()=>{
+        setIdLlaveTrailer(null)
+        setLlaveTrailer(false)
+        setTrailer("")
+    };
     return(
-        <section className="p-5">
+        <section className="p-5" id="search">
             <div className="d-flex justify-content-between mb-5 position-relative">
                 <h4 className="text-uppercase text-light ms-4">Opening this week</h4>
-                <input type="text" className="estrenos-search me-4 ps-3 bg-transparent border border-1 border-light rounded rounded-2 text-light" placeholder="Search" value={busqueda} onChange={(e)=>{setBusqueda(e.target.value)}} />
-                <button className="btn-search-absolute position-absolute"><i className="bi bi-search px-5"></i></button>
+                <input type="text" className="estrenos-search me-4 ps-3 bg-transparent border border-1 border-light rounded rounded-2 text-light" placeholder="Search" value={busqueda} onChange={(e)=>{setBusqueda(e.target.value)}}/>
+                <button className="btn-search-absolute position-absolute" onClick={search} disabled={busqueda === "" ? "disabled" : ""}><Link to={`/search?query=${search()}`}><i className="btn-search-absolute bi bi-search px-5"></i></Link></button>
             </div>
             <hr />
             <div class="pt-4 pb-5">
@@ -86,18 +122,34 @@ function Estrenos(){
                     estrenos.map((estreno,index)=>{ 
                         let movieLink = `/movie/${estreno.id}`
                         return (
-                            
-                            <Link to={movieLink} style={style}>
-                                <div className="movie mx-2 mb-4 p-4" key={estreno.id} >
-                                    <img src={estreno.primaryImage.url} 
-                                    alt="Movie IMG" 
-                                    onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} 
-                                    className="mb-3"
-                                     />
-                                    <p className="movie-title mb-2">{estreno.titleText.text.length<25 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
-                                    <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{colorButton}</span></p>
-                                </div>
-                            </Link>
+                            <Link to={movieLink} style={linkStyle}  
+                                >
+                                <div className="movie mx-2 mb-4 p-4" key={estreno.id} id={estreno.id} 
+                                    onMouseEnter={handleHoverEstrenos}
+                                    onMouseLeave={handleUnhoverEstrenos}>
+
+                                        {IdllaveTrailer == estreno.id?  
+                                        <div style={{marginTop:'0', overflow:'hidden', width:'15em'}} >
+                                         <iframe class="youtube-video" src={trailer} frameborder="0" allowfullscreen style={{alignSelf:"center"}}></iframe>
+                                         <p className="movie-title mb-2">{estreno.titleText.text}</p>
+                                         <p class="movie-description m-0">{estreno.runtime.seconds/60} min</p>
+                                        <p class="movie-description m-0" style={{alignSelf:'center'}}>{estreno.plot.plotText.plainText}</p>
+                                        </div>
+                                        : 
+                                        <>
+                                        <img src={estreno.primaryImage.url} 
+                                        alt="Movie IMG" 
+                                        onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} 
+                                        className="mb-3"
+                                        />
+                                        <p className="movie-title mb-2">{estreno.titleText.text.length<20 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
+                                        <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{colorButton}</span></p>
+                                        </>
+                                        }
+                                       
+                                    </div>
+                                
+                            </Link> 
                         )
                     })
                 : <h2 className="p-5 text-light">Lo sentimos, en este momento no hay nuevos estrenos.</h2>}

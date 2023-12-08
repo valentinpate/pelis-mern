@@ -40,6 +40,7 @@ const signin_post = async (req, res, next) => {
       if (err) {
         return next(err);
       }
+      username = user
       return res.status(200).json({ mensaje: 'Inicio de sesion exitoso', user });
     });
   })(req, res, next);
@@ -55,4 +56,10 @@ const failuresignin_get = async (req,res) => {
   res.json({mensaje:'Credenciales incorrectas'})
 }
 
-module.exports = { signup_post, signin_post, signin_get, signup_get, failuresignin_get}
+const logout_get = async (req,res) => {
+  req.logout()
+  username = null 
+  res.json(username)
+}
+
+module.exports = { signup_post, signin_post, signin_get, signup_get, failuresignin_get, logout_get}
