@@ -3,12 +3,12 @@ const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/User')
 const bcrypt=require('bcrypt')
 
-
-passport.use(new LocalStrategy({
+module.exports.inicio = async(passport)=>{
+  passport.use(new LocalStrategy({
     usernameField: 'email', // Campo del formulario que contiene el email
     passwordField: 'password', // Campo del formulario que contiene la contraseña
   },
-    async (email, password, done) => {
+  async (email, password, done) => {
 
       try {
         const user = await User.findOne({ email });
@@ -16,12 +16,12 @@ passport.use(new LocalStrategy({
           return done(null, false, { message: 'Usuario no encontrado' });
         }
          const isPasswordValid = await bcrypt.compare(password, user.password);
-         console.log(isPasswordValid)
+         console.log("isPasswordValid?",isPasswordValid)
         
         if (!isPasswordValid) {
           return done(null, false, { message: 'Contraseña incorrecta' });
         }else{
-          console.log(user)
+          //console.log(user)
            return done(null, user);
         }
   
@@ -33,15 +33,16 @@ passport.use(new LocalStrategy({
   
   passport.serializeUser((user, done) => {
     done(null, user.id);
+    console.log('serializate',user.id,user.name)
   });
   
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await User.findById(id);
+      const user = await User.findById({_id : id});
+      console.log('desarializate',id,user.name)
       done(null, user);
     } catch (error) {
       done(error);
     }
   })
-
-  module.exports = passport
+}

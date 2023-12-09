@@ -25,7 +25,7 @@ const SignIn = () => {
     console.log(userData)
 
     
-    axios.post('http://localhost:3001/signin', userData)
+    axios.post('http://localhost:3001/signin', userData, { withCredentials: true })
       .then(response => { 
         console.log('estoy en el front',response.config.data)
         if(response.data.mensaje == 'Credenciales incorrectas'){

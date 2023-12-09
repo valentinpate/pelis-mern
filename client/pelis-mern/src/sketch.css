@@ -143,6 +143,10 @@ p{
     box-shadow:0 0 7px #444444;
 }
 
+.styleTrailer:hover{
+    box-shadow:0 0 7px #444444;
+}
+
 .ver-mas:hover{
     color:var(--red-hover);
 }
@@ -230,6 +234,12 @@ p{
     cursor: pointer;
     transition:box-shadow 0.5s;
 }
+.styleTrailer {
+    padding:0;
+    width:15em;
+    cursor:auto;
+    overflow:'hidden'
+}
 
 .movie-title{
     font-weight:bold;
@@ -308,14 +318,20 @@ p{
 
 .loading-animation{
     animation-name: loading;
-    animation-duration: 5s; /* alargar duración */
+    animation-duration: 10s; /* alargar duración */
 }
 
 @keyframes loading{
     0% {opacity:1}
-    25% {opacity:0.5}
-    50% {opacity:1}
-    75% {opacity:0.5}
+    10% {opacity:0.5}
+    20% {opacity:1}
+    30% {opacity:0.5}
+    40% {opacity:1}
+    50% {opacity:0.5}
+    60% {opacity:1}
+    70% {opacity:0.5}
+    80% {opacity:1}
+    90% {opacity:0.5}
     100% {opacity:1}
 }
 
