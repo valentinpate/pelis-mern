@@ -1,7 +1,7 @@
 import { useContext , useEffect} from 'react';
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
 import NavBar from './NavBar';
-import './sketch.css'
+import '../sketch.css'
 import {NavLink, Link} from "react-router-dom"
 
 function Header(){

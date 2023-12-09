@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { Link, useSearchParams } from "react-router-dom"
-import { UserContext } from "./UserContext";
-import "./sketch.css"
+import { UserContext } from "../../UserContext";
+import '../../sketch.css'
 
 function Estrenos(){
 

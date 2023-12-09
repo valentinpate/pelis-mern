@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import './sketch.css'
-import Header from './Header';
+import '../../sketch.css'
+import Header from '../../components/Header';
 
 const functionSlide = async(setSlide,slide)=>{
     await new Promise(() => setTimeout(()=>{
