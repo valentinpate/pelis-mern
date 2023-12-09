@@ -34,7 +34,7 @@ const signin_post = async (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+      return res.json({ mensaje: 'Credenciales incorrectas' });
     }
     req.logIn(user, (err) => {
       if (err) {
