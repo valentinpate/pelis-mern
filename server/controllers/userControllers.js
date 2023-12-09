@@ -41,6 +41,8 @@ const signin_post = async (req, res, next) => {
         return next(err);
       }
       username = user
+      console.log("Está req autenticado??", req.isAuthenticated())
+      console.log("Usuario", req.user)
       return res.status(200).json({ mensaje: 'Inicio de sesion exitoso', user });
     });
   })(req, res, next);
@@ -57,9 +59,16 @@ const failuresignin_get = async (req,res) => {
 }
 
 const logout_get = async (req,res) => {
-  req.logout()
-  username = null 
-  res.json(username)
+  req.logOut(function(err){
+    if(err){
+        return next(err)
+    }
+  })
+  let message = "llego del logout_get"
+  //username = null
+  console.log(req.user)
+  console.log("Está req autenticado?", req.isAuthenticated())
+  res.json(message)
 }
 
 module.exports = { signup_post, signin_post, signin_get, signup_get, failuresignin_get, logout_get}
