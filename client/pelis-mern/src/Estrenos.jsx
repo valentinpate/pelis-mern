@@ -6,6 +6,7 @@ import "./sketch.css"
 
 function Estrenos(){
 
+    const [likes,setLikes] = useState([])
     const [IdllaveTrailer,setIdLlaveTrailer] = useState(null)
     const [llaveTrailer,setLlaveTrailer] = useState(false)
     const [trailer,setTrailer] =useState("")
@@ -102,6 +103,18 @@ function Estrenos(){
         setLlaveTrailer(false)
         setTrailer("")
     };
+
+    const meGusta = (event)=>{
+        let numero = event.target.id
+        if (!likes.includes(numero)) {
+            setLikes(prevLikes => [...prevLikes, numero]);
+          }else{
+            const nuevoArray = likes.filter(item => item !== numero);
+            setLikes(nuevoArray);
+          }
+       console.log(likes)
+    };
+
     return(
         <section className="p-5" id="search">
             <div className="d-flex justify-content-between mb-5 position-relative">
@@ -122,33 +135,36 @@ function Estrenos(){
                     estrenos.map((estreno,index)=>{ 
                         let movieLink = `/movie/${estreno.id}`
                         return (
-                            <Link to={movieLink} style={linkStyle}  
-                                >
-                                <div className="movie mx-2 mb-4 p-4" key={estreno.id} id={estreno.id} 
+                            <Link to={movieLink} style={linkStyle}
+                                    id={estreno.id} 
                                     onMouseEnter={handleHoverEstrenos}
-                                    onMouseLeave={handleUnhoverEstrenos}>
-
-                                        {IdllaveTrailer == estreno.id?  
-                                        <div style={{marginTop:'0', overflow:'hidden', width:'15em'}} >
-                                         <iframe class="youtube-video" src={trailer} frameborder="0" allowfullscreen style={{alignSelf:"center"}}></iframe>
-                                         <p className="movie-title mb-2">{estreno.titleText.text}</p>
-                                         <p class="movie-description m-0">{estreno.runtime.seconds/60} min</p>
-                                        <p class="movie-description m-0" style={{alignSelf:'center'}}>{estreno.plot.plotText.plainText}</p>
+                                    onMouseLeave={handleUnhoverEstrenos}  
+                                >
+                            {IdllaveTrailer == estreno.id
+                                ?  
+                                <div className={IdllaveTrailer? 'styleTrailer' :"movie mx-2 mb-4 p-4"}>
+                                    <iframe src={trailer} allowfullscreen style={{width: '100%', height: '100%',alignSelf:"flex-start", alignItems:'flex-start',margin:'0%'}}></iframe>
+                                    <p className="movie-title mb-2 m-2">{estreno.titleText.text}</p>
+                                    <div className="d-flex justify-content-between p-2">
+                                        <div className="d-flex justify-content-between mr-5">
+                                            <p class="movie-description" style={{marginRight:'10px'}}>{estreno.releaseYear.year}  </p>
+                                            <p class="movie-description">{estreno.runtime.seconds/60} min</p>
                                         </div>
-                                        : 
-                                        <>
-                                        <img src={estreno.primaryImage.url} 
-                                        alt="Movie IMG" 
-                                        onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} 
-                                        className="mb-3"
-                                        />
-                                        <p className="movie-title mb-2">{estreno.titleText.text.length<20 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
-                                        <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{colorButton}</span></p>
-                                        </>
-                                        }
-                                       
+                                        <Link><i onClick={meGusta} id={index} class="fa-solid fa-heart"style={{color:likes.includes(index)? "red" : "white",marginRight:'20px'}}></i></Link>
                                     </div>
-                                
+                                    <p class="movie-description m-0 p-2">{estreno.plot.plotText.plainText}</p>
+                                </div>  
+                                : 
+                                <div className="movie mx-2 mb-4 p-4" >       
+                                    <img src={estreno.primaryImage.url} 
+                                    alt="Movie IMG" 
+                                    onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} 
+                                    className="mb-3"
+                                    />
+                                    <p className="movie-title mb-2">{estreno.titleText.text.length<20 ? estreno.titleText.text : estreno.titleText.text.slice(0,15) + "..."}</p>
+                                    <p class="movie-description m-0">{estreno.runtime.seconds/60} min | <span className="text-uppercase">{colorButton}</span></p>
+                                </div>
+                                 }
                             </Link> 
                         )
                     })

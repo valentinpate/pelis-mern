@@ -143,6 +143,10 @@ p{
     box-shadow:0 0 7px #444444;
 }
 
+.styleTrailer:hover{
+    box-shadow:0 0 7px #444444;
+}
+
 .ver-mas:hover{
     color:var(--red-hover);
 }
@@ -229,6 +233,12 @@ p{
 .movie{
     cursor: pointer;
     transition:box-shadow 0.5s;
+}
+.styleTrailer {
+    padding:0;
+    width:15em;
+    cursor:auto;
+    overflow:'hidden'
 }
 
 .movie-title{
