@@ -88,7 +88,7 @@ function Estrenos(){
     }
 
     const handleHoverEstrenos = async (e)=>{
-             let index =e.target.id
+             let index =e.target.dataset.id
              if(index== ""){
                 index = null
                 setIdLlaveTrailer(index)
@@ -105,7 +105,7 @@ function Estrenos(){
     };
 
     const meGusta = (event)=>{
-        let numero = event.target.id
+        let numero =event.target.dataset.id
         if (!likes.includes(numero)) {
             setLikes(prevLikes => [...prevLikes, numero]);
           }else{
@@ -136,7 +136,7 @@ function Estrenos(){
                         let movieLink = `/movie/${estreno.id}`
                         return (
                             <Link to={movieLink} style={linkStyle}
-                                    id={estreno.id} 
+                                    data-id={estreno.id} 
                                     onMouseEnter={handleHoverEstrenos}
                                     onMouseLeave={handleUnhoverEstrenos}  
                                 >
@@ -150,7 +150,7 @@ function Estrenos(){
                                             <p class="movie-description" style={{marginRight:'10px'}}>{estreno.releaseYear.year}  </p>
                                             <p class="movie-description">{estreno.runtime.seconds/60} min</p>
                                         </div>
-                                        <Link><i onClick={meGusta} id={index} class="fa-solid fa-heart"style={{color:likes.includes(index)? "red" : "white",marginRight:'20px'}}></i></Link>
+                                        <Link><i onClick={meGusta} data-id={estreno.id} class="fa-solid fa-heart"style={{color:likes.includes(estreno.id)? "red" : "white",marginRight:'20px'}}></i></Link>
                                     </div>
                                     <p class="movie-description m-0 p-2">{estreno.plot.plotText.plainText}</p>
                                 </div>  
