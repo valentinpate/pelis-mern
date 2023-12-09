@@ -21,7 +21,7 @@ module.exports.inicio = async(passport)=>{
         if (!isPasswordValid) {
           return done(null, false, { message: 'Contraseña incorrecta' });
         }else{
-          console.log(user)
+          //console.log(user)
            return done(null, user);
         }
   
