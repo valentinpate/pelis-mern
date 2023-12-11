@@ -2,13 +2,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import { UserContext } from './UserContext';
-import NoPage from './NoPage';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import Home from './Home';
-import Movie from './Movie';
-import Search from './Search';
-
+import NoPage from './pages/noPage/NoPage';
+import SignIn from './pages/signin/SignIn';
+import SignUp from './pages/signup/SignUp';
+import Home from './pages/home/Home';
+import Movie from './pages/movie/Movie';
+import Search from './pages/search/Search';
+import Profiles from "./pages/profile/Profiles"
 
 function App() {
 const [dataSlide, setDataSlide] = useState([]);
@@ -37,6 +37,7 @@ const linkStyle = {
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/search" element={<Search/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
+          <Route path="/profiles" element={<Profiles/>}></Route>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

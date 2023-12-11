@@ -17,6 +17,6 @@ router.get('/signin',userControllers.signin_get)
 
 router.get('/logout',userControllers.logout_get)
 
-
+router.get("/profiles",userControllers.get_all_profiles)
 
 module.exports = router
