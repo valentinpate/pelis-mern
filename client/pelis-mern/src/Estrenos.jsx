@@ -152,7 +152,7 @@ function Estrenos(){
                                         </div>
                                         <Link><i onClick={meGusta} id={index} class="fa-solid fa-heart"style={{color:likes.includes(index)? "red" : "white",marginRight:'20px'}}></i></Link>
                                     </div>
-                                    <p class="movie-description m-0 p-2">{estreno.plot.plotText.plainText}</p>
+                                    <p class="movie-description m-0 p-2">{estreno.plot.plotText.plainText<30 ? estreno.plot.plotText.plainText : estreno.plot.plotText.plainText.slice(0,115) + "..."}</p>
                                 </div>  
                                 : 
                                 <div className="movie mx-2 mb-4 p-4" >       
