@@ -29,7 +29,7 @@ function Header(){
     localStorage.removeItem('user')
     const data = await axios.request({method:"GET",url:"http://localhost:3001/logout"})
     console.log(data)
-    setUser(false)
+    setUser(false) //importante setear a user en falso así se borra el usuario en el front
     navigate("/")
   }
 
@@ -44,6 +44,7 @@ function Header(){
                   <div className='dropdown'>
                     <button className='btn px-4 colorButton ms-2 dropdown-toggle' type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.name}</button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <Link to="/profiles" className="dropdown-item">Profiles</Link>
                       <a className="dropdown-item" onClick={LogOut}>Logout</a>
                      </div>
                   </div>

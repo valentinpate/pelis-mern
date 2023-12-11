@@ -8,8 +8,7 @@ import SignUp from './pages/signup/SignUp';
 import Home from './pages/home/Home';
 import Movie from './pages/movie/Movie';
 import Search from './pages/search/Search';
-import Profiles from './pages/profile/Profiles';
-
+import Profiles from "./pages/profile/Profiles"
 
 function App() {
 const [dataSlide, setDataSlide] = useState([]);
@@ -32,13 +31,13 @@ const linkStyle = {
     <UserContext.Provider value={{user, setUser, busqueda, setBusqueda, linkStyle}}>
       <BrowserRouter>
         <Routes>
-          <Route path='/profiles' element={<Profiles/>}></Route>
           <Route path="/" element={<Home dataSlide={dataSlide}/>}></Route>
           <Route path="*" element={<NoPage/>}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/search" element={<Search/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
+          <Route path="/profiles" element={<Profiles/>}></Route>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
