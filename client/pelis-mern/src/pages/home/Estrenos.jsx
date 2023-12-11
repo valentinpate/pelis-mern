@@ -1,11 +1,10 @@
-import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { Link, useSearchParams } from "react-router-dom"
-import { UserContext } from "./UserContext";
-import "./sketch.css"
+import { Link } from "react-router-dom"
+import { UserContext } from "../../UserContext";
+import '../../sketch.css'
+import { llamaEstrenos,llamaTrailer } from "./logicaEstreno";
 
 function Estrenos(){
-
     const [likes,setLikes] = useState([])
     const [IdllaveTrailer,setIdLlaveTrailer] = useState(null)
     const [llaveTrailer,setLlaveTrailer] = useState(false)
@@ -15,62 +14,16 @@ function Estrenos(){
     const [colorButton,setColorButton]=useState("Action")
     const {busqueda, setBusqueda, linkStyle} = useContext(UserContext)
     const q = new URLSearchParams()
-
+    
     useEffect(()=>{
         if(llaveTrailer){
-            async function llamaTrailer(){
-                const options = {
-                    method:"GET",
-                    url:`https://moviesdatabase.p.rapidapi.com/titles/${IdllaveTrailer}`,
-                    params:{
-                        info:"trailer",
-                    },
-                    headers: {
-                        'X-RapidAPI-Key': '67f656a5b7mshe2db331fbc1afbap1ac1d4jsn2028ca1c89f4',
-                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-                    }
-                }
-    
-                try{
-                    const data = await axios.request(options)
-                    let url = data.data.results.trailer+'?autoplay=1&mute=1&loop=1'
-                    setTrailer(url)
-                }catch(err){ console.error(err) }
-            }
-            llamaTrailer()
+            llamaTrailer(setTrailer,IdllaveTrailer)
         }else{
-            async function llamaEstrenos(){
-                const options = {
-                    method:"GET",
-                    url:`https://moviesdatabase.p.rapidapi.com/titles?page=${pagina}`,
-                    params:{
-                        info:"base_info",
-                        list:"top_boxoffice_200",
-                        genre: colorButton,
-                        limit:15
-                    },
-                    headers: {
-                        'X-RapidAPI-Key': '67f656a5b7mshe2db331fbc1afbap1ac1d4jsn2028ca1c89f4',
-                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-                    }
-                }
-    
-                try{
-                    const data = await axios.request(options)
-     console.log(data)
-                    if (pagina > 1){
-                         setEstrenos(prevEstrenos => [...prevEstrenos, ...data.data.results]) //setEstrenos pasa del estado anterior del useState (prevEstrenos) a un nuevo estado que suma todos los valores del anterior más todos los valores del nuevo (con spread operator!)
-                    }else{setEstrenos(data.data.results)
-                    }
-                }catch(err){ console.error(err) }
-            } 
-            
-            llamaEstrenos()
+            llamaEstrenos(pagina,setEstrenos,colorButton)
         }
-
-
     },[pagina,colorButton,IdllaveTrailer])
 
+    
     const verMas = (e) => {
         setPagina(pagina+1)
         if(pagina === 3){ //ojo con este número! es el número anterior a la última actualización de página (si hay cuatro páginas, acá es pagina === 3)
@@ -88,14 +41,14 @@ function Estrenos(){
     }
 
     const handleHoverEstrenos = async (e)=>{
-             let index =e.target.id
-             if(index== ""){
+            let index =e.target.dataset.id
+            if(index== ""){
                 index = null
                 setIdLlaveTrailer(index)
-             }else{
+            }else{
                 setIdLlaveTrailer(index)
-             }
-             setLlaveTrailer(true)
+            }
+            setLlaveTrailer(true)
     };
 
     const handleUnhoverEstrenos = ()=>{
@@ -105,14 +58,13 @@ function Estrenos(){
     };
 
     const meGusta = (event)=>{
-        let numero = event.target.id
+        let numero =event.target.dataset.id
         if (!likes.includes(numero)) {
             setLikes(prevLikes => [...prevLikes, numero]);
-          }else{
+        }else{
             const nuevoArray = likes.filter(item => item !== numero);
             setLikes(nuevoArray);
-          }
-       console.log(likes)
+        }
     };
 
     return(
@@ -136,7 +88,7 @@ function Estrenos(){
                         let movieLink = `/movie/${estreno.id}`
                         return (
                             <Link to={movieLink} style={linkStyle}
-                                    id={estreno.id} 
+                                    data-id={estreno.id} 
                                     onMouseEnter={handleHoverEstrenos}
                                     onMouseLeave={handleUnhoverEstrenos}  
                                 >
@@ -150,7 +102,7 @@ function Estrenos(){
                                             <p class="movie-description" style={{marginRight:'10px'}}>{estreno.releaseYear.year}  </p>
                                             <p class="movie-description">{estreno.runtime.seconds/60} min</p>
                                         </div>
-                                        <Link><i onClick={meGusta} id={index} class="fa-solid fa-heart"style={{color:likes.includes(index)? "red" : "white",marginRight:'20px'}}></i></Link>
+                                        <Link><i onClick={meGusta} data-id={estreno.id} class="fa-solid fa-heart"style={{color:likes.includes(estreno.id)? "red" : "white",marginRight:'20px'}}></i></Link>
                                     </div>
                                     <p class="movie-description m-0 p-2">{estreno.plot.plotText.plainText}</p>
                                 </div>  

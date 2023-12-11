@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useContext , useEffect} from 'react';
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
 import NavBar from './NavBar';
-import './sketch.css'
+import '../sketch.css'
 import {NavLink, Link, useNavigate} from "react-router-dom"
 
 function Header(){
