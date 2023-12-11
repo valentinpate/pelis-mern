@@ -11,11 +11,11 @@ const functionSlide = async(setSlide,slide)=>{
 
 function Hero({dataSlide}){
     const [trailer,setTrailer]=useState("")
-    let [key,setKey]=useState(true)
-    let [num, setNum]=useState(0)
-    let [hover, setHover] = useState(true)
-    let [viewTrailer,setViewTrailer]=useState(false)
-    let [slide,setSlide]=useState(0)
+    const [key,setKey]=useState(true)
+    const [num, setNum]=useState(0)
+    const [hover, setHover] = useState(true)
+    const [viewTrailer,setViewTrailer]=useState(false)
+    const [slide,setSlide]=useState(0)
 
     useEffect(()=>{
             if (key && num < 6){
