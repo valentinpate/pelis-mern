@@ -29,6 +29,7 @@ function Header(){
     localStorage.removeItem('user')
     const data = await axios.request({method:"GET",url:"http://localhost:3001/logout"})
     console.log(data)
+    setUser(false)
     navigate("/")
   }
 
