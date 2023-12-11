@@ -15,6 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    profiles:[{
+        name:{
+            type:String,
+            required:true
+        },
+        myList:[]
+    }]
 })
 
 userSchema.pre("save", async function(next){   //Agregue este para encriptar las contraseñas
