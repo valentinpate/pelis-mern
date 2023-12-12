@@ -9,6 +9,8 @@ import Home from './pages/home/Home';
 import Movie from './pages/movie/Movie';
 import Search from './pages/search/Search';
 import Profiles from "./pages/profile/Profiles"
+import CreateProfile from './pages/profile/CreateProfile';
+
 
 function App() {
 const [dataSlide, setDataSlide] = useState([]);
@@ -38,6 +40,7 @@ const linkStyle = {
           <Route path="/search" element={<Search/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
           <Route path="/profiles" element={<Profiles/>}></Route>
+          <Route path="createProfile" element={<CreateProfile/>}></Route>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

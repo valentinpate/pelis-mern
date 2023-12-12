@@ -20,6 +20,7 @@ const signup_post = async (req, res) => {
     const blankUser = "/img/blank_user.png"
     await newUser.save()  // Crear y guardar el nuevo usuario en la base de datos
     await User.updateOne({_id:newUser._id},{$push:{profiles:{image:blankUser,name:newUser.name,myList:[]}}})
+    await User.updateOne({_id:newUser._id},{$push:{profiles:{image:blankUser,name:newUser.name,myList:[]}}})
     return res.status(201).json({ message: 'Usuario creado exitosamente' })
   } catch (error) {
     return res.status(500).json({ message: 'Hubo un error al crear el usuario', error })
@@ -50,16 +51,6 @@ const signin_post = async (req, res, next) => {
   })(req, res, next);
 }
 
-
-const signin_get = async (req,res) => {
-  res.json({mensaje:'Inicio de sesion exitoso'})
-}
-
-
-const failuresignin_get = async (req,res) => {
-  res.json({mensaje:'Credenciales incorrectas'})
-}
-
 const logout_get = async (req,res) => {
   req.logOut(function(err){
     if(err){
@@ -67,8 +58,6 @@ const logout_get = async (req,res) => {
     }
   })
   let message = "llego del logout_get"
-  //username = null
-  console.log(req.user)
   console.log("Está req autenticado?", req.isAuthenticated())
   res.json(message)
 }
@@ -79,12 +68,23 @@ const get_all_profiles = async (req,res) => {
   res.json(profiles)
 }
 
-module.exports = { 
-  signup_post,
-  signin_post, 
-  signin_get, 
-  signup_get, 
-  failuresignin_get, 
-  logout_get,
-  get_all_profiles
+const create_profile = async(req,res) =>{
+  const{name, image}= req.body
+  console.log('llego',name, "image", image)
+  try{
+    if(req.isAuthenticated()){
+     const match = await User.findOne({ 'profile[].name':name})
+     console.log(match)
+     if(match){
+      return res.status(200).json({ mensaje: 'el usuario ya exite'});
+     }else{
+      await User.findById(req.user.id);
+      await req.user.crearPerfil(name,image)
+      return res.status(200).json({ mensaje: 'usuario creado con exito'});
+     }
+    }
+  }catch(e){
+    console.error(e)
+  }
 }
+module.exports = { signup_post, signin_post, signup_get, logout_get, get_all_profiles, create_profile}

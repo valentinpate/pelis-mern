@@ -16,7 +16,6 @@ module.exports.inicio = async(passport)=>{
           return done(null, false, { message: 'Usuario no encontrado' });
         }
          const isPasswordValid = await bcrypt.compare(password, user.password);
-         console.log("isPasswordValid?",isPasswordValid)
         
         if (!isPasswordValid) {
           return done(null, false, { message: 'Contraseña incorrecta' });
@@ -33,13 +32,11 @@ module.exports.inicio = async(passport)=>{
   
   passport.serializeUser((user, done) => {
     done(null, user.id);
-    console.log('serializate',user.id,user.name)
   });
   
   passport.deserializeUser(async (id, done) => {
     try {
       const user = await User.findById({_id : id});
-      console.log('desarializate',id,user.name)
       done(null, user);
     } catch (error) {
       done(error);
