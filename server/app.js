@@ -11,6 +11,7 @@ const passport = require('passport')
 const LocalStrategy = require ('passport-local').Strategy
 const local = require('./config/passport')
 const flash = require('connect-flash')
+const googleRoutes = require('./routes/googleRoutes')
 
 const app = express()
 
@@ -72,4 +73,4 @@ app.get('/api/pelihero', (req,res) => {
 //     res.sendFile(path.join(__dirname, '../client/pelis-mern/public', 'index.html'));
 //   });
 
-app.use(userRoutes,pelisRoutes)
+app.use(userRoutes,pelisRoutes,googleRoutes)
