@@ -29,7 +29,6 @@ app.use(expressSession({
     })
 }))
 
-app.use(express.static(path.join(__dirname, '../client/pelis-mern/public')))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 

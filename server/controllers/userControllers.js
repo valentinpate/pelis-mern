@@ -79,4 +79,12 @@ const get_all_profiles = async (req,res) => {
   res.json(profiles)
 }
 
-module.exports = { signup_post, signin_post, signin_get, signup_get, failuresignin_get, logout_get, get_all_profiles}
+module.exports = { 
+  signup_post,
+  signin_post, 
+  signin_get, 
+  signup_get, 
+  failuresignin_get, 
+  logout_get,
+  get_all_profiles
+}
