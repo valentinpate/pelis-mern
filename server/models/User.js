@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     profiles:[{
+        _id:false,
+        image:{
+            type:String,
+            required:true,
+        },
         name:{
             type:String,
             required:true
@@ -42,6 +47,19 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
         throw new Error(err);
     }
   };
+
+userSchema.methods.crearPerfil = async function(name,image) {
+    try{
+    const newUser = name
+    const blankUser = image
+    await newUser.save()  // Crear y guardar el nuevo usuario en la base de datos
+    await User.updateOne({_id:newUser._id},{$push:{profiles:{image:blankUser,name:newUser,myList:[]}}})
+    console.log("creado con exito")
+  } catch (error) {
+    console.log(error)
+  }
+  };
+
   
 const User = mongoose.model('User', userSchema);
 
