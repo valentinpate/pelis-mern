@@ -12,7 +12,7 @@ function Estrenos(){
     const [estrenos,setEstrenos]=useState([])
     const [pagina,setPagina]=useState(1)
     const [colorButton,setColorButton]=useState("Action")
-    const {busqueda, setBusqueda, linkStyle} = useContext(UserContext)
+    const {busqueda, setBusqueda} = useContext(UserContext)
     const q = new URLSearchParams()
     
     useEffect(()=>{
@@ -87,7 +87,7 @@ function Estrenos(){
                     estrenos.map((estreno,index)=>{ 
                         let movieLink = `/movie/${estreno.id}`
                         return (
-                            <Link to={movieLink} style={linkStyle}
+                            <Link to={movieLink} style={{textDecoration:"none"}}
                                     data-id={estreno.id} 
                                     onMouseEnter={handleHoverEstrenos}
                                     onMouseLeave={handleUnhoverEstrenos}  

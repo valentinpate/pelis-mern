@@ -20,6 +20,7 @@ const signup_post = async (req, res) => {
     const blankUser = "/img/blank_user.png"
     await newUser.save()  // Crear y guardar el nuevo usuario en la base de datos
     await User.updateOne({_id:newUser._id},{$push:{profiles:{image:blankUser,name:newUser.name,myList:[]}}})
+    await User.updateOne({_id:newUser._id},{$push:{profiles:{image:blankUser,name:newUser.name,myList:[]}}})
     return res.status(201).json({ message: 'Usuario creado exitosamente' })
   } catch (error) {
     return res.status(500).json({ message: 'Hubo un error al crear el usuario', error })
