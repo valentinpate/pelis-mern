@@ -71,8 +71,5 @@ app.get('/api/pelihero', (req,res) => {
     .then(allPeliHero => res.json(allPeliHero))
 })
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/pelis-mern/public', 'index.html'));
-//   });
 
 app.use(userRoutes,pelisRoutes,googleRoutes)
