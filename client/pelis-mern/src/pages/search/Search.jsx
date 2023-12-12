@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from "react-router-dom"
 import axios from "axios"
 import {useState,useEffect,useContext} from "react"
-import { UserContext } from "./UserContext"
-import Header from "./Header"
+import { UserContext } from "../../UserContext"
+import Header from "../../components/Header"
 
 function Search(){
     const {busqueda, setBusqueda, linkStyle} = useContext(UserContext)

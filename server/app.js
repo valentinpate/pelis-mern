@@ -15,6 +15,8 @@ const googleRoutes = require('./routes/googleRoutes')
 
 const app = express()
 
+app.use(express.static("public"))
+
 // Configuracion de la session
 const SECRETSESSION = process.env.SECRETSESSION
 app.use(expressSession({
