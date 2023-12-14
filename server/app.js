@@ -68,5 +68,6 @@ connectDataBase()
 google.googleStrategy(passport)
 app.use(userRoutes,pelisRoutes)
 app.use(passport.authenticate("google",{
-    scope : ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile"]
+    scope : ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile"],
+    session:false
 }),googleRoutes)
