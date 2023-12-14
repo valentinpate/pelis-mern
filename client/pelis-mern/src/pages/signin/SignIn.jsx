@@ -68,7 +68,7 @@ const SignIn = () => {
             </form>
             <p class="align-self-start mt-2">Al continuar, aceptas las <a href="">Condiciones de uso</a> y el <a href="">Aviso de privacidad</a> de Movies Hub</p>
             <div class="d-flex flex-column">
-                <NavLink to="/google"><button className='btn colorButton p-2 btnRegistro mb-2'><i class="bi bi-google pe-1"></i>Registrese con Google</button></NavLink>
+              <a href='http://localhost:3001/google'><button className='btn colorButton p-2 btnRegistro mb-2'><i class="bi bi-google pe-1"></i>Registrese con Google</button></a>
                 <button className='btn colorButton p-2 btnRegistro'><i class="bi bi-instagram pe-1"></i>Registrese con Instagram</button>
             </div>
         </div>
