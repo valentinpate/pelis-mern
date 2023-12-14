@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 
 function Profiles(){
     const [profiles, setProfiles] = useState([]);
+
     useEffect(()=>{
         async function obtainProfiles(){
             const data = await axios.request({method:"GET",url:"http://localhost:3001/profiles"})
@@ -12,6 +13,26 @@ function Profiles(){
             setProfiles(data.data)
         }
         obtainProfiles()
+    async function avatar (){
+        const options = {
+            method: 'GET',
+            url: 'https://username-profile-picture-generator.p.rapidapi.com/user/exampleusername',
+            params: {bold: 'true'},
+            headers: {
+              'X-RapidAPI-Key': '67f656a5b7mshe2db331fbc1afbap1ac1d4jsn2028ca1c89f4',
+              'X-RapidAPI-Host': 'username-profile-picture-generator.p.rapidapi.com'
+            }
+          };
+          
+          try {
+              const response = await axios.request(options);
+              console.log(response.data);
+          } catch (error) {
+              console.error("este es el error",error);
+          }
+    }
+    avatar()
+
     },[])
     return(
         <>
@@ -23,12 +44,10 @@ function Profiles(){
         <div class="d-flex justify-content-center">
         {
             profiles.map((e)=>{
-                const partes = e.image.split('/');
-                const nombreArchivo = partes[partes.length - 1];
               return(
                 
                 <div class='m-5 '>
-                <img width="140" height="140" class="bd-placeholder-img rounded-circle" src={nombreArchivo} alt="" />
+                <img  onError={(e)=> {e.target.onerror = null; e.target.src = "/blank_user.png"}}  class="bd-placeholder-img rounded-circle border" src={e.image} alt="" />
                 <h4 class="fw-normal text-center">{e.name}</h4>
                 </div>
                 
