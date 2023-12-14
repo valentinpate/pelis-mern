@@ -29,10 +29,14 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
-userSchema.pre("save", async function(next){   //Agregue este para encriptar las contraseñas
-    const salt= await bcrypt.genSalt()
-    this.password= await bcrypt.hash(this.password,salt)
-    next()
+userSchema.pre("save", async function(next){  //Agregue este para encriptar las contraseñas
+    if (this.skipPreSave) {
+        return next(); // No ejecutar el middleware
+    }else{
+        const salt= await bcrypt.genSalt()
+        this.password= await bcrypt.hash(this.password,salt)
+        next()
+    } 
 })
 
 userSchema.post("save",function(doc,next){ //este no esta haciendo nada pero por ahi nos sirve
@@ -49,15 +53,14 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   };
 
 userSchema.methods.crearPerfil = async function(name,image) {
+    this.skipPreSave = true;
+    let profiles=this.profiles
     try{
-    const newUser = name
-    const blankUser = image
-    await newUser.save()  // Crear y guardar el nuevo usuario en la base de datos
-    await User.updateOne({_id:newUser._id},{$push:{profiles:{image:blankUser,name:newUser,myList:[]}}})
-    console.log("creado con exito")
+    await profiles.push({image:image,name:name,myList:[]})
   } catch (error) {
     console.log(error)
   }
+  return this.save()
   };
 
   
