@@ -1,14 +1,37 @@
-require('../config/passport')
-require('../config/google')
-const passport = require('passport')
+// require('../config/passport')
+// require('../config/google')
+// const passport = require('passport')
+// const User = require('../models/User')
 
-const google_get = passport.authenticate('google', { scope: ['profile', 'email' , 'name'] })
+// const google_get = (req,res) => {
 
-const google_callback_get = passport.authenticate('google', { failureRedirect: '/signin' }, (req,res) =>{
-    res.redirect('http://localhost:3000/')
-})
+// }
 
-module.exports = { google_get, google_callback_get }
+// const googleCallback = async (req, res, next) => {
+//     const { id, displayName, emails, photos } = req.user;
+  
+//     try {
+//       let user = await User.findOne({ googleId: id });
+  
+//       if (!user) {
+//         user = await User.create({
+//           googleId: id,
+//           name: displayName,
+//           email: emails[0].value,
+//           profiles: [{ image: photos[0].value, name: displayName, myList: [] }]
+//         });
+//       }
+  
+//       req.logIn(user, function(err) {
+//         if (err) { return next(err); }
+//         return res.redirect('/');
+//       });
+//     } catch (err) {
+//       next(err);
+//     }
+//   };
+
+// module.exports = { google_get, googleCallback }
 
 
 

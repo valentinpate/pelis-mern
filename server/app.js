@@ -12,6 +12,7 @@ const LocalStrategy = require ('passport-local').Strategy
 const local = require('./config/passport')
 const flash = require('connect-flash')
 const googleRoutes = require('./routes/googleRoutes')
+const google = require ('./config/google')
 
 const app = express()
 
@@ -62,13 +63,10 @@ const connectDataBase = async () => {
 
 connectDataBase()
 
-// BACK como API para enviar informacion al FRONT
-const PeliHero = require('./models/PeliHero')
-
-app.get('/api/pelihero', (req,res) => {
-    PeliHero.find()
-    .then(allPeliHero => res.json(allPeliHero))
-})
 
 
-app.use(userRoutes,pelisRoutes,googleRoutes)
+google.googleStrategy(passport)
+app.use(userRoutes,pelisRoutes)
+app.use(passport.authenticate("google",{
+    scope : ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile"]
+}),googleRoutes)
