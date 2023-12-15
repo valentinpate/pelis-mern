@@ -65,16 +65,16 @@ const get_all_profiles = async (req,res) => {
 }
 
 const create_profile = async(req,res) =>{
-  const{name, image}= req.body
+  const{id, name, image}= req.body
+  console.log("Resultados", id, name, image)
   try{
     if(req.isAuthenticated()){
-     const match = await User.findOne({'profiles.name':name})
-     if(match){
-      return res.json({ mensaje: 'el usuario ya exite'});
-     }else{
-      await req.user.crearPerfil(name,image)
+      console.log("hay autenticado")
+     //const match = await User.findOne({'profiles.name':name})
+      await req.user.crearPerfil(id, name,image)
       return res.json({ mensaje: 'usuario creado con exito'});
-     }
+    }else{
+      console.log("no hay autenticado")
     }
   }catch(e){
     console.error(e)

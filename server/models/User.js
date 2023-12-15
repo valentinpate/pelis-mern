@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
         sparse: true  // permite documentos sin el campo googleId
       },
     profiles:[{
-        _id:false,
         image:{
             type:String,
             required:true,
@@ -57,14 +56,17 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     }
   };
 
-userSchema.methods.crearPerfil = async function(name,image) {
+userSchema.methods.crearPerfil = async function(id, name,image) {
     this.skipPreSave = true;
-    let profiles=this.profiles
+    let user = await User.findById(id)
+    let profiles = user.profiles
     try{
-    await profiles.push({image:image,name:name,myList:[]})
+    console.log(profiles)
+    profiles.push({image:image,name:name,myList:[]})
   } catch (error) {
     console.log(error)
   }
+  console.log("en la base")
   return this.save()
   };
 
