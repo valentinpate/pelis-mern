@@ -44,8 +44,8 @@ function Header(){
                   <div className='dropdown'>
                     <button className='btn px-4 colorButton ms-2 dropdown-toggle' type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.name}</button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <Link to="/profiles" className="dropdown-item">Profiles</Link>
-                      <a className="dropdown-item" onClick={LogOut}>Logout</a>
+                      <Link to="/profiles" className="dropdown-item hoverModal">Profiles</Link>
+                      <a className="dropdown-item hoverModal" onClick={LogOut}>Logout</a>
                      </div>
                   </div>
                 ) : ( <NavLink to="/signin"><button class="btn px-4 colorButton ms-2">Sign in</button></NavLink>

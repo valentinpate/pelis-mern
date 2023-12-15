@@ -155,6 +155,9 @@ p{
     color:var(--red);
 }
 
+.hoverModal:hover{
+    color:var(--red);
+}
 /* Clases */
 
 /*.background{

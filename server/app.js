@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const mongoStore = require("connect-mongo")
@@ -10,6 +11,8 @@ const passport = require('passport')
 const LocalStrategy = require ('passport-local').Strategy
 const local = require('./config/passport')
 const flash = require('connect-flash')
+const googleRoutes = require('./routes/googleRoutes')
+const google = require ('./config/google')
 
 const app = express()
 
@@ -60,4 +63,11 @@ const connectDataBase = async () => {
 
 connectDataBase()
 
+
+
+google.googleStrategy(passport)
 app.use(userRoutes,pelisRoutes)
+app.use(passport.authenticate("google",{
+    scope : ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile"],
+    session:false
+}),googleRoutes)
