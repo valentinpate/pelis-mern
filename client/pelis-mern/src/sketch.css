@@ -129,6 +129,10 @@ p{
     background-color: var(--red-hover) !important
 }
 
+.reverseColorButton:hover{
+    background-color: var(--red) !important
+}
+
 
 .social-media i:hover{
     color:var(--red)
@@ -312,6 +316,12 @@ p{
 
 .colorButton{
     background-color: var(--red) !important;
+    color: white !important;
+    transition: background-color 0.5s !important;
+}
+
+.reverseColorButton{
+    background-color: var(--red-hover) !important;
     color: white !important;
     transition: background-color 0.5s !important;
 }

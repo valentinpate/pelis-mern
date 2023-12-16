@@ -1,22 +1,22 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import Header from '../../components/Header';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { UserContext } from "../../UserContext";
 
 function Profiles(){
     const {user} = useContext(UserContext)
+    const navigate = useNavigate()
     const [profileMenu, setProfileMenu] = useState(true)
     const [profileCreator, setProfileCreator] = useState(false)
     const [profileEditor, setProfileEditor] = useState(false)
     const [profiles, setProfiles] = useState([]);
 
-    const [id, setId] = useState("")
     const [name,setName] = useState("")
     const [image,setImage] = useState("/blank_user.png")
     useEffect(()=>{
         async function obtainProfiles(){
-            const data = await axios.request({method:"GET",url:"http://localhost:3001/profiles"})
+            const data = await axios.request({method:"GET",url:"http://localhost:3001/profiles",withCredentials:true})
             console.log(data.data)
             setProfiles(data.data)
         }
@@ -62,14 +62,20 @@ function Profiles(){
 
     const postProfile = async (e)=>{
         e.preventDefault()
-        setId(user._id)
         const send = await axios.post("http://localhost:3001/create-profile",{
-            id,
-            name,
-            image
+            id:user._id,
+            name:name,
+            image:image
+        }, {withCredentials: true})
+        .then(response => ()=>{
+            console.log(response.data)
+            navigate("/")
         })
-        .then(response => console.log(response))
         .catch(error => console.log(error))
+    }
+
+    const postResponse = ()=>{
+        
     }
     return(
         <>
@@ -78,66 +84,80 @@ function Profiles(){
                 <div className="d-flex justify-content-center text-light">
                     <h1>Who's watching?</h1>
                 </div>
-                {profiles.length > 0 ? <div className="d-flex flex-wrap justify-content-center">
-                    {
-                        profiles.map((e)=>{
-                            return(
-                    
-                                <div className='m-5' key={e._id}>
-                                <img onError={(e)=> {e.target.onerror = null; e.target.src = "/blank_user.png"}}  class="bd-placeholder-img rounded-circle border mb-3" src={e.image} alt="" />
+                {profiles.length > 0 ? 
+                <div className="d-flex flex-wrap justify-content-center">
+                {
+                    profiles.map((e)=>{
+                        return(
+                            <div className='m-5' key={e._id}>
+                                <img onError={(e)=> {e.target.onerror = null; e.target.src = "/blank_user.png"}}  Name="bd-placeholder-img rounded-circle border mb-3" src={e.image} alt="" />
                                 <h4 className="fw-normal text-center text-light">{e.name}</h4>
-                                </div>
-                    
-                            )
-
-                
+                            </div>
+                        )
                 })}
-            
                     <div className="d-flex flex-column justify-content-center">
                         <button className="btn btn-secondary rounded-circle mb-2" onClick={createProfile}><i className="bi bi-plus-lg"></i></button>
                         <button className="btn btn-secondary rounded-circle mt-2 mb-5" onClick={editProfile}><i className="bi bi-pencil-square"></i></button>
                     </div>
-            
-                </div> : <div class="mx-4 d-flex justify-content-center">
-                            <img src="/icon.png" alt="" className="loading-animation"></img>
-                        </div>} </>}
+                </div> 
+                : 
+                <div class="mx-4 d-flex justify-content-center">
+                    <img src="/icon.png" alt="" className="loading-animation"></img>
+                </div>} </>
+            }
             {profileCreator && 
-                <div className="">
-                    <div className="d-flex justify-content-between mt-2 mb-4 mx-5">
+                <>
+                    <div className="d-flex justify-content-between py-5 px-5" style={{width:"25%",margin:"0 auto"}}>
                         <h2 className="text-light">Create Profile</h2>
                         <button className="btn btn-secondary rounded-circle mb-2" onClick={exit}><i className="bi bi-x-lg"></i></button>
                     </div>
-                    <div className="d-flex align-items-center justify-content-center">
-                        <h5 className="text-light me-4">Your New Profile is:</h5>
-                        <div className="d-flex flex-column justify-content-center">
-                            <img src={image} alt="" style={{width:"4em"}} className="rounded-circle ms-3 mb-2" />
-                            <p className="text-light text-center" style={{width:"6em"}}><b>{name==="" ? "Insert Name" : name}</b></p>
+                    <div class="border border-1 py-5" style={{width:"25%", margin:"0 auto"}}>
+                        <div className="d-flex align-items-center justify-content-center">
+                            <h5 className="text-light me-4">Your New Profile is:</h5>
+                            <div className="d-flex flex-column justify-content-center">
+                                <img src={image} alt="" style={{width:"4em"}} className="rounded-circle ms-3 mb-2" />
+                                <p className="text-light text-center" style={{width:"6em"}}><b>{name==="" ? "Insert Name" : name}</b></p>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column align-items-center justify-content-center">
+                            <form action="" onSubmit={(e)=>{postProfile(e).then( setTimeout( ()=>{ navigate("/") }, 1000 ) )}}>
+
+                                <div className="mt-4 mb-5 d-flex align-items-center justify-content-between">
+                                    <h4 className="text-light">Name:</h4>
+                                    <input type="text" name="name" maxLength="20" className="new-name-input ps-1 py-1 bg-transparent border border-1 border-light rounded rounded-1 text-light" style={{width:"18em"}} value={name} onChange={(e)=>{setName(e.target.value)}}/>
+                                </div>
+                                <h5 className="text-light mb-2">Choose your default image:</h5>
+                                <div className="d-flex flex-column">
+                                    <div className="profile-selector d-flex justify-content-evenly my-3">
+                                        <img src="/blank_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
+                                        <img src="/orange_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
+                                        <img src="/guitar_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
+                                        <img src="/reel_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
+                                    </div>
+                                    <button className="btn my-2 text-light colorButton">Create Profile</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div className="d-flex flex-column align-items-center justify-content-center">
-                        <form action="" onSubmit={postProfile}>
-
-                            <div className="mt-4 mb-5 d-flex align-items-center justify-content-between">
-                                <h4 className="text-light">Name:</h4>
-                                <input type="text" name="name" maxLength="20" className="new-name-input ps-1 py-1 bg-transparent border border-1 border-light rounded rounded-1 text-light" style={{width:"18em"}} value={name} onChange={(e)=>{setName(e.target.value)}}/>
-                            </div>
-                            <h5 className="text-light mb-2">Choose your default image:</h5>
-                            <div className="d-flex flex-column">
-                                <div className="profile-selector d-flex justify-content-evenly my-3">
-                                    <img src="/blank_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
-                                    <img src="/orange_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
-                                    <img src="/guitar_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
-                                    <img src="/reel_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
-                                </div>
-                                <button className="btn my-2 text-light colorButton">Create Profile</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                </>
             }
-            {profileEditor && <>
-            <p>soy el Profile Editor</p>
-            <button className="btn btn-secondary rounded-circle mb-2" onClick={exit}><i className="bi bi-x-lg"></i></button>
+
+            {profileEditor && 
+            <>
+                <div className="d-flex justify-content-between py-5 px-5" style={{width:"75%",margin:"0 auto"}}>
+                        <h2 className="text-light">Edit Profile</h2>
+                        <button className="btn btn-secondary rounded-circle mb-2" onClick={exit}><i className="bi bi-x-lg"></i></button>
+                </div>
+                {
+                    profiles.map((e)=>{
+                        return(
+                            <div className='profile-selector position-relative reverseColorButton pt-3 d-flex align-items-center justify-content-center' key={e._id} style={{width:"30%", margin:"2em auto"}}>
+                                <img onError={(e)=> {e.target.onerror = null; e.target.src = "/blank_user.png"}}  className="bd-placeholder-img rounded-circle border mb-3" src={e.image} alt="" />
+                                <h2 className="ms-4 fw-normal text-center"><b>{e.name}</b></h2>
+                                <button className="position-absolute btn btn-dark rounded-circle mb-2" style={{top:"0.7em", right:"1.3em"}}><i className="bi bi-pencil-square"></i></button> {/*Link to="/edit-profile"*/}
+                            </div>
+                        )
+                })}
             </>}
         </>
     )

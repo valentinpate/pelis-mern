@@ -36,14 +36,14 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function(next){  //Agregue este para encriptar las contraseñas
     if (this.skipPreSave) {
         return next(); // No ejecutar el middleware
-    }else{
-        const salt= await bcrypt.genSalt()
-        this.password= await bcrypt.hash(this.password,salt)
-        next()
-    } 
+    }
+    const salt= await bcrypt.genSalt()
+    this.password= await bcrypt.hash(this.password,salt)
+    next()
 })
 
 userSchema.post("save",function(doc,next){ //este no esta haciendo nada pero por ahi nos sirve
+    console.log("USER:",doc)
     next()
 })
 
@@ -57,18 +57,16 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   };
 
 userSchema.methods.crearPerfil = async function(id, name,image) {
-    this.skipPreSave = true;
-    let user = await User.findById(id)
-    let profiles = user.profiles
+    let user = await User.findById(id) //traemos data de la base de datos y los guardamos en la variable user
+    user.skipPreSave = true; //en este caso this no sirve porque trabajamos con datos que fueron construidos por el modelo PERO NO SON el modelo! this = El modelo User.js
     try{
-    console.log(profiles)
-    profiles.push({image:image,name:name,myList:[]})
-  } catch (error) {
-    console.log(error)
-  }
-  console.log("en la base")
-  return this.save()
-  };
+        user.profiles.push({image:image,name:name,myList:[]})
+    } catch (error) {
+        console.log(error)
+    }
+    console.log("en la base")
+    return user.save()
+};
 
   
 const User = mongoose.model('User', userSchema);

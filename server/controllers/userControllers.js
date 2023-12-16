@@ -27,6 +27,7 @@ const signup_post = async (req, res) => {
 }
 
 const signup_get = async (req,res) =>{
+  console.log("está req autenticado en signup", req.isAuthenticated())
        res.json({ message: 'hola todo bien' })
 }
 
@@ -43,6 +44,7 @@ const signin_post = async (req, res, next) => {
         return next(err);
       }
       username = user
+      console.log("Está req autenticado", req.isAuthenticated())
       return res.status(200).json({ mensaje: 'Inicio de sesion exitoso', user });
     });
   })(req, res, next);
@@ -59,6 +61,7 @@ const logout_get = async (req,res) => {
 }
 
 const get_all_profiles = async (req,res) => {
+  console.log("está req autenticado en profiles?", req.isAuthenticated())
   let call = await User.findById({_id:username.id})
   let profiles = call.profiles
   res.json(profiles)
@@ -72,7 +75,7 @@ const create_profile = async(req,res) =>{
       console.log("hay autenticado")
      //const match = await User.findOne({'profiles.name':name})
       await req.user.crearPerfil(id, name,image)
-      return res.json({ mensaje: 'usuario creado con exito'});
+      return res.json({ mensaje: 'Perfil creado con éxito.'});
     }else{
       console.log("no hay autenticado")
     }
