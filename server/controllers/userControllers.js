@@ -83,4 +83,41 @@ const create_profile = async(req,res) =>{
     console.error(e)
   }
 }
-module.exports = { signup_post, signin_post, signup_get, logout_get, get_all_profiles, create_profile}
+
+const get_user = async(req, res) => {
+    const {id} = req.body
+    const user = await User.findById(id)
+    return res.json(user)
+}
+
+const update_profile = async(req, res) => {
+  const {id, index, name, image} = req.body
+  try{
+    if(req.isAuthenticated()){
+      await req.user.editarPerfil(id, index, name, image)
+      return res.json({message:"Perfil actualizado."})
+    }
+  }catch(err){
+    console.log(err)
+  }
+}
+
+const delete_profile = async(req,res) => {
+  console.log("USUARIO:", req.user)
+  const {id,profileId} = req.body
+  console.log("ID:", id)
+  try{
+    const deleteProfile = await User.findByIdAndUpdate(id,{$pull:{ "profiles": {_id:profileId} } })
+    if(deleteProfile){
+      console.log("Perfil eliminado.")
+      res.json({message:"Perfil eliminado."})
+    }else{
+      console.log("Perfil no eliminado")
+    }
+  }catch(err){
+    console.log(err)
+  }
+  /*await User.findByIdAndUpdate(id,{$pull:{ profiles: {_id:profileId} } }*/
+}
+
+module.exports = { signup_post, signin_post, signup_get, logout_get, get_all_profiles, create_profile, get_user, update_profile, delete_profile}

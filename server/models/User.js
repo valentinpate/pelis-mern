@@ -68,6 +68,18 @@ userSchema.methods.crearPerfil = async function(id, name,image) {
     return user.save()
 };
 
+userSchema.methods.editarPerfil = async function(id, index, name, image){
+    let user = await User.findById(id)
+    user.skipPreSave = true
+    try{
+        user.profiles[index].name = name
+        user.profiles[index].image = image
+    } catch (err) {
+        console.log(err)
+    }
+    console.log("actualizado")
+    return user.save()
+}
   
 const User = mongoose.model('User', userSchema);
 

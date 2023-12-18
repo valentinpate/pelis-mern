@@ -134,6 +134,7 @@ function Profiles(){
                                         <img src="/guitar_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
                                         <img src="/reel_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
                                     </div>
+                                    <hr className="text-light border border-1" />
                                     <button className="btn my-2 text-light colorButton">Create Profile</button>
                                 </div>
                             </form>
@@ -150,11 +151,12 @@ function Profiles(){
                 </div>
                 {
                     profiles.map((e)=>{
+                        let profileLink = `/edit-profile/${e._id}`
                         return(
                             <div className='profile-selector position-relative reverseColorButton pt-3 d-flex align-items-center justify-content-center' key={e._id} style={{width:"30%", margin:"2em auto"}}>
                                 <img onError={(e)=> {e.target.onerror = null; e.target.src = "/blank_user.png"}}  className="bd-placeholder-img rounded-circle border mb-3" src={e.image} alt="" />
                                 <h2 className="ms-4 fw-normal text-center"><b>{e.name}</b></h2>
-                                <button className="position-absolute btn btn-dark rounded-circle mb-2" style={{top:"0.7em", right:"1.3em"}}><i className="bi bi-pencil-square"></i></button> {/*Link to="/edit-profile"*/}
+                                <Link to={profileLink} style={{textDecoration:"none"}}><button className="position-absolute btn btn-dark rounded-circle mb-2" style={{top:"0.7em", right:"1.3em"}}><i className="bi bi-pencil-square"></i></button></Link>
                             </div>
                         )
                 })}
