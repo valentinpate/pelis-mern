@@ -12,7 +12,7 @@ router.get('/login/success', (req,res)=>{
             error:false
         })
     } else {
-        // res.status(403).json({error:true , message:"User not authenticated"})
+        res.status(403).json({error:true , message:"User not authenticated"})
     }
 })
 
