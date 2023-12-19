@@ -25,6 +25,17 @@ function Header(){
     }
   }, [user]);
 
+  // Busca los datos de autenticacion de Google
+useEffect(() => {
+  async function googleAuthentication() {
+    const response = await axios.get('http://localhost:3001/auth/login/success', { withCredentials: true });
+    if (response.data.user) {
+      setUser(response.data.user);
+    }
+  }
+  googleAuthentication();
+}, []);
+
   const LogOut = async () => {
     localStorage.removeItem('user')
     const data = await axios.request({method:"GET",url:"http://localhost:3001/logout"})
