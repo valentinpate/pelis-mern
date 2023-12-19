@@ -36,6 +36,7 @@ app.use(express.urlencoded({extended:true}))
 // Configuracion de cors para conectar FRONT y BACK (diferentes puertos)
 const corsOptions = {
     origin: 'http://localhost:3000',
+    methods: "GET,POST,DELETE,PUT",
     credentials: true // permitir cookies en el navegador
 }
 app.use(cors(corsOptions)) 
@@ -67,7 +68,4 @@ connectDataBase()
 
 google.googleStrategy(passport)
 app.use(userRoutes,pelisRoutes)
-app.use(passport.authenticate("google",{
-    scope : ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/userinfo.profile"],
-    session:false
-}),googleRoutes)
+app.use('/auth', googleRoutes)
