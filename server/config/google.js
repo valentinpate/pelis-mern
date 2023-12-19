@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require ('mongoose')
-const GoogleStrategy = require('passport-google-oauth20').Strategy
+const GoogleStrategy = require('passport-google-oauth20')
 const User = require('../models/User')
 const passport = require('passport')
 const crypto = require('crypto')
@@ -16,8 +16,10 @@ module.exports.googleStrategy = async function(passport) {passport.use("google",
   new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/google"
+    callbackURL: "http://localhost:3001/auth/google/callback",
+    scope: ["profile", "email"]
   },
+  
   async function(accessToken, refreshToken, profile, cb) {
     let userGoogle = await User.findOne({ googleId: profile.id });
 
@@ -29,7 +31,7 @@ module.exports.googleStrategy = async function(passport) {passport.use("google",
         email: profile.emails[0].value,
         profiles: [{ image: profile.photos[0].value, name: profile.name.givenName, myList: [] }]
       });
-
+      
       await userGoogle.save();
     }
 
