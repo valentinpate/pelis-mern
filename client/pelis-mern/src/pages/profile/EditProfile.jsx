@@ -23,7 +23,7 @@ function EditProfile(){
     const sendChanges = async (e) => {
         e.preventDefault()
         if(subjectName === "" || subjectName === user.profiles[index].name){
-            setError("Error: You can't have an empty field as your new name")
+            setError(true)
         }else{
             await axios.post("http://localhost:3001/update-profile",{
                 id:user._id,
@@ -31,6 +31,7 @@ function EditProfile(){
                 name:subjectName,
                 image:subjectImage
             }, {withCredentials: true})
+            navigate("/")
         }
     }
 
@@ -83,9 +84,9 @@ function EditProfile(){
                                         <img src="/guitar_user.png" alt="" className="mx-2" onClick={(e)=>{setSubjectImage(e.target.src)}}/>
                                         <img src="/reel_user.png" alt="" className="mx-2" onClick={(e)=>{setSubjectImage(e.target.src)}}/>
                                     </div>
-                                    {error ? <p className="text-center text-light mt-2" style={{fontSize:"0.9rem"}}><b>{error}</b></p> : <hr className="text-light border border-1" />}
-                                    <button className="btn my-2 text-light colorButton" onClick={(e)=>{sendChanges(e).then(setTimeout( async()=>{ await update(); navigate("/") }, 1000 ))}}>Save Profile</button>
-                                    <button className="btn my-2 text-light reverseColorButton" onClick={(e)=>{deleteProfile(e).then(setTimeout( ()=>{ navigate("/") }, 1000 ))}}>Delete Profile</button>
+                                    {error ? <p className="text-center text-light mt-2" style={{fontSize:"0.9rem"}}><b>Error: You can't have an empty field as your new name</b></p> : <hr className="text-light border border-1" />}
+                                    <button className="btn my-2 text-light colorButton" onClick={(e)=>{sendChanges(e).then(setTimeout( async()=>{ await update(); }, 1000 ))}}>Save Profile</button>
+                                    <button className="btn my-2 text-light reverseColorButton" onClick={(e)=>{deleteProfile(e).then(setTimeout( ()=>{ if(error==null){ navigate("/") } }, 1000 ))}}>Delete Profile</button>
                                 </div>
                             </form>
                         </div>

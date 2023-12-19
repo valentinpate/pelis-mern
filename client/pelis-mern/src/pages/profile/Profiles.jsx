@@ -11,6 +11,7 @@ function Profiles(){
     const [profileCreator, setProfileCreator] = useState(false)
     const [profileEditor, setProfileEditor] = useState(false)
     const [profiles, setProfiles] = useState([]);
+    const [error, setError] = useState(null)
 
     const [name,setName] = useState("")
     const [image,setImage] = useState("/blank_user.png")
@@ -62,21 +63,23 @@ function Profiles(){
 
     const postProfile = async (e)=>{
         e.preventDefault()
-        const send = await axios.post("http://localhost:3001/create-profile",{
+        if(name === ""){
+            setError(true)
+        }else{
+            await axios.post("http://localhost:3001/create-profile",{
             id:user._id,
             name:name,
             image:image
-        }, {withCredentials: true})
-        .then(response => ()=>{
-            console.log(response.data)
+            }, {withCredentials: true})
+            .then(response => ()=>{
+                console.log(response.data)
+            })
+            .catch(error => console.log(error))
             navigate("/")
-        })
-        .catch(error => console.log(error))
-    }
-
-    const postResponse = ()=>{
+        }
         
     }
+
     return(
         <>
             <Header/>
@@ -120,7 +123,7 @@ function Profiles(){
                             </div>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-center">
-                            <form action="" onSubmit={(e)=>{postProfile(e).then( setTimeout( ()=>{ navigate("/") }, 1000 ) )}}>
+                            <form action="" onSubmit={postProfile}>
 
                                 <div className="mt-4 mb-5 d-flex align-items-center justify-content-between">
                                     <h4 className="text-light">Name:</h4>
@@ -134,7 +137,7 @@ function Profiles(){
                                         <img src="/guitar_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
                                         <img src="/reel_user.png" alt="" className="mx-2" onClick={(e)=>{setImage(e.target.src)}}/>
                                     </div>
-                                    <hr className="text-light border border-1" />
+                                    {error ? <p className="text-center text-light mt-2" style={{fontSize:"0.9rem"}}><b>Error: You can't have an empty field as your new name</b></p> : <hr className="text-light border border-1" />}
                                     <button className="btn my-2 text-light colorButton">Create Profile</button>
                                 </div>
                             </form>
