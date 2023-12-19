@@ -27,6 +27,7 @@ const signup_post = async (req, res) => {
 }
 
 const signup_get = async (req,res) =>{
+  console.log("está req autenticado en signup", req.isAuthenticated())
        res.json({ message: 'hola todo bien' })
 }
 
@@ -43,6 +44,7 @@ const signin_post = async (req, res, next) => {
         return next(err);
       }
       username = user
+      console.log("Está req autenticado", req.isAuthenticated())
       return res.status(200).json({ mensaje: 'Inicio de sesion exitoso', user });
     });
   })(req, res, next);
@@ -59,25 +61,63 @@ const logout_get = async (req,res) => {
 }
 
 const get_all_profiles = async (req,res) => {
+  console.log("está req autenticado en profiles?", req.isAuthenticated())
   let call = await User.findById({_id:username.id})
   let profiles = call.profiles
   res.json(profiles)
 }
 
 const create_profile = async(req,res) =>{
-  const{name, image}= req.body
+  const{id, name, image}= req.body
+  console.log("Resultados", id, name, image)
   try{
     if(req.isAuthenticated()){
-     const match = await User.findOne({'profiles.name':name})
-     if(match){
-      return res.json({ mensaje: 'el usuario ya exite'});
-     }else{
-      await req.user.crearPerfil(name,image)
-      return res.json({ mensaje: 'usuario creado con exito'});
-     }
+      console.log("hay autenticado")
+     //const match = await User.findOne({'profiles.name':name})
+      await req.user.crearPerfil(id, name,image)
+      return res.json({ mensaje: 'Perfil creado con éxito.'});
+    }else{
+      console.log("no hay autenticado")
     }
   }catch(e){
     console.error(e)
   }
 }
-module.exports = { signup_post, signin_post, signup_get, logout_get, get_all_profiles, create_profile}
+
+const get_user = async(req, res) => {
+    const {id} = req.body
+    const user = await User.findById(id)
+    return res.json(user)
+}
+
+const update_profile = async(req, res) => {
+  const {id, index, name, image} = req.body
+  try{
+    if(req.isAuthenticated()){
+      await req.user.editarPerfil(id, index, name, image)
+      return res.json({message:"Perfil actualizado."})
+    }
+  }catch(err){
+    console.log(err)
+  }
+}
+
+const delete_profile = async(req,res) => {
+  console.log("USUARIO:", req.user)
+  const {id,profileId} = req.body
+  console.log("ID:", id)
+  try{
+    const deleteProfile = await User.findByIdAndUpdate(id,{$pull:{ "profiles": {_id:profileId} } })
+    if(deleteProfile){
+      console.log("Perfil eliminado.")
+      res.json({message:"Perfil eliminado."})
+    }else{
+      console.log("Perfil no eliminado")
+    }
+  }catch(err){
+    console.log(err)
+  }
+  /*await User.findByIdAndUpdate(id,{$pull:{ profiles: {_id:profileId} } }*/
+}
+
+module.exports = { signup_post, signin_post, signup_get, logout_get, get_all_profiles, create_profile, get_user, update_profile, delete_profile}

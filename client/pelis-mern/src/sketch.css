@@ -100,6 +100,11 @@ p{
     transition: color 0.5s;
 }
 
+.profile-selector img{
+    width:5em;
+    cursor:pointer;
+}
+
 /* Pseudoclases */
 
 .hoverEnlace:hover{
@@ -122,6 +127,10 @@ p{
 
 .colorButton:hover{
     background-color: var(--red-hover) !important
+}
+
+.reverseColorButton:hover{
+    background-color: var(--red) !important
 }
 
 
@@ -297,12 +306,22 @@ p{
     right:4em;
 }
 
+.new-name-input{
+    background-color:#444444;
+}
+
 .sacarEnlace{
     text-decoration: none;
 }
 
 .colorButton{
     background-color: var(--red) !important;
+    color: white !important;
+    transition: background-color 0.5s !important;
+}
+
+.reverseColorButton{
+    background-color: var(--red-hover) !important;
     color: white !important;
     transition: background-color 0.5s !important;
 }
