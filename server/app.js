@@ -69,3 +69,4 @@ connectDataBase()
 google.googleStrategy(passport)
 app.use(userRoutes,pelisRoutes)
 app.use('/auth', googleRoutes)
+

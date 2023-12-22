@@ -22,9 +22,7 @@ const SignIn = () => {
     e.preventDefault();
 
     const userData = { email , password}
-    console.log(userData)
 
-    
     axios.post('http://localhost:3001/signin', userData, { withCredentials: true })
       .then(response => { 
         if(response.data.mensaje == 'Credenciales incorrectas'){
@@ -69,15 +67,12 @@ const SignIn = () => {
             <p class="align-self-start mt-2">Al continuar, aceptas las <a href="">Condiciones de uso</a> y el <a href="">Aviso de privacidad</a> de Movies Hub</p>
 
             <div class="d-flex">
-              <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1"></i>Registrese con Google</button></a>
-
-
-                <button className='btn colorButton p-2 btnRegistro'><i class="bi bi-instagram pe-1"></i>Registrese con Instagram</button>
+              <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1 iconRegister"></i>Registrese con Google</button></a>
+              <a href='http://localhost:3001/auth/facebook' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-facebook pe-1 iconRegister"></i>Registrese con Facebook</button></a>  
             </div>
         </div>
-        <div class="d-flex  pt-2">
+        <div class="d-flex  pt-2">  
             <p className='pe-2'>¿No tienes cuenta en Movies Hub?</p><NavLink to="/signup"><a href="" className='ps-2'>Crear tu cuenta</a></NavLink>
-            {/* <button className="btn colorButton ancho p-2">Crear tu cuenta de Movies Hub</button> */}
         </div>
       
     </div>

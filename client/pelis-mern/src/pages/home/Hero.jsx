@@ -9,7 +9,7 @@ const functionSlide = async(setSlide,slide)=>{
     }, 6000));
 } 
 
-function Hero({dataSlide}){
+function Hero({ dataSlide }){
     const [trailer,setTrailer]=useState("")
     const [key,setKey]=useState(true)
     const [num, setNum]=useState(0)

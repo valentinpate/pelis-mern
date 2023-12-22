@@ -23,19 +23,21 @@ module.exports.googleStrategy = async function(passport) {passport.use("google",
   async function(accessToken, refreshToken, profile, cb) {
     let userGoogle = await User.findOne({ googleId: profile.id });
 
+    
+
     if (!userGoogle) {
+      const blank_user = "/img/blank_user.png"
       userGoogle = new User({
         googleId: profile.id,
         name: profile.displayName,
         password: generatePassword(),
         email: profile.emails[0].value,
-        profiles: [{ image: profile.photos[0].value, name: profile.name.givenName, myList: [] }]
+        profiles: [{ image: blank_user, name: profile.name.givenName, myList: [] }]
       });
       
       await userGoogle.save();
     }
 
-    console.log('soy el profile', profile)
     return cb(null, userGoogle);
   }
   ))}

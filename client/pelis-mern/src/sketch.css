@@ -338,6 +338,10 @@ p{
     width: 25rem;
 }
 
+.iconRegister{
+    font-size: 1.5rem;
+}
+
 .loading-animation{
     animation-name: loading;
     animation-duration: 10s; /* alargar duración */

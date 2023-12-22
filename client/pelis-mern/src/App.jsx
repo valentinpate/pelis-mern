@@ -17,6 +17,7 @@ function App() {
 const [dataSlide, setDataSlide] = useState([]);
 const [user, setUser] = useState(null);
 const [busqueda,setBusqueda]=useState("")
+const [loggedOut,setLoggedOut] = useState(false)
 const linkStyle = {
   textDecoration:"none"
 }
@@ -28,6 +29,7 @@ const linkStyle = {
         .catch(error => console.error('Error al obtener datos:', error));
         }llamadoHero();
       },[]) 
+
 
   return (
     <>
