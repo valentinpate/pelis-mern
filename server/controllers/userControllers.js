@@ -2,6 +2,7 @@ const User = require('../models/User')
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 require('../config/passport')
+const express = require('express')
 
 let username = null
 
@@ -56,13 +57,14 @@ const logout_get = async (req,res) => {
         return next(err)
     }
   })
+  console.log(req.user)
   let message = "llego del logout_get"
   res.json(message)
 }
 
 const get_all_profiles = async (req,res) => {
   console.log("está req autenticado en profiles?", req.isAuthenticated())
-  let call = await User.findById({_id:username.id})
+  let call = await User.findById({_id:req.user.id})
   let profiles = call.profiles
   res.json(profiles)
 }

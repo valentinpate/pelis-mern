@@ -5,7 +5,7 @@ import Footer from '../../components/Footer'
 import Estrenos from './Estrenos';
 import ProxEstrenos from './ProxEstrenos';
 
-function Home({ dataSlide}){
+function Home({ dataSlide }){
   
   return (
     <>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext , useEffect} from 'react';
+import { useContext , useEffect , useState} from 'react';
 import { UserContext } from '../UserContext';
 import NavBar from './NavBar';
 import '../sketch.css'
@@ -7,6 +7,7 @@ import {NavLink, Link, useNavigate} from "react-router-dom"
 
 function Header(){
   const {user , setUser} = useContext(UserContext)
+  const [loggedOut,setLoggedOut] = useState(false) 
   const navigate = useNavigate()
    // Al cargar el componente, verificamos si la información del usuario está en localStorage
    useEffect(() => {
@@ -25,23 +26,33 @@ function Header(){
     }
   }, [user]);
 
-  // Busca los datos de autenticacion de Google
+   // Busca los datos de autenticacion de Google
 useEffect(() => {
   async function googleAuthentication() {
-    const response = await axios.get('http://localhost:3001/auth/login/success', { withCredentials: true });
+    if(user || loggedOut) {
+      return
+    }
+    try{
+    const response = await axios.get('http://localhost:3001/auth/google/user', { withCredentials: true });
     if (response.data.user) {
       setUser(response.data.user);
+      console.log('userGoogle front', response.data.user)
+    } else {
+      setUser(null);
+    }  
+    } catch (e) {
+      console.log('el error de google es', e)
     }
   }
   googleAuthentication();
-}, []);
+}, [user, loggedOut]);
 
   const LogOut = async () => {
     localStorage.removeItem('user')
     const data = await axios.request({method:"GET",url:"http://localhost:3001/logout"})
-    console.log(data)
+    console.log('vengo de logout',data)
     setUser(false) //importante setear a user en falso así se borra el usuario en el front
-    navigate("/")
+    navigate("/signin")
   }
 
   return (
@@ -56,7 +67,7 @@ useEffect(() => {
                     <button className='btn px-4 colorButton ms-2 dropdown-toggle' type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.name}</button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <Link to="/profiles" className="dropdown-item hoverModal">Profiles</Link>
-                      <a className="dropdown-item hoverModal" onClick={LogOut}>Logout</a>
+                      <button onClick={LogOut} className="dropdown-item hoverModal" >Logout</button>
                      </div>
                   </div>
                 ) : ( <NavLink to="/signin"><button class="btn px-4 colorButton ms-2">Sign in</button></NavLink>
