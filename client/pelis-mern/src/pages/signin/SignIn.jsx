@@ -68,7 +68,7 @@ const SignIn = () => {
 
             <div class="d-flex">
               <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1 iconRegister"></i>Registrese con Google</button></a>
-              <a href='http://localhost:3001/auth/facebook' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-facebook pe-1 iconRegister"></i>Registrese con Facebook</button></a>  
+              <a href='http://localhost:3001/auth/twitter' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-twitter pe-1 iconRegister"></i>Registrese con Twitter</button></a>  
             </div>
         </div>
         <div class="d-flex  pt-2">  
