@@ -8,6 +8,7 @@ import {NavLink, Link, useNavigate} from "react-router-dom"
 function Header(){
   const {user , setUser} = useContext(UserContext)
   const [loggedOut,setLoggedOut] = useState(false) 
+  const {profileName} = useContext(UserContext)
   const navigate = useNavigate()
    // Al cargar el componente, verificamos si la información del usuario está en localStorage
    useEffect(() => {
@@ -62,9 +63,9 @@ useEffect(() => {
             <div class="header-content d-flex justify-content-evenly align-items-center">
              <NavBar></NavBar>
                 <a href="#search"><button class="btn-search"><i class="bi bi-search px-5"></i></button></a>
-                { user ?(
+                { user && profileName ?(
                   <div className='dropdown'>
-                    <button className='btn px-4 colorButton ms-2 dropdown-toggle' type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.name}</button>
+                    <button className='btn px-4 colorButton ms-2 dropdown-toggle' type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{profileName === null ? user.name : profileName}</button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <Link to="/profiles" className="dropdown-item hoverModal">Profiles</Link>
                       <button onClick={LogOut} className="dropdown-item hoverModal" >Logout</button>
