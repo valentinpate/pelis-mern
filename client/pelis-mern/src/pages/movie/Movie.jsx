@@ -1,14 +1,16 @@
 import axios from "axios"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useContext} from "react"
 import { useParams } from "react-router-dom"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import '../../sketch.css'
+import { UserContext } from "../../UserContext"
 
 function Movie(){
     const [movie,setMovie] = useState({})
     const [last,setLast] = useState([])
     const {id} = useParams()
+    const {user, profileId} = useContext(UserContext)
     useEffect(()=>{
         async function callMovie(){
             const options = {
@@ -43,10 +45,13 @@ function Movie(){
 
     const sendToMyList = async (e) => {
       e.preventDefault()
-      await axios.post("http://localhost:3001/add-to-my-list",
+      const response = await axios.post("http://localhost:3001/lists/add-to-my-list",
       {
+        id:user._id,
+        profId:profileId,
         movie:movie
-      })
+      },{withCredentials:true})
+      console.log(response)
     }
 
     return(
@@ -73,7 +78,7 @@ function Movie(){
                         </div>
                         <h4 className="mx-3 my-3">{movie.plot.plotText.plainText}</h4>
                         <form onSubmit={sendToMyList}>
-                        <button className="btn colorButton ms-3">Add to my list</button>
+                          <button className="btn colorButton ms-3">Add to my list</button>
                         </form>
                     </div>
                 </div>
