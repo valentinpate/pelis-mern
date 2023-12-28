@@ -11,6 +11,7 @@ import Search from './pages/search/Search';
 import Profiles from "./pages/profile/Profiles"
 import CreateProfile from './pages/profile/CreateProfile';
 import EditProfile from './pages/profile/EditProfile';
+import MyList from './pages/Mylist/MyList';
 
 
 function App() {
@@ -44,6 +45,7 @@ const linkStyle = {
           <Route path="/movie/:id" element={<Movie/>}></Route>
           <Route path="/profiles" element={<Profiles/>}></Route>
           <Route path="/edit-profile/:id" element={<EditProfile/>}></Route>
+          <Route path="/mylist" element={<MyList/>}></Route>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
