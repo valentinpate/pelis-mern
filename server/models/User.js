@@ -80,6 +80,28 @@ userSchema.methods.editarPerfil = async function(id, index, name, image){
     console.log("actualizado")
     return user.save()
 }
+
+userSchema.methods.addToMyList = async function (id, movie) {
+    let user = await User.findById(id)
+    try{
+        user.profiles[0].myList.push(movie)
+    } catch (err) {
+        console.log(err)
+    }
+    console.log("agregado")
+    return user.save()
+}
+
+userSchema.methods.deleteFromMyList = async function (id, movie) {
+    let user = await User.findById(id)
+    try{
+        user.profiles[0].myList = user.profiles[0].myList.filter(m => m.id !== movie.id)
+    } catch (err) {
+        console.log(err)
+    }
+    console.log("borrado")
+    return user.save()
+}
   
 const User = mongoose.model('User', userSchema);
 

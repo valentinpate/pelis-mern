@@ -63,6 +63,7 @@ function Movie(){
                           <h6><b className="mx-1">(</b>Votos: {movie.ratingsSummary.voteCount}<b className="mx-1">)</b></h6>
                         </div>
                         <h4 className="mx-3 my-3">{movie.plot.plotText.plainText}</h4>
+                        <button className="btn colorButton ms-3">Add to my list</button>
                     </div>
                 </div>
             <Footer/>
