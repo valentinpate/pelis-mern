@@ -40,7 +40,7 @@ const SignIn = () => {
 
 
     if (login == "exitoso") {
-        return <Navigate to="/"/>;
+        return <Navigate to="/profiles"/>;
     }
 
  

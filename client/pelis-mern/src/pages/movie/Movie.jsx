@@ -40,6 +40,15 @@ function Movie(){
     console.log(movie)
     console.log(last)
 
+
+    const sendToMyList = async (e) => {
+      e.preventDefault()
+      await axios.post("http://localhost:3001/add-to-my-list",
+      {
+        movie:movie
+      })
+    }
+
     return(
         <>
            <Header/>
@@ -63,7 +72,9 @@ function Movie(){
                           <h6><b className="mx-1">(</b>Votos: {movie.ratingsSummary.voteCount}<b className="mx-1">)</b></h6>
                         </div>
                         <h4 className="mx-3 my-3">{movie.plot.plotText.plainText}</h4>
+                        <form onSubmit={sendToMyList}>
                         <button className="btn colorButton ms-3">Add to my list</button>
+                        </form>
                     </div>
                 </div>
             <Footer/>

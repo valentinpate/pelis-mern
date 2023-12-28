@@ -85,10 +85,10 @@ userSchema.methods.editarPerfil = async function(id, index, name, image){
     return user.save()
 }
 
-userSchema.methods.addToMyList = async function (id, movie) {
+userSchema.methods.addToMyList = async function (id, movie, index) {
     let user = await User.findById(id)
     try{
-        user.profiles[0].myList.push(movie)
+        user.profiles[index].myList.push(movie) 
     } catch (err) {
         console.log(err)
     }
@@ -96,10 +96,10 @@ userSchema.methods.addToMyList = async function (id, movie) {
     return user.save()
 }
 
-userSchema.methods.deleteFromMyList = async function (id, movie) {
+userSchema.methods.deleteFromMyList = async function (id, movie, index) {
     let user = await User.findById(id)
     try{
-        user.profiles[0].myList = user.profiles[0].myList.filter(m => m.id !== movie.id)
+        user.profiles[index].myList = user.profiles[index].myList.filter(m => m.id !== movie.id)
     } catch (err) {
         console.log(err)
     }

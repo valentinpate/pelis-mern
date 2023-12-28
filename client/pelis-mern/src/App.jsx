@@ -19,9 +19,7 @@ const [dataSlide, setDataSlide] = useState([]);
 const [user, setUser] = useState(null);
 const [busqueda,setBusqueda]=useState("")
 const [loggedOut,setLoggedOut] = useState(false)
-const linkStyle = {
-  textDecoration:"none"
-}
+const [profileName,setProfileName] = useState(null)
 
   useEffect(()=>{ //useEffect para el llamado de la API
       async function llamadoHero(){
@@ -34,7 +32,7 @@ const linkStyle = {
 
   return (
     <>
-    <UserContext.Provider value={{user, setUser, busqueda, setBusqueda, linkStyle}}>
+    <UserContext.Provider value={{user, setUser, busqueda, setBusqueda, profileName , setProfileName}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home dataSlide={dataSlide}/>}></Route>

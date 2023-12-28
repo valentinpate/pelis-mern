@@ -12,4 +12,8 @@ const add_to_my_list = async (req,res) => {
     }
 }
 
+const get_my_list = async (req,res) => {
+    const user = await User.findById(req.params.id)
+}
+
 module.exports={add_to_my_list}
