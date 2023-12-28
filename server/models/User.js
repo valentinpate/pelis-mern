@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
         unique: true,
     },
     password: {
@@ -19,7 +18,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         sparse: true  // permite documentos sin el campo googleId
-      },
+    },
+    twitterId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
     profiles:[{
         image:{
             type:String,

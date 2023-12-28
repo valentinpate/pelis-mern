@@ -13,6 +13,8 @@ const local = require('./config/passport')
 const flash = require('connect-flash')
 const googleRoutes = require('./routes/googleRoutes')
 const google = require ('./config/google')
+const twitterRoutes = require("./routes/twitterRoutes")
+const twitter = require ('./config/twitter')
 
 const app = express()
 
@@ -67,6 +69,7 @@ connectDataBase()
 
 
 google.googleStrategy(passport)
+twitter.twitterStrategy(passport)
 app.use(userRoutes,pelisRoutes)
 app.use('/auth', googleRoutes)
-
+app.use('/auth', twitterRoutes)
