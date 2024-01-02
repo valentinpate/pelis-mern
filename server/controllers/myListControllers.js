@@ -12,6 +12,17 @@ const add_to_my_list = async (req,res) => {
     }
 }
 
+const delete_from_my_list = async (req,res) => {
+    try {
+        const { id , profId, movieId } = req.params
+        const user = await User.findById(id)
+        await user.deleteFromMyList(id, profId, movieId)
+        res.json({message:"Eliminado de My List"})
+    } catch (e){
+        console.log('error al add-to-my-list',e)
+    }
+}
+
 const get_my_list = async (req,res) => {
     const {id, profId} = req.body
     const user = await User.findById(id)
@@ -20,4 +31,4 @@ const get_my_list = async (req,res) => {
     res.json({list:list})
 }
 
-module.exports={add_to_my_list, get_my_list}
+module.exports={add_to_my_list, delete_from_my_list, get_my_list}

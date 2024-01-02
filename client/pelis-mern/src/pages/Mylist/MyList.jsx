@@ -3,18 +3,16 @@ import { useContext, useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import '../../sketch.css'
 import { UserContext } from '../../UserContext';
+import { Link } from 'react-router-dom';
 
 function MyList(){
-  const {user, profileId, profileName} = useContext(UserContext)
-  const [list, setList] = useState([])
+  const {user, profileId, profileName, list, setList} = useContext(UserContext)
   useEffect(()=>{
     async function getList(){
       try{
         const response = await axios.post("http://localhost:3001/lists/get-my-list", {id:user._id, profId:profileId}, {withCredentials:true})
         console.log(response)
-        if(response.data.list.length == 0){
-          console.log("no hay")
-        }else{
+        if(response.data.list.length > 0){
           console.log("hay")
           setList(response.data.list)
         }
@@ -26,16 +24,20 @@ function MyList(){
   return (
     <>
         <Header />
-        <h1 className='text-light ms-3 text-center'>My List</h1>
+        <h1 className='text-light ms-3 text-center'>My List - {profileName}</h1>
         {list != [] ? 
         <>
-          <div className='d-flex flex-wrap'>
-            <h3 className="text-light">{profileId}</h3>
-          </div> 
-          <div>
+          <div className="d-flex flex-wrap px-5 mb-5">
           {list.length > 0 ? list.map((mov)=>{
+            let movieLink = `/movie/${mov.id}`
             return(
-              <h3 class="text-light">{mov.titleText.text}</h3>
+              <Link to={movieLink} style={{textDecoration:"none"}}>
+                  <div class="movie mx-2 mb-4 p-4 position-relative" key={mov.id}>
+                      <img src={mov.primaryImage === null ? "tba.jpg" : mov.primaryImage.url} alt="Movie IMG" class="mb-3" />
+                      <p class="movie-title mb-2">{mov.titleText.text.length<25 ? mov.titleText.text : mov.titleText.text.slice(0,15) + "..."}</p>
+                      <p class="movie-description m-0">{mov.runtime === null ? "???" : mov.runtime.seconds/60} min | <span className="text-uppercase">{mov.genres.genres[0].text}</span></p>
+                  </div>
+              </Link>
             )
           }) : <h3 className="text-light">There are no movies in your list. Consider adding some.</h3>}
           </div>
