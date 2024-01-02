@@ -49,7 +49,6 @@ function Movie(){
       console.log(findOnList)
       return findOnList
     }
-    onList()
     
     const sendToMyList = async () => {
       const response = await axios.post("http://localhost:3001/lists/add-to-my-list",
