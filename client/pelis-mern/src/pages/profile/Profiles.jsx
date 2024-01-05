@@ -13,7 +13,7 @@ function Profiles(){
     const [profileEditor, setProfileEditor] = useState(false)
     const [profiles, setProfiles] = useState([]);
     const [error, setError] = useState(null)
-    const {profileName,setProfileName} = useContext(UserContext)
+    const {profileName,setProfileName,profileId,setProfileId} = useContext(UserContext)
 
     const [name,setName] = useState("")
     const [image,setImage] = useState("/blank_user.png")
@@ -94,7 +94,7 @@ function Profiles(){
                 {
                     profiles.map((e)=>{
                         return(
-                            <Link to="/" onClick={()=>{setProfileName(e.name)}} style={{textDecoration : "none"}}>
+                            <Link to="/" onClick={()=>{setProfileId(e._id); setProfileName(e.name)}} style={{textDecoration : "none"}}>
                             <div className='m-5' key={e._id}>
                                 <img onError={(e)=> {e.target.onerror = null; e.target.src = "/blank_user.png"}}  Name="bd-placeholder-img rounded-circle border mb-3" src={e.image} alt="" />
                                 <h4 className="fw-normal text-center text-light">{e.name}</h4>

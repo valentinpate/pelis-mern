@@ -1,14 +1,17 @@
 import axios from "axios"
-import {useState, useEffect} from "react"
-import { useParams } from "react-router-dom"
+import {useState, useEffect, useContext} from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import '../../sketch.css'
+import { UserContext } from "../../UserContext"
 
 function Movie(){
     const [movie,setMovie] = useState({})
     const [last,setLast] = useState([])
     const {id} = useParams()
+    const {user, profileId, list} = useContext(UserContext)
+    const navigate = useNavigate()
     useEffect(()=>{
         async function callMovie(){
             const options = {
@@ -40,13 +43,26 @@ function Movie(){
     console.log(movie)
     console.log(last)
 
-
-    const sendToMyList = async (e) => {
-      e.preventDefault()
-      await axios.post("http://localhost:3001/add-to-my-list",
+   
+    const onList = ()=>{
+      const findOnList = list.some(mov => mov.id === movie.id)
+      console.log(findOnList)
+      return findOnList
+    }
+    
+    const sendToMyList = async () => {
+      const response = await axios.post("http://localhost:3001/lists/add-to-my-list",
       {
+        id:user._id,
+        profId:profileId,
         movie:movie
-      })
+      },{withCredentials:true})
+      console.log(response)
+    }
+
+    const deleteFromMyList = async() => {
+      const response = await axios.delete(`http://localhost:3001/lists/delete-from-my-list/${user._id}/${profileId}/${movie.id}`, {withCredentials:true})
+      console.log(response)
     }
 
     return(
@@ -72,9 +88,12 @@ function Movie(){
                           <h6><b className="mx-1">(</b>Votos: {movie.ratingsSummary.voteCount}<b className="mx-1">)</b></h6>
                         </div>
                         <h4 className="mx-3 my-3">{movie.plot.plotText.plainText}</h4>
-                        <form onSubmit={sendToMyList}>
-                        <button className="btn colorButton ms-3">Add to my list</button>
-                        </form>
+                        {onList() ? 
+                          <button onClick={()=>{deleteFromMyList().then(setTimeout( ()=>{ navigate("/") }, 1000 ))}} className="btn colorButton ms-3">Delete from my list</button>
+                        : 
+                          <button onClick={()=>{sendToMyList().then(setTimeout( ()=>{ navigate("/") }, 1000 ))}} className="btn colorButton ms-3">Add to my list</button>
+                        }
+                        
                     </div>
                 </div>
             <Footer/>

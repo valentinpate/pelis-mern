@@ -85,8 +85,10 @@ userSchema.methods.editarPerfil = async function(id, index, name, image){
     return user.save()
 }
 
-userSchema.methods.addToMyList = async function (id, movie, index) {
+userSchema.methods.addToMyList = async function (id, profId, movie) {
     let user = await User.findById(id)
+    user.skipPreSave = true
+    const index = user.profiles.findIndex(prof => prof._id == profId)
     try{
         user.profiles[index].myList.push(movie) 
     } catch (err) {
@@ -96,10 +98,12 @@ userSchema.methods.addToMyList = async function (id, movie, index) {
     return user.save()
 }
 
-userSchema.methods.deleteFromMyList = async function (id, movie, index) {
+userSchema.methods.deleteFromMyList = async function (id, profId, movieId) {
     let user = await User.findById(id)
+    user.skipPreSave = true
+    const index = user.profiles.findIndex(prof => prof._id == profId)
     try{
-        user.profiles[index].myList = user.profiles[index].myList.filter(m => m.id !== movie.id)
+        user.profiles[index].myList = user.profiles[index].myList.filter(m => m.id !== movieId)
     } catch (err) {
         console.log(err)
     }

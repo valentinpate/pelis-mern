@@ -20,6 +20,8 @@ const [user, setUser] = useState(null);
 const [busqueda,setBusqueda]=useState("")
 const [loggedOut,setLoggedOut] = useState(false)
 const [profileName,setProfileName] = useState(null)
+const [profileId, setProfileId] = useState(null)
+const [list, setList] = useState([])
 
   useEffect(()=>{ //useEffect para el llamado de la API
       async function llamadoHero(){
@@ -32,7 +34,7 @@ const [profileName,setProfileName] = useState(null)
 
   return (
     <>
-    <UserContext.Provider value={{user, setUser, busqueda, setBusqueda, profileName , setProfileName}}>
+    <UserContext.Provider value={{user, setUser, busqueda, setBusqueda, profileName , setProfileName, profileId, setProfileId, list, setList}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home dataSlide={dataSlide}/>}></Route>

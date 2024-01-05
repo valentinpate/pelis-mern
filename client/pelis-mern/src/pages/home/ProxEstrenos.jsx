@@ -20,10 +20,6 @@ function ProxEstrenos(){
     "November",
     "December"]
 
-    const style = {
-        textDecoration:"none"
-    }
-
     useEffect(()=>{
         async function llamaProxEstrenos(){
             const options = {
@@ -58,7 +54,7 @@ function ProxEstrenos(){
             <div class="d-flex flex-wrap">
                 {proxEstrenos.map((proxEstreno)=>{
                     let movieLink = `/movie/${proxEstreno.id}`
-                    return <Link to={movieLink} style={style}>
+                    return <Link to={movieLink} style={{textDecoration:"none"}}>
                             <div class="movie mx-2 mb-4 p-4 position-relative" key={proxEstreno.id}>
                                 <img src={proxEstreno.primaryImage === null ? "tba.jpg" : proxEstreno.primaryImage.url} alt="Movie IMG" class="mb-3" />
                                 <p class="movie-title mb-2">{proxEstreno.titleText.text.length<25 ? proxEstreno.titleText.text : proxEstreno.titleText.text.slice(0,15) + "..."}</p>
