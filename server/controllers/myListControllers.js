@@ -19,7 +19,7 @@ const delete_from_my_list = async (req,res) => {
         await user.deleteFromMyList(id, profId, movieId)
         res.json({message:"Eliminado de My List"})
     } catch (e){
-        console.log('error al add-to-my-list',e)
+        console.log('error al delete-to-my-list',e)
     }
 }
 

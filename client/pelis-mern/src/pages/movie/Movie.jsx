@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import '../../sketch.css'
+import '../../responsive2.css'
 import { UserContext } from "../../UserContext"
 
 function Movie(){
@@ -70,10 +71,10 @@ function Movie(){
            <Header/>
            {movie.titleText ? 
            <section className="mx-4 my-3">
-                <div className="container-fluid d-flex justify-content-between movie1">
-                    <img src={movie.primaryImage === null ? "/bigtba.jpg" : movie.primaryImage.url} alt="" onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} />
-                    <div className="text-light movie1-info">
-                        <h1 className="mx-3 mt-3 mb-2">{movie.titleText.text}</h1>
+                <div className="container-fluid d-flex flex-column flex-lg-row justify-content-between movie1">
+                    <img className="movie_image_responsive" src={movie.primaryImage === null ? "/bigtba.jpg" : movie.primaryImage.url} alt="" onError={(e)=> {e.target.onerror = null; e.target.src = "/couldnt_load.jpg"}} />
+                    <div className="text-light movie1-info movie_image_responsive">
+                        <h1 className="mx-3 mt-3 mb-2 title_movie_responsive">{movie.titleText.text}</h1>
                         <h2 className="text-danger mx-3 mb-3">{movie.releaseYear === null ? "TBA" : movie.releaseYear.year} | {movie.runtime === null ? "???" : movie.runtime.seconds/60} min</h2>
                         <h3 className="mx-3 mb-3">{
                         movie.genres.genres.map(genre => {
