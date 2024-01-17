@@ -46,11 +46,11 @@ const SignIn = () => {
  
 
   return (
-    <div className='d-flex flex-column align-items-center text-center justify-content-center w-100 textWhite'>
-        <div className='text-center p-2'>
+    <div className='d-flex flex-column align-items-center text-center justify-content-center w-100 text-light'>
+        <div className='text-center p-2' style={{margin:"2em 0"}}>
             <img src="logo.png" alt="Movies Hub" class="logo"/>
         </div>
-        <div className='d-flex flex-column ancho justify-content-start'>
+        <div className='d-flex flex-column ancho justify-content-start' style={{marginBottom:"1em"}}>
             <h2 className='text-start'>Inicio de Sesión</h2>
             {login?<p> Credenciales incorrectas!</p>:null}
             <form onSubmit={enviarDatos}>
@@ -67,11 +67,11 @@ const SignIn = () => {
             <p class="align-self-start mt-2">Al continuar, aceptas las <a href="">Condiciones de uso</a> y el <a href="">Aviso de privacidad</a> de Movies Hub</p>
 
             <div class="d-flex">
-              <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1 iconRegister"></i>Registrese con Google</button></a>
-              <a href='http://localhost:3001/auth/twitter' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-twitter pe-1 iconRegister"></i>Registrese con Twitter</button></a>  
+              <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1 iconRegister"></i>Registrese con <b>Google</b></button></a>
+              <a href='http://localhost:3001/auth/twitter' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-twitter pe-1 iconRegister"></i>Registrese con <b>Twitter</b></button></a>  
             </div>
         </div>
-        <div class="d-flex  pt-2">  
+        <div class="sign-redirect d-flex pt-2">  
             <p className='pe-2'>¿No tienes cuenta en Movies Hub?</p><NavLink to="/signup"><a href="" className='ps-2'>Crear tu cuenta</a></NavLink>
         </div>
       
