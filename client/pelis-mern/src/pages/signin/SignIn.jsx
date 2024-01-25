@@ -65,11 +65,11 @@ const SignIn = () => {
             <button className='btn colorButton ancho mt-2 p-2' type="submit">Continuar</button>
             </form>
             <p class="align-self-start mt-2">Al continuar, aceptas las <a href="">Condiciones de uso</a> y el <a href="">Aviso de privacidad</a> de Movies Hub</p>
-
+{/* 
             <div class="d-flex">
               <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1 iconRegister"></i>Registrese con <b>Google</b></button></a>
               <a href='http://localhost:3001/auth/twitter' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-twitter pe-1 iconRegister"></i>Registrese con <b>Twitter</b></button></a>  
-            </div>
+            </div> */}
         </div>
         <div class="sign-redirect d-flex pt-2">  
             <p className='pe-2'>¿No tienes cuenta en Movies Hub?</p><NavLink to="/signup"><a href="" className='ps-2'>Crear tu cuenta</a></NavLink>

@@ -72,10 +72,10 @@ const SignUp = () => {
             <button className='btn colorButton ancho mt-2 p-2' type="submit">Continuar</button>
             </form>
             <p className="align-self-start mb-3">Al continuar, aceptas las <a href="">Condiciones de uso</a> y el <a href="">Aviso de privacidad</a> de Movies Hub</p>
-            <div class="sign-redirect d-flex">
+            {/* <div class="sign-redirect d-flex">
               <a href='http://localhost:3001/auth/google' className='pe-2'><button className='btn colorButton p-2 btnRegistro'><i class="bi bi-google pe-1"></i>Registrese con <b>Google</b></button></a>
                 <button className='btn colorButton p-2 btnRegistro'><i class="bi bi-twitter pe-1"></i>Registrese con <b>Instagram</b></button>
-            </div>
+            </div> */}
         </div>
       
     </div>
