@@ -24,8 +24,10 @@ const delete_from_my_list = async (req,res) => {
 }
 
 const get_my_list = async (req,res) => {
-    const {id, profId} = req.body
+    const {id} = req.body
+    const {profId} = req.params
     const user = await User.findById(id)
+    console.log(typeof(id), typeof(profId), typeof(user._id))
     const index = user.profiles.findIndex(prof => prof._id == profId)
     const list = user.profiles[index].myList
     res.json({list:list})
