@@ -10,16 +10,18 @@ function MyList(){
   useEffect(()=>{
     async function getList(){
       try{
-        const response = await axios.post("http://localhost:3001/lists/get-my-list", {id:user._id, profId:profileId}, {withCredentials:true})
+        const response = await axios.post(`http://localhost:3001/lists/${profileId}/get-my-list`, {id:user._id}, {withCredentials:true})
         console.log(response)
         if(response.data.list.length > 0){
-          console.log("hay")
+          console.log("hay", profileId)
           setList(response.data.list)
+        }else if(response.data.list.length == 0){
+          setList([])
         }
       }catch(err){console.log(err)}
     }
     getList()
-  },[])
+  },[profileId])
   console.log(list)
   return (
     <>
