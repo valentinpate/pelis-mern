@@ -19,7 +19,7 @@ function Profiles(){
     const [image,setImage] = useState("/blank_user.png")
     useEffect(()=>{
         async function obtainProfiles(){
-            const data = await axios.request({method:"GET",url:"http://localhost:3001/profiles",withCredentials:true})
+            const data = await axios.request({method:"GET",url:"https://pelis-mern-server-five.vercel.app/profiles",withCredentials:true})
             console.log(data.data)
             setProfiles(data.data)
         }
@@ -68,7 +68,7 @@ function Profiles(){
         if(name === ""){
             setError(true)
         }else{
-            await axios.post("http://localhost:3001/create-profile",{
+            await axios.post("https://pelis-mern-server-five.vercel.app/create-profile",{
             id:user._id,
             name:name,
             image:image

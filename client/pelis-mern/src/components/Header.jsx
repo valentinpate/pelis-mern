@@ -58,7 +58,7 @@ function Header(){
   const LogOut = async () => {
     localStorage.removeItem('user')
     localStorage.removeItem('profile-name')
-    const data = await axios.request({method:"GET",url:"http://localhost:3001/logout"})
+    const data = await axios.request({method:"GET",url:"https://pelis-mern-server-five.vercel.app/logout"})
     console.log('vengo de logout',data)
     setUser(false) //importante setear a user en falso así se borra el usuario en el front
     setProfileName(null)
