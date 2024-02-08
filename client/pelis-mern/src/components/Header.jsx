@@ -8,7 +8,7 @@ import {NavLink, Link, useNavigate} from "react-router-dom"
 function Header(){
   const {user , setUser, profileId, profileName, setProfileName} = useContext(UserContext)
   const [profile, setProfile] = useState(false)
-  const [loggedOut,setLoggedOut] = useState(false) 
+  const [loggedOut,setLoggedOut] = useState(false)
   const navigate = useNavigate()
   const profileStorage = localStorage.getItem('profile-name')
    // Al cargar el componente, verificamos si la información del usuario está en localStorage
@@ -94,7 +94,7 @@ console.log(user, profileStorage)
                   <NavLink to="/movies" className="sacarEnlace hoverEnlace nav-link px-4 py-1">Movies</NavLink>
                   <NavLink to="/news" className="sacarEnlace hoverEnlace nav-link px-4 py-1">News</NavLink>
                   <div class="dropdown-divider"></div>
-                  { user && profileName ?(
+                  { user ?(
                   <>
                     <Link to="/profiles" className="dropdown-item hoverModal px-4">Profiles</Link>
                     <button onClick={LogOut} className="dropdown-item hoverModal px-4" >Logout</button>
